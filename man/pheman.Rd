@@ -5,9 +5,10 @@
 \title{pheman}
 \usage{
 pheman(d, format = "plotman", phegroup, line, log10 = TRUE, yaxis,
-  annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter = "red",
-  title = NULL, chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
-  file = "pheman", hgt = 7, wi = 12, res = 300)
+  opacity = 1, annotate_snp, annotate_p, highlight_snp, highlight_p,
+  highlighter = "red", title = NULL, chrcolor1 = "#AAAAAA",
+  chrcolor2 = "#4D4D4D", groupcolors, file = "pheman", hgt = 7, wi = 12,
+  res = 300)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape}
@@ -21,6 +22,8 @@ pheman(d, format = "plotman", phegroup, line, log10 = TRUE, yaxis,
 \item{log10}{plot -log10() of pvalue column, boolean}
 
 \item{yaxis}{label for y-axis, automatically set if log10=TRUE}
+
+\item{opacity}{opacity of points, from 0-1, useful for dense plots}
 
 \item{annotate_snp}{list of RSIDs to annotate}
 
@@ -58,5 +61,5 @@ Dependencies: ggplot2
 Suggested: RColorBrewer, ggrepel
 }
 \examples{
-pheman(d, format, phegroup, line, log10, yaxis, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
+pheman(d, format, phegroup, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 }

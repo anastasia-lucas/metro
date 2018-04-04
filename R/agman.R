@@ -9,6 +9,7 @@
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
+#' @param opacity opacity of points, from 0 to 1, useful for dense plots
 #' @param title optional string for plot title
 #' @param chrcolor1 first alternating color for chromosome
 #' @param chrcolor2 second alternating color for chromosome
@@ -24,9 +25,9 @@
 #' @return png image
 #' @export
 #' @examples
-#' agman(d, format, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi, res)
+#' agman(d, format, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi, res)
 
-agman <- function(d, format="plotman", line, log10=TRUE, yaxis, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="agman", ext="html", hgt=7, wi=12, res=300 ){
+agman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="agman", ext="html", hgt=7, wi=12, res=300 ){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
@@ -106,9 +107,9 @@ agman <- function(d, format="plotman", line, log10=TRUE, yaxis, highlight_snp, h
   p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
   #Add shape info if available
   if("Shape" %in% names(d)){
-    p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color), shape=factor(Shape), frame=Frame))
+    p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color), shape=factor(Shape), frame=Frame), alpha=opacity)
   } else {
-    p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color), frame=Frame))
+    p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color), frame=Frame), alpha=opacity)
   }
   #if(!missing(annotate_p)){
   #  if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE) {

@@ -4,10 +4,10 @@
 \alias{igman}
 \title{igman}
 \usage{
-igman(d, format = "plotman", line, log10 = TRUE, yaxis, highlight_snp,
-  highlight_p, highlighter = "red", title = NULL, chrcolor1 = "#AAAAAA",
-  chrcolor2 = "#4D4D4D", groupcolors, db, moreinfo = FALSE,
-  file = "igman", hgt = 7, wi = 12)
+igman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
+  highlight_snp, highlight_p, highlighter = "red", title = NULL,
+  chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors, db,
+  moreinfo = FALSE, file = "igman", hgt = 7, wi = 12)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape, Color, and Info}
@@ -19,6 +19,8 @@ igman(d, format = "plotman", line, log10 = TRUE, yaxis, highlight_snp,
 \item{log10}{plot -log10() of pvalue column, boolean}
 
 \item{yaxis}{label for y-axis, automatically set if log10=TRUE}
+
+\item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
 \item{highlight_snp}{list of snps to highlight}
 
@@ -53,5 +55,5 @@ Dependencies: ggplot2, ggiraph
 Suggested: RColorBrewer
 }
 \examples{
-igman(d, format, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
+igman(d, format, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 }

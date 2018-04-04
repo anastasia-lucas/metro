@@ -4,9 +4,9 @@
 \alias{gman}
 \title{gman}
 \usage{
-gman(d, format = "plotman", line, log10 = TRUE, yaxis, annotate_snp,
-  annotate_p, highlight_snp, highlight_p, highlighter = "red", title = NULL,
-  chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
+gman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
+  annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter = "red",
+  title = NULL, chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
   file = "gman", hgt = 7, wi = 12, res = 300)
 }
 \arguments{
@@ -19,6 +19,8 @@ gman(d, format = "plotman", line, log10 = TRUE, yaxis, annotate_snp,
 \item{log10}{plot -log10() of pvalue column, boolean}
 
 \item{yaxis}{label for y-axis, automatically set if log10=TRUE}
+
+\item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
 \item{annotate_snp}{list of RSIDs to annotate}
 
@@ -56,5 +58,5 @@ Dependencies: ggplot2
 Suggested: RColorBrewer, ggrepel
 }
 \examples{
-gman(d, format, line, log10, yaxis, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
+gman(d, format, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 }

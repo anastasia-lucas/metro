@@ -5,8 +5,8 @@
 \title{agman}
 \usage{
 apheman(d, format = "plotman", phegroup, line, log10 = TRUE, yaxis,
-  highlight_snp, highlight_p, highlighter = "red", title = NULL,
-  chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
+  opacity = 1, highlight_snp, highlight_p, highlighter = "red",
+  title = NULL, chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
   file = "apheman", ext = "html", hgt = 7, wi = 12, res = 300)
 }
 \arguments{
@@ -21,6 +21,8 @@ apheman(d, format = "plotman", phegroup, line, log10 = TRUE, yaxis,
 \item{log10}{plot -log10() of pvalue column, boolean}
 
 \item{yaxis}{label for y-axis, automatically set if log10=TRUE}
+
+\item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
 \item{highlight_snp}{list of snps to highlight}
 
@@ -56,5 +58,5 @@ Dependencies: ggplot2, gganimate
 Suggested: RColorBrewer
 }
 \examples{
-apheman(d, format, phegroup, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi, res)
+apheman(d, format, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi, res)
 }
