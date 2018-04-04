@@ -1,6 +1,6 @@
 #' agman
 #'
-#' Create Manhattan plots for GWAS
+#' Create Manhattan plots for PheWAS
 #' Note: There is an issue with dev.off() if using RStudio
 #' Dependencies: ggplot2, gganimate
 #' Suggested: RColorBrewer
