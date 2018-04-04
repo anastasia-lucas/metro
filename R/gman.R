@@ -89,11 +89,11 @@ gman <- function(d, format="plotman", line, log10=TRUE, yaxis, annotate_snp, ann
   if(log10==TRUE){
     d_order$pval <- -log10(d_order$pvalue)
     yaxislab <- expression(paste("-log"[10], "(p-value)", sep=""))
-    redline <- -log10(line)
+    if(!missing(line)) {redline <- -log10(line)}
   } else {
     d_order$pval <- d_order$pvalue
     yaxislab <- yaxis
-    redline <- line
+    if(!missing(line)) {redline <- line}
   }
 
   #Start plotting
