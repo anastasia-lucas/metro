@@ -1,9 +1,8 @@
 Package: plotman
-Title: What the Package Does (one line, title case)
+Title: A Manhattan Plot Package
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.4.3)
+Authors@R: person("Anastasia", "Lucas", email = "anastasia.lucas@pennmedicine.upenn.edu", role = c("aut", "cre"))
+Description: This package creates Manhattan plots for *ome-wide association studies. It is designed to improve on traditional Manhattan plots by incorporating additional information in a way that is both useful for interpretation and aesthetically pleasing. 
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
