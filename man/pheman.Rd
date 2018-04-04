@@ -4,26 +4,41 @@
 \alias{pheman}
 \title{pheman}
 \usage{
-pheman(d, format = "plotman", groups = NULL, line, annotate_snp, annotate_p,
-  title = NULL, morecolors = FALSE, file = "gman", hgt = 7, wi = 12,
-  res = 300)
+pheman(d, format = "plotman", phegroup, line, log10 = TRUE, yaxis,
+  annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter = "red",
+  title = NULL, chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
+  file = "pheman", hgt = 7, wi = 12, res = 300)
 }
 \arguments{
-\item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue columns, optional Shape}
+\item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape}
 
 \item{format}{format of input}
 
-\item{groups}{optional file for organizing phenotypes}
+\item{phegroup}{optional grouping file for phenotypes, must contain PHE and Group columns}
 
 \item{line}{optional pvalue threshold to draw red line at}
+
+\item{log10}{plot -log10() of pvalue column, boolean}
+
+\item{yaxis}{label for y-axis, automatically set if log10=TRUE}
 
 \item{annotate_snp}{list of RSIDs to annotate}
 
 \item{annotate_p}{pvalue threshold to annotate}
 
+\item{highlight_snp}{list of snps to highlight}
+
+\item{highlight_p}{pvalue threshold to highlight}
+
+\item{highlighter}{color to highlight}
+
 \item{title}{optional string for plot title}
 
-\item{morecolors}{boolean, expand color palette, requires RColorBrewer package, default FALSE}
+\item{chrcolor1}{first alternating color for chromosome}
+
+\item{chrcolor2}{second alternating color for chromosome}
+
+\item{groupcolors}{named list of colors for data in 'PHE' or 'Group' column}
 
 \item{file}{file name of saved image}
 
@@ -37,11 +52,11 @@ pheman(d, format = "plotman", groups = NULL, line, annotate_snp, annotate_p,
 png image
 }
 \description{
-Create Manhattan plots for GWAS
+Create Manhattan plots for PheWAS
 Note: There is an issue with dev.off() if using RStudio
 Dependencies: ggplot2
 Suggested: RColorBrewer, ggrepel
 }
 \examples{
-pheman(d, format, line, groups, annotate_snp, annotate, title, morecolors, file, hgt, wi, res)
+pheman(d, format, phegroup, line, log10, yaxis, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 }
