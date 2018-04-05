@@ -144,7 +144,7 @@ ipheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opac
     }
   }
   #Add title and y axis title
-  p <- p + ggtitle(title) + ylab(expression(paste("-log"[10], "(p-value)", sep="")))
+  p <- p + ggtitle(title) + ylab(yaxislab)
   #Add pvalue threshold line
   if(!missing(line)){
     p <- p + geom_hline(yintercept = redline, colour="red")
