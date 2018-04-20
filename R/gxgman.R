@@ -121,6 +121,7 @@ gxgman <- function(d, me, symmetric=TRUE, highlight_p=0.05, legend="p-value", ti
       xme$Shape <- factor(xme$Shape)
       yme$Shape <- factor(yme$Shape)
       p <- p + geom_point(data=xme, aes(x=pos_index1, y= -1, color=pvalue, shape=Shape)) + expand_limits(y=-2) + geom_point(data=yme, aes(x=-1, y=pos_index2, color=pvalue, shape=Shape)) + expand_limits(x=-2)
+      p <- p + labs(shape="")
     } else {
       p <- p + geom_point(data=xme, aes(x=pos_index1, y= -1, color=pvalue)) + expand_limits(y=-2) + geom_point(data=yme, aes(x=-1, y=pos_index2, color=pvalue)) + expand_limits(x=-2)
     }
