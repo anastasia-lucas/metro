@@ -126,6 +126,7 @@ gxgman <- function(d, me, symmetric=TRUE, highlight_p=0.05, legend="p-value", ti
       p <- p + geom_point(data=xme, aes(x=pos_index1, y= -1, color=pvalue)) + expand_limits(y=-2) + geom_point(data=yme, aes(x=-1, y=pos_index2, color=pvalue)) + expand_limits(x=-2)
     }
     p <- p + scale_color_gradientn(colours=color_vector, values=value_vector, guide = FALSE)
+    p <- p + guides(fill = guide_legend(override.aes = list(shape = NA)))
   }
 
   #Add colorbar or legend
@@ -134,7 +135,6 @@ gxgman <- function(d, me, symmetric=TRUE, highlight_p=0.05, legend="p-value", ti
   } else {
     p <- p + scale_fill_gradientn(colours=color_vector, values=value_vector, name=legend,limits=c(0,1),breaks=breaks_vector, labels=label_vector, guide="colorbar")
   }
-  p <- p + guides(fill = guide_legend(override.aes = list(shape = NA))) + labs(shape="")
 
   #Format
   p <- p + theme(panel.grid.minor = element_blank(), axis.title.x = element_blank(), axis.title.y = element_blank())
