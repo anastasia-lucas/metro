@@ -149,9 +149,7 @@ pheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opaci
   #Add title and y axis title
   p <- p + ggtitle(title) + ylab(yaxislab)
   #Add pvalue threshold line
-  if(!missing(line)){
-    p <- p + geom_hline(yintercept = redline, colour="red")
-  }
+  if(!missing(line)){p <- p + geom_hline(yintercept = redline, colour="red")}
 
   #Save
   print(paste("Saving plot to ", file, ".png", sep=""))

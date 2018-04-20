@@ -4,21 +4,44 @@
 \alias{eman}
 \title{eman}
 \usage{
-eman(d, ewas = TRUE, groups, line, title = NULL, morecolors = FALSE,
-  file = "eman", hgt = 7, wi = 12, res = 300)
+eman(d, format = "plotman", groups, line, log10 = TRUE, yaxis,
+  opacity = 1, title = NULL, annotate_var, annotate_p, highlight_var,
+  highlight_p, highlighter = "red", color1 = "#AAAAAA",
+  color2 = "#4D4D4D", groupcolors, file = "eman", hgt = 7, wi = 12,
+  res = 300)
 }
 \arguments{
-\item{d}{data frame, if ewas=FALSE columns one and two must be Variable and pvalue, Shape is optional 3rd column}
+\item{d}{data frame, columns one and two must be Variable and pvalue, Shape and Color optional}
 
-\item{ewas}{boolean if d frame is in ewas output format, default TRUE}
+\item{format}{default plotman, other CLARITE and PLATO}
 
 \item{groups}{optional file containing variable grouping information}
 
 \item{line}{optional pvalue threshold to draw red line at}
 
+\item{log10}{plot -log10() of pvalue column, boolean}
+
+\item{yaxis}{label for y-axis, automatically set if log10=TRUE}
+
+\item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
+
 \item{title}{optional string for plot title}
 
-\item{morecolors}{boolean, expand color palette, requires RColorBrewer package, default FALSE}
+\item{annotate_var}{list of variables to annotate}
+
+\item{annotate_p}{pvalue threshold to annotate}
+
+\item{highlight_var}{list of variables to highlight}
+
+\item{highlight_p}{pvalue threshold to highlight}
+
+\item{highlighter}{color to highlight}
+
+\item{color1}{first alternating color}
+
+\item{color2}{second alternating color}
+
+\item{groupcolors}{named list of colors for data in 'Color' column}
 
 \item{file}{file name of saved image}
 
@@ -38,5 +61,5 @@ Dependencies: ggplot2
 Suggested: RColorBrewer
 }
 \examples{
-eman(d, ewas=TRUE, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
+eman(d, format, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 }
