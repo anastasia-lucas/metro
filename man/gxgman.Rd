@@ -44,7 +44,6 @@ png image
 \description{
 Create heatmap plots for SNPxSNP or GxG interaction
 Dependencies: ggplot2
-Suggested: RColorBrewer, ggrepel
 }
 \examples{
 gxgman(d, me=NULL, symmetric, highlight_p, legend, title, high, low, highlight_high, highlight_low, file, hgt, wi, res)
