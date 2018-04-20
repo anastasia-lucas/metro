@@ -133,7 +133,7 @@ gxgman <- function(d, me, symmetric=TRUE, highlight_p=0.05, legend="p-value", ti
   } else {
     p <- p + scale_fill_gradientn(colours=color_vector, values=value_vector, name=legend,limits=c(0,1),breaks=breaks_vector, labels=label_vector, guide="colorbar")
   }
-  p <- p + guides(fill = guide_legend(override.aes = list(shape = NA)))
+  p <- p + guides(fill = guide_legend(override.aes = list(shape = NA))) + labs(shape="")
 
   #Format
   p <- p + theme(panel.grid.minor = element_blank(), axis.title.x = element_blank(), axis.title.y = element_blank())
