@@ -7,7 +7,7 @@
 agxgman(d, me, symmetric = TRUE, highlight_p = 0.05, legend = "p-value",
   title = NULL, high = "#02021e", low = "blue",
   highlight_high = "yellow", highlight_low = "#fffcd3", file = "agxgman",
-  ext = "html", hgt = 7, wi = 7.5, res = 300)
+  ext = "gif", hgt = 7, wi = 7.5, res = 300)
 }
 \arguments{
 \item{d}{data frame, must contain SNP1, CHR1, POS1, SNP2, CHR2, POS2, pvalue, Frame columns}
