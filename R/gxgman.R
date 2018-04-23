@@ -74,7 +74,9 @@ gxgman <- function(d, me, symmetric=TRUE, highlight_p=0.05, legend="p-value", ti
     names(snpmerge) <- c("SNP2", "pos_index2")
     dat2 <- merge(dat1, snpmerge, by="SNP2", all=TRUE)
     dat3 <- dat2
-    names(dat3) <- c("SNP1","SNP2","pvalue","CHR2","POS2","CHR1","POS1","pos_index2","pos_index1")
+    names(dat3)[names(dat3) == 'SNP1'] <- 'placeholder'
+    names(dat3)[names(dat3) == 'SNP2'] <- 'SNP1'
+    names(dat3)[names(dat3) == 'placeholder'] <- 'SNP2'
     plotdat <- rbind(dat2, dat3)
   }
 
