@@ -27,7 +27,7 @@
 #' @examples
 #' agman(d, format, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi, res)
 
-agman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="agman", ext="html", hgt=7, wi=12, res=300 ){
+agman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="agman", ext="gif", hgt=7, wi=12, res=300 ){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {

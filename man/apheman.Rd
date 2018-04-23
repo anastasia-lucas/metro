@@ -7,7 +7,7 @@
 apheman(d, format = "plotman", phegroup, line, log10 = TRUE, yaxis,
   opacity = 1, highlight_snp, highlight_p, highlighter = "red",
   title = NULL, chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
-  file = "apheman", ext = "html", hgt = 7, wi = 12, res = 300)
+  file = "apheman", ext = "gif", hgt = 7, wi = 12, res = 300)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, Frame columns, optional Shape}
