@@ -1,4 +1,4 @@
-Package: plotman
+Package: metro
 Title: A Manhattan Plot Package
 Version: 0.0.0.9000
 Authors@R: person("Anastasia", "Lucas", email = "anastasia.lucas@pennmedicine.upenn.edu", role = c("aut", "cre"))
