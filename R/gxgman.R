@@ -19,7 +19,7 @@
 #' @return png image
 #' @export
 #' @examples
-#' gxgman(d, me=NULL, symmetric, highlight_p, legend, title, high, low, highlight_high, highlight_low, file, hgt, wi, res)
+#' gxgman(d, me, symmetric, highlight_p, legend, title, high, low, highlight_high, highlight_low, file, hgt, wi, res)
 
 gxgman <- function(d, me, symmetric=TRUE, highlight_p=0.05, legend="p-value", title=NULL, high="#02021e", low="blue", highlight_high="yellow", highlight_low="#fffcd3", file="gxgman", hgt=7, wi=7.5, res=300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
@@ -27,22 +27,30 @@ gxgman <- function(d, me, symmetric=TRUE, highlight_p=0.05, legend="p-value", ti
   } else {
     require("ggplot2", quietly=TRUE)
   }
+
+  if(missing(me)){
+    pvals <- d$pvalue
+  } else {
+    pvals <- c(d$pvalue, me$pvalue)
+  }
+
   d$CHR1 <- factor(d$CHR1, levels = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y"))
   d$CHR2 <- factor(d$CHR2, levels = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y"))
+
 
   #Initialize vector for gradient
   if(highlight_p!="off"){
     color_vector <- c(highlight_low, highlight_high, low, high)
     #Values should be min, max < highlight value, highlight value, and max
-    value_vector <- c(floor(min(d$pvalue, me$pvalue)), max(d$pval[d$pvalue < highlight_p]), highlight_p,ceiling(max(d$pvalue, me$pvalue)))
-    breaks_vector <- c(floor(min(d$pvalue, me$pvalue)), max(d$pval[d$pvalue < highlight_p]), highlight_p, ceiling(max(d$pvalue, me$pvalue)))
-    label_vector <- c(floor(min(d$pvalue, me$pvalue)), paste("<",highlight_p,sep=""), highlight_p, ceiling(max(d$pvalue, me$pvalue)))
+    value_vector <- c(floor(min(pvals)), max(pvals[pvals < highlight_p]), highlight_p,ceiling(max(pvals)))
+    breaks_vector <- c(floor(min(pvals)), max(pvals[pvals < highlight_p]), highlight_p, ceiling(max(pvals)))
+    label_vector <- c(floor(min(pvals)), paste("<",highlight_p,sep=""), highlight_p, ceiling(max(pvals)))
   } else {
     color_vector <- c(low, high)
     #Values should be min, max < highlight value, highlight value, and max
-    value_vector <- c(floor(min(d$pvalue, me$pvalue)), ceiling(max(d$pvalue, me$pvalue)))
-    breaks_vector <- c(floor(min(d$pvalue, me$pvalue)), ceiling(max(d$pvalue, me$pvalue)))
-    label_vector <- c(floor(min(d$pvalue, me$pvalue)), ceiling(max(d$pvalue, me$pvalue)))
+    value_vector <- c(floor(min(pvals)), ceiling(max(pvals)))
+    breaks_vector <- c(floor(min(pvals)), ceiling(max(pvals)))
+    label_vector <- c(floor(min(pvals)), ceiling(max(pvals)))
   }
 
   #Non-symmetric
@@ -59,29 +67,62 @@ gxgman <- function(d, me, symmetric=TRUE, highlight_p=0.05, legend="p-value", ti
     snp2merge <- snp2pos[, colnames(snp2pos) %in% c("SNP2", "pos_index2")]
     d_order2 <- merge(d_order1, snp2merge, by="SNP2")
     plotdat <- d_order2
+    #Subset to use later for axis
+    xsub <- plotdat[colnames(plotdat) %in% c("SNP1", "CHR1", "POS1","pos_index1")]
+    ysub <- plotdat[colnames(plotdat) %in% c("SNP2", "CHR2", "POS2","pos_index2")]
+    #Bind with main effect if available
+    if(!missing(me)){
+      #Bind with main effect
+      colnames(me)[1] <- "SNP1"
+      xme <- unique(merge(me, plotdat[, colnames(plotdat) %in% c("SNP1", "pos_index1")], by="SNP1"))
+      colnames(me)[1] <- "SNP2"
+      yme <- unique(merge(me, plotdat[, colnames(plotdat) %in% c("SNP2", "pos_index2")], by="SNP2"))
+      names(xme)[names(xme) == 'SNP'] <- 'SNP1'
+      names(xme)[names(xme) == 'CHR'] <- 'CHR1'
+      names(xme)[names(xme) == 'pos_index'] <- 'pos_index1'
+      names(yme)[names(yme) == 'SNP'] <- 'SNP2'
+      names(yme)[names(yme) == 'CHR'] <- 'CHR2'
+      names(yme)[names(yme) == 'pos_index'] <- 'pos_index2'
+    }
   } else {
     #Duplicate columns and bind with original dataset
-    snp1pos <- unique(d_order[, colnames(d_order) %in% c("SNP1", "POS1", "CHR1")])
-    snp2pos <- unique(d_order[, colnames(d_order) %in% c("SNP2", "POS2", "CHR2")])
+    snp1pos <- unique(d[, colnames(d) %in% c("SNP1", "CHR1", "POS1")])
+    snp2pos <- unique(d[, colnames(d) %in% c("SNP2", "CHR2", "POS2")])
     names(snp1pos) <- c("SNP", "CHR", "POS")
     names(snp2pos) <- c("SNP", "CHR", "POS")
     snppos <- rbind(snp1pos, snp2pos)
     snporder <- unique(snppos[order(snppos$CHR, snppos$POS), ])
     snporder$pos_index <- seq.int(nrow(snporder))
-    snpmerge <- snporder[, c(1,4)]
+    snpmerge <- snporder[, colnames(snporder) %in% c("SNP", "pos_index")]
     names(snpmerge) <- c("SNP1", "pos_index1")
-    dat1 <- merge(d, snpmerge, by="SNP1", all=TRUE)
+    dat1 <- merge(d, snpmerge, by="SNP1")
     names(snpmerge) <- c("SNP2", "pos_index2")
-    dat2 <- merge(dat1, snpmerge, by="SNP2", all=TRUE)
+    dat2 <- merge(dat1, snpmerge, by="SNP2")
     dat3 <- dat2
-    names(dat3)[names(dat3) == 'SNP1'] <- 'placeholder'
-    names(dat3)[names(dat3) == 'SNP2'] <- 'SNP1'
-    names(dat3)[names(dat3) == 'placeholder'] <- 'SNP2'
+    #Subset to use later for axis info
+    xsub <- snporder
+    names(xsub) <- c("SNP1", "CHR1", "POS1", "pos_index1")
+    ysub <- snporder
+    names(ysub) <- c("SNP2", "CHR2", "POS2", "pos_index2")
+    #Bind with main effect if available
+    if(!missing(me)){
+      #Bind with main effect
+      names(snpmerge) <- c("SNP", "pos_index")
+      posme <- unique(merge(me, snpmerge, by="SNP"))
+      xme <- posme
+      names(xme)[names(xme) == 'SNP'] <- 'SNP1'
+      names(xme)[names(xme) == 'CHR'] <- 'CHR1'
+      names(xme)[names(xme) == 'pos_index'] <- 'pos_index1'
+      yme <- posme
+      names(yme)[names(yme) == 'SNP'] <- 'SNP2'
+      names(yme)[names(yme) == 'CHR'] <- 'CHR2'
+      names(yme)[names(yme) == 'pos_index'] <- 'pos_index2'
+    }
+    names(dat3)[names(dat3) == 'pos_index1'] <- 'placeholder'
+    names(dat3)[names(dat3) == 'pos_index2'] <- 'pos_index1'
+    names(dat3)[names(dat3) == 'placeholder'] <- 'pos_index2'
     plotdat <- rbind(dat2, dat3)
   }
-
-  xsub <- plotdat[colnames(plotdat) %in% c("SNP1", "CHR1", "POS1","pos_index1")]
-  ysub <- plotdat[colnames(plotdat) %in% c("SNP2", "CHR2", "POS2","pos_index2")]
 
   #Set up dataframe with chromosome position info x axis
   xmaxRows <- by(xsub, xsub$CHR1, function(x) x[which.max(x$pos_index1),])
@@ -103,21 +144,12 @@ gxgman <- function(d, me, symmetric=TRUE, highlight_p=0.05, legend="p-value", ti
   ylims$av <- (ylims$posmin + ylims$posmax)/2
   ylims <- ylims[order(ylims$CHR),]
 
-
-  if(!is.null(me)){
-    #Bind with main effect
-    colnames(me)[1] <- "SNP1"
-    xme <- unique(merge(me, plotdat[, colnames(plotdat) %in% c("SNP1", "pos_index1")], by="SNP1"))
-    colnames(me)[1] <- "SNP2"
-    yme <- unique(merge(me, plotdat[, colnames(plotdat) %in% c("SNP2", "pos_index2")], by="SNP2"))
-  }
-
   #Plot
   p <- ggplot(plotdat, aes(x=pos_index1, y=pos_index2, fill=pvalue)) + geom_tile()
   #p <- p + scale_fill_gradientn(colours=color_vector, values=value_vector, guide="colourbar", name=legend,limits=c(max(),min()),breaks=breaks_vector), labels=breaks_vector)
   p <- p + scale_x_continuous(breaks=xlims$posmax+0.5, labels=xlims$CHR, expand=c(0,0))
   p <- p + scale_y_continuous(breaks=ylims$posmax+0.5, labels=ylims$CHR, expand=c(0,0))
-  if(!is.null(me)){
+  if(!missing(me)){
     if("Shape" %in% names(me)){
       xme$Shape <- factor(xme$Shape)
       yme$Shape <- factor(yme$Shape)
