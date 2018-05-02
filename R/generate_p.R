@@ -14,7 +14,7 @@ generate_p <- function(color=FALSE, shape=FALSE){
   pvals$POS <- rep(seq(1, 10000, by = 200), length.out=5000)
   pvals$pvalue <- runif(n=5000)
   if(color==TRUE){
-    pvals$Color <- rep(paste("Color", seq(1:6), sep="") , length.out=5000, each=200)
+    pvals$Color <- rep(paste("Color", seq(1:6), sep="") , length.out=5000, each=1)
   }
   if(shape==TRUE){
     pvals$Shape <- rep(paste("S", seq(1:3), sep="") , length.out=5000, each=1)
