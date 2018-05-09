@@ -1,10 +1,10 @@
-#' eman
+#' ieman
 #'
-#' Create Manhattan plots for EWAS
+#' Create interactive Manhattan plots for EWAS
 #' Note: There is an issue with dev.off() if using RStudio
 #' Dependencies: ggplot2
 #' Suggested: RColorBrewer
-#' @param d data frame, columns one and two must be Variable and pvalue; Group, Shape and Color optional
+#' @param d data frame, columns one and two must be Variable and pvalue; Group, Shape, Color, and Info optional
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
@@ -12,12 +12,12 @@
 #' @param title optional string for plot title
 #' @param color1 first alternating color
 #' @param color2 second alternating color
-#' @param annotate_var list of variables to annotate
-#' @param annotate_p pvalue threshold to annotate
 #' @param highlight_var list of variables to highlight
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
+#' @param db query address, ex. "https://www.google.com/search?q"
+#' @param moreinfo includes more information on hover, refers to Info column
 #' @param file file name of saved image
 #' @param hgt height of plot in inches
 #' @param wi width of plot in inches
@@ -25,13 +25,14 @@
 #' @return png image(s)
 #' @export
 #' @examples
-#' eman(d, format, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
+#' ieman(d, format, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 
-eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, file="eman", hgt=7, wi=12, res=300){
-  if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
-    stop("Please install ggplot2 to create visualization.", call. = FALSE)
+ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="ieman", hgt=7, wi=12, res=300){
+  if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
+    stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
-    require("ggplot2")
+    require("ggplot2", quietly=TRUE)
+    require("ggiraph", quietly=TRUE)
   }
 
   #Info for y-axis
@@ -45,26 +46,36 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
     if(!missing(line)) {redline <- line}
   }
 
+  #Set up tooltip
+  d$tooltip <- if (moreinfo==TRUE) c(paste0(d$Variable, "\n Addl: ", d$Info)) else d$Variable
+
+  #Set up onclick
+  if(!missing(db)){
+    d$onclick <- sprintf("window.open(\"%s%s\")", db, as.character(d$Variable))
+  } else {
+    d$onclick <- NA
+  }
+
   #Save to merge later
   d$rowid <- seq.int(nrow(d))
-  dinfo <- d[, colnames(d) %in% c("rowid", "Color", "Shape", "pval"), drop=FALSE]
+  dinfo <- d[, colnames(d) %in% c("rowid", "Color", "Shape", "pval", "tooltip", "onclick"), drop=FALSE]
 
   #If no group, plot raw data
   if(!"Group" %in% colnames(d)){
     d_order <- merge(d, dinfo, by="rowid")
     if("Shape" %in% names(d)){
       if("Color" %in% names(d)){
-        p <- ggplot() + geom_point(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), color=Color), alpha=opacity)
+        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), color=Color, onclick=onclick, tooltip=tooltip), alpha=opacity)
       } else {
-        p <- ggplot() + geom_point(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape)), alpha=opacity)
+        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), onclick=onclick, tooltip=tooltip), alpha=opacity)
       }
       p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
     } else {
       if("Color" %in% names(d)){
-        p <- ggplot(d_order, aes(x=factor(Variable), y=pval, color=Color)) + geom_point()
+        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, color=Color, tooltip=tooltip, onclick=onclick))
         p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
       } else {
-        p <- ggplot(d_order, aes(x=factor(Variable), y=pval)) + geom_point() + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank())
+        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, tooltip=tooltip, onclick=onclick)) + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank())
       }
     }
   } else {
@@ -115,9 +126,9 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
     p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
     #Add shape info if available
     if("Shape" %in% names(d)){
-      p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=Color, shape=factor(Shape)), alpha=opacity)
+      p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, color=Color, shape=factor(Shape), onclick=onclick, tooltip=tooltip), alpha=opacity)
     } else {
-      p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=Color), alpha=opacity)
+      p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, color=Color, onclick=onclick, tooltip=tooltip), alpha=opacity)
     }
     p <- p + scale_x_continuous(breaks=lims$av, labels=lims$Color, expand=c(0,0))
     p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = 0, fill=Color), alpha = 1)
@@ -131,39 +142,22 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
     #Don't
     p <- p + scale_colour_manual(name = "Color", values = newcols, guides(alpha=FALSE)) + scale_fill_manual(name = "Color", values = newcols, guides(alpha=FALSE))
   }
-  if(!missing(annotate_p)){
-    if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE) {
-      print("Consider installing 'ggrepel' for improved text annotation")
-      p <- p + geom_text(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=Variable))
-    } else {
-      require("ggrepel", quietly = TRUE)
-      p <- p + geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=Variable))
-    }
-  }
-  if(!missing(annotate_var)){
-    if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE){
-      print("Consider installing 'ggrepel' for improved text annotation")
-      p <- p + geom_text(data=d_order[d_order$Variable %in% annotate_var,], aes(pos_index,pval,label=Variable))
-    } else {
-      require("ggrepel", quietly = TRUE)
-      p <- p + geom_text_repel(data=d_order[d_order$Variable %in% annotate_var,], aes(pos_index,pval,label=Variable))
-    }
-  }
+
   #Highlight if given
   if(!missing(highlight_var)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point(data=d_order[d_order$Variable %in% highlight_var, ], aes(x=pos_index, y=pval, shape=Shape), colour=highlighter)
+      p <- p + geom_point_interactive(data=d_order[d_order$Variable %in% highlight_var, ], aes(x=pos_index, y=pval, shape=Shape, onclick=onclick, tooltip=tooltip), colour=highlighter)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
-      p <- p + geom_point(data=d_order[d_order$Variable %in% highlight_var, ], aes(x=pos_index, y=pval), colour=highlighter)
+      p <- p + geom_point_interactive(data=d_order[d_order$Variable %in% highlight_var, ], aes(x=pos_index, y=pval, onclick=onclick, tooltip=tooltip), colour=highlighter)
     }
   }
   if(!missing(highlight_p)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape), colour=highlighter)
+      p <- p + geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape, onclick=onclick, tooltip=tooltip), colour=highlighter)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
-      p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval), colour=highlighter)
+      p <- p + geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, onclick=onclick, tooltip=tooltip), colour=highlighter)
     }
   }
 
@@ -176,9 +170,11 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
   }
 
   #Save
-  print(paste("Saving plot to ", file, ".png", sep=""))
-  ggsave(p, filename=paste(file, ".png", sep=""), dpi=res, units="in", height=hgt, width=wi)
-  print(p)
+  print(paste("Saving plot to ", file, ".html", sep=""))
+  tooltip_css <- "background-color:black;color:white;padding:6px;border-radius:15px 15px 15px 15px;"
+  ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6)
+  htmlwidgets::saveWidget(widget=ip, file=paste(file, ".html", sep=""))
+  return(ip)
 
   return(p)
 }
