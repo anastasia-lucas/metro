@@ -47,7 +47,7 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
   }
 
   #Set up tooltip
-  d$tooltip <- if (moreinfo==TRUE) c(paste0(d$Variable, "\n Addl: ", d$Info)) else d$Variable
+  d$tooltip <- if (moreinfo==TRUE) c(paste0(d$Variable, "\n ", d$Info)) else d$Variable
 
   #Set up onclick
   if(!missing(db)){

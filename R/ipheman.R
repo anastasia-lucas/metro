@@ -71,7 +71,7 @@ ipheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opac
 
   #Set up tooltip
   ###See what info would be useful here i.e. SNP or something else
-  d_order$tooltip <- if (moreinfo==TRUE) c(paste0(d_order$PHE, ":", d_order$SNP, "\n Add'l: ", d_order$Info, sep="")) else paste(d_order$PHE, d_order$SNP, sep=":")
+  d_order$tooltip <- if (moreinfo==TRUE) c(paste0(d_order$PHE, ":", d_order$SNP, "\n ", d_order$Info, sep="")) else paste(d_order$PHE, d_order$SNP, sep=":")
 
   #Set up onclick
   if(!missing(db)){
