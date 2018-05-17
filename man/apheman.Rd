@@ -49,7 +49,7 @@ apheman(d, format = "plotman", phegroup, line, log10 = TRUE, yaxis,
 \item{res}{resolution of plot in pixels per inch}
 }
 \value{
-png image
+.gif or .html file
 }
 \description{
 Create Manhattan plots for PheWAS

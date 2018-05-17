@@ -23,7 +23,7 @@
 #' @param hgt height of plot in inches
 #' @param wi width of plot in inches
 #' @param res resolution of plot in pixels per inch
-#' @return png image
+#' @return .gif or .html file
 #' @export
 #' @examples
 #' apheman(d, format, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi, res)
@@ -138,7 +138,7 @@ apheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opac
   #Highlight if given
   if(!missing(highlight_snp)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, shape=Shape), colour=highlighter)
+      p <- p + geom_point(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, shape=Shape, frame=Frame), colour=highlighter)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
       p <- p + geom_point(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval), colour=highlighter)
