@@ -55,5 +55,5 @@ Dependencies: ggplot2, ggiraph
 Suggested: RColorBrewer
 }
 \examples{
-igman(d, format, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
+igman(d, format, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 }
