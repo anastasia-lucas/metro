@@ -18,15 +18,14 @@
 #' @param groupcolors named list of colors for data in 'Color' column
 #' @param file file name of saved image
 #' @param ext file type to save, "gif" or "html"
-#' @param hgt height of plot in inches
-#' @param wi width of plot in inches
-#' @param res resolution of plot in pixels per inch
+#' @param hgt height of plot in pixels
+#' @param wi width of plot in pixels
 #' @return .gif or .html file
 #' @export
 #' @examples
-#' aeman(d, format, groups, line, title=NULL, file="eman", hgt=7, wi=12, res=300 )
+#' aeman(d, format, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
 
-aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, file="aeman", hgt=7, wi=12, res=300){
+aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, file="aeman", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 to create visualization.", call. = FALSE)
   } else {
@@ -177,7 +176,7 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
   #Save
   print(paste("Saving plot to ", file, ".", ext, sep=""))
   ap <- gganimate(p)
-  gganimate_save(ap, filename=paste(file, ".", ext, sep=""))
+  gganimate_save(ap, filename=paste(file, ".", ext, sep=""), ani.height=hgt, ani.width=wi)
   return(ap)
 }
 

@@ -7,7 +7,7 @@
 apheman(d, format = "plotman", phegroup, line, log10 = TRUE, yaxis,
   opacity = 1, highlight_snp, highlight_p, highlighter = "red",
   title = NULL, chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
-  file = "apheman", ext = "gif", hgt = 7, wi = 12, res = 300)
+  file = "apheman", ext = "gif", hgt = 800, wi = 1300)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, Frame columns, optional Shape}
@@ -42,11 +42,9 @@ apheman(d, format = "plotman", phegroup, line, log10 = TRUE, yaxis,
 
 \item{ext}{file type to save, "gif" or "html"}
 
-\item{hgt}{height of plot in inches}
+\item{hgt}{height of plot in pixels}
 
-\item{wi}{width of plot in inches}
-
-\item{res}{resolution of plot in pixels per inch}
+\item{wi}{width of plot in pixels}
 }
 \value{
 .gif or .html file
@@ -58,5 +56,5 @@ Dependencies: ggplot2, gganimate
 Suggested: RColorBrewer
 }
 \examples{
-apheman(d, format, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi, res)
+apheman(d, format, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
 }

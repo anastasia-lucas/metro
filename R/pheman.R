@@ -52,6 +52,7 @@ pheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opaci
     d_phe <- merge(phegroup, d, by="PHE")
     names(d_phe)[names(d_phe)=="Group"] <- "Color"
   } else {
+    d_phe <- d
     names(d_phe)[names(d_phe)=="PHE"] <- "Color"
   }
   d_order <- d_phe[order(d_phe$CHR, d_phe$POS), ]

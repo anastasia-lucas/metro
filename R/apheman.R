@@ -20,15 +20,14 @@
 #' @param groupcolors named list of colors for data in 'Color' column
 #' @param file file name of saved image
 #' @param ext file type to save, "gif" or "html"
-#' @param hgt height of plot in inches
-#' @param wi width of plot in inches
-#' @param res resolution of plot in pixels per inch
+#' @param hgt height of plot in pixels
+#' @param wi width of plot in pixels
 #' @return .gif or .html file
 #' @export
 #' @examples
-#' apheman(d, format, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi, res)
+#' apheman(d, format, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
 
-apheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="apheman", ext="gif", hgt=7, wi=12, res=300 ){
+apheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="apheman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
@@ -162,6 +161,6 @@ apheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opac
   #Animate and save
   print(paste("Saving plot to ", file, ".", ext, sep=""))
   ap <- gganimate(p)
-  gganimate_save(ap, filename=paste(file, ".", ext, sep=""))
+  gganimate_save(ap, filename=paste(file, ".", ext, sep=""), ani.height=hgt, ani.width=wi)
   return(ap)
 }

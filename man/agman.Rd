@@ -7,7 +7,7 @@
 agman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
   highlight_snp, highlight_p, highlighter = "red", title = NULL,
   chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
-  file = "agman", ext = "gif", hgt = 7, wi = 12, res = 300)
+  file = "agman", ext = "gif", hgt = 800, wi = 1300)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue, Frame columns, optional Shape and Color}
@@ -40,11 +40,9 @@ agman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
 
 \item{ext}{file type to save, "gif" or "html"}
 
-\item{hgt}{height of plot in inches}
+\item{hgt}{height of plot in pixels}
 
-\item{wi}{width of plot in inches}
-
-\item{res}{resolution of plot in pixels per inch}
+\item{wi}{width of plot in pixels}
 }
 \value{
 png image
@@ -56,5 +54,5 @@ Dependencies: ggplot2, gganimate
 Suggested: RColorBrewer
 }
 \examples{
-agman(d, format, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi, res)
+agman(d, format, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
 }

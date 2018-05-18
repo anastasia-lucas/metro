@@ -6,8 +6,7 @@
 \usage{
 aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
   highlight_var, highlight_p, highlighter = "red", color1 = "#AAAAAA",
-  color2 = "#4D4D4D", groupcolors, file = "aeman", hgt = 7, wi = 12,
-  res = 300)
+  color2 = "#4D4D4D", groupcolors, file = "aeman", hgt = 800, wi = 1300)
 }
 \arguments{
 \item{d}{data frame, columns one, two, and three must be Variable, pvalue, and Frame; Group, Shape and Color optional}
@@ -36,11 +35,9 @@ aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 
 \item{file}{file name of saved image}
 
-\item{hgt}{height of plot in inches}
+\item{hgt}{height of plot in pixels}
 
-\item{wi}{width of plot in inches}
-
-\item{res}{resolution of plot in pixels per inch}
+\item{wi}{width of plot in pixels}
 
 \item{ext}{file type to save, "gif" or "html"}
 }
@@ -54,5 +51,5 @@ Dependencies: ggplot2
 Suggested: RColorBrewer
 }
 \examples{
-aeman(d, format, groups, line, title=NULL, file="eman", hgt=7, wi=12, res=300 )
+aeman(d, format, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
 }
