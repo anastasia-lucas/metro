@@ -142,10 +142,10 @@ agman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highl
   #Highlight if given
   if(!missing(highlight_snp)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, shape=Shape), colour=highlighter)
+      p <- p + geom_point(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, shape=Shape, frame=Frame), colour=highlighter)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
-      p <- p + geom_point(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval), colour=highlighter)
+      p <- p + geom_point(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, frame=Frame), colour=highlighter)
     }
   }
   if(!missing(highlight_p)){
@@ -153,7 +153,7 @@ agman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highl
       p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape, frame=Frame), colour=highlighter)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
-      p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval), colour=highlighter)
+      p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, frame=Frame), colour=highlighter)
     }
   }
   #Add title and y axis title
