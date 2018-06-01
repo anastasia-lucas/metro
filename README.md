@@ -38,7 +38,7 @@ rec <- data.frame(SNP=paste("rs", seq(1:5000), sep=""),
                 Frame="Recessive")
 dat <- rbind(add, dom, rec)
 
-agman(d=dat, line=0.0005, highlight_snp="rs4204", chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black", opacity=0.7)
+agman(d=dat, line=0.0005, highlight_snp="rs4204", chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black",opacity=0.7, wi=750, hgt=500)
 ```
 ![Alt text](https://media.giphy.com/media/6CBiR3JABocVfJx8pO/giphy.gif)
 
