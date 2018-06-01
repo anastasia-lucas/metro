@@ -20,6 +20,7 @@ library(metro)
 #Generate some data
 #To use the animated plot function, we need to add an animation 'Frame' column to our data
 #In this case we will imagine that we've run a GWAS using additive, dominant, and recessive models
+#and want to highlight a SNP of interest to see how the p-value changes
 add <- data.frame(SNP=paste("rs", seq(1:5000), sep=""),
                 CHR=rep(c(1:22, "X", "Y"), length.out=5000, each=200),
                 POS=rep(seq(1, 10000, by = 200), length.out=5000),
