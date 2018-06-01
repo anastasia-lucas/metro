@@ -175,7 +175,5 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
   ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6)
   htmlwidgets::saveWidget(widget=ip, file=paste(file, ".html", sep=""))
   return(ip)
-
-  return(p)
 }
 
