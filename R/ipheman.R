@@ -50,7 +50,9 @@ ipheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opac
     print("Only phenotypes with grouping information will be plotted")
     d_phe <- merge(phegroup, d, by="PHE")
     names(d_phe)[names(d_phe)=="Group"] <- "Color"
+
   } else {
+    d_phe <- d
     names(d_phe)[names(d_phe)=="PHE"] <- "Color"
   }
   d_order <- d_phe[order(d_phe$CHR, d_phe$POS), ]
@@ -71,7 +73,11 @@ ipheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opac
 
   #Set up tooltip
   ###See what info would be useful here i.e. SNP or something else
-  d_order$tooltip <- if (moreinfo==TRUE) c(paste0(d_order$PHE, ":", d_order$SNP, "\n ", d_order$Info, sep="")) else paste(d_order$PHE, d_order$SNP, sep=":")
+  if(!missing(phegroup)){
+    d_order$tooltip <- if (moreinfo==TRUE) c(paste0(d_order$PHE, ":", d_order$SNP, "\n ", d_order$Info, sep="")) else paste(d_order$PHE, d_order$SNP, sep=":")
+  } else {
+    d_order$tooltip <- if (moreinfo==TRUE) c(paste0(d_order$Color, ":", d_order$SNP, "\n ", d_order$Info, sep="")) else paste(d_order$PHE, d_order$SNP, sep=":")
+  }
 
   #Set up onclick
   if(!missing(db)){
