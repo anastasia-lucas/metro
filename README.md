@@ -2,7 +2,7 @@
 An R package for creating Manhattan plots for 'ome-wide association studies
 
 ## Overview
-metro is an R package for creating static, interactive, and animated Manhattan plots. The package includes functions to visualize genome-wide, phenome-wide, and environment-wide association analysis (GWAS, PheWAS, EWAS, respectively) results, though they may adaptable for other types of data such as Beta, SNP intensity value, or even other types of analyses. THis packages allows the user to add meta information which helps the user and collaboraters to better interpret the results.
+metro is an R package for creating static, interactive, and animated Manhattan plots. The package includes functions to visualize genome-wide, phenome-wide, and environment-wide association analysis (GWAS, PheWAS, EWAS, respectively) results, though they may adaptable for other types of data such as Beta, SNP intensity value, or even other types of analyses. This packages allows the user to add meta information which helps the user and collaboraters to better interpret the results.
 
 ## Installation
 As of now, there is only a development version of the package which can be installed using devtools.
@@ -65,6 +65,12 @@ ipheman(d=dat, moreinfo = TRUE, db="dbSNP", line=0.001)
 ```
 library(metro)
 #Generate some data
-
-#In this case we want to highlight specific groups, so we can provide a color map
+dat <- data.frame(Variable=paste("Var", seq(1:5000), sep=""), 
+                  pvalue=runif(n=5000), 
+                  Group=rep(paste("G", seq(1:6), sep=""), length.out=5000, each=1),
+                  Shape=rep(paste("S", seq(1:5), sep="") , length.out=5000, each=1))
+                  
+eman(d=dat, title="EWAS", line=0.001, annotate_p=0.001, color1="#A23B72", color2="#2A84AA", highlight_p=0.001, highlighter="green")
 ```
+
+![Imgur](https://i.imgur.com/eSARizX.jpg)
