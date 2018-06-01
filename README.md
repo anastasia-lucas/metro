@@ -58,6 +58,7 @@ dat$Info <- paste0("p-value:", signif(dat$pvalue, digits=3))
 
 ipheman(d=dat, moreinfo = TRUE, db="dbSNP", line=0.001)
 ```
+![Alt text](https://media.giphy.com/media/ujvtTHsrnXeo5wuZDn/giphy.gif)
 
 ### Create a basic Manhattan plot using EWAS data
 
