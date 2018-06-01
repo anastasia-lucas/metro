@@ -12,3 +12,34 @@ As of now, there is only a development version of the package which can be insta
 This package requires ggplot2, ggiraph for interactive plots, and gganimate (which requires ImageMagick) for animated plots. I recommend Cactuslab's ImageMagick installer, which can be found at http://cactuslab.com/imagemagick/ if you are having issues installing on MacOS. ggrepel is suggested for improved text annotation, but not required.
 
 ## Usage
+
+### Create an animated Manhattan plot using GWAS data
+
+```
+library(metro)
+#Generate some data
+
+#To use the animated plot function, we need to add an animation 'Frame' column to our data
+#In this case we will imagine that we've run a GWAS using additive, dominant, and recessive models
+
+
+```
+
+### Create an interactive Manhattan plot using PheWAS data
+
+```
+library(metro)
+#Generate some data
+
+#In this case we'd like to also see the p-value and phenotype when we hover, so we'll add an 'Info' column to the data
+
+```
+
+### Create a basic Manhattan plot using EWAS data
+
+```
+library(metro)
+#Generate some data
+
+#In this case we want to highlight specific groups, so we can provide a color map
+```
