@@ -4,7 +4,6 @@
 #' @param group Boolean include Group column
 #' @param shape Boolean include Shape column
 #' @return png image(s)
-#' @export
 #' @examples
 #' generate_p(color, shape)
 
