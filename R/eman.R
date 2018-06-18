@@ -45,6 +45,14 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
     if(!missing(line)) {redline <- line}
   }
 
+  if("Shape" %in% names(d)){
+    if(nlevels(factor(d$Shape))>25){
+      shapevector <- c(0:25,33:as.numeric(nlevels(factor(d$Shape))+7))
+    } else {
+      shapevector <- c(0:as.numeric(nlevels(factor(d$Shape))))
+    }
+  }
+
   #Save to merge later
   d$rowid <- seq.int(nrow(d))
   dinfo <- d[, colnames(d) %in% c("rowid", "Color", "Shape", "pval"), drop=FALSE]
@@ -54,9 +62,9 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
     d_order <- merge(d, dinfo, by="rowid")
     if("Shape" %in% names(d)){
       if("Color" %in% names(d)){
-        p <- ggplot() + geom_point(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), color=Color), alpha=opacity)
+        p <- ggplot() + geom_point(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), color=Color), alpha=opacity) + scale_shape_manual(values=shapevector)
       } else {
-        p <- ggplot() + geom_point(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape)), alpha=opacity)
+        p <- ggplot() + geom_point(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape)), alpha=opacity) + scale_shape_manual(values=shapevector)
       }
       p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
     } else {
@@ -115,7 +123,7 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
     p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
     #Add shape info if available
     if("Shape" %in% names(d)){
-      p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=Color, shape=factor(Shape)), alpha=opacity)
+      p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=Color, shape=factor(Shape)), alpha=opacity) + scale_shape_manual(values=shapevector)
     } else {
       p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=Color), alpha=opacity)
     }
@@ -152,7 +160,7 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
   #Highlight if given
   if(!missing(highlight_var)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point(data=d_order[d_order$Variable %in% highlight_var, ], aes(x=pos_index, y=pval, shape=Shape), colour=highlighter)
+      p <- p + geom_point(data=d_order[d_order$Variable %in% highlight_var, ], aes(x=pos_index, y=pval, shape=Shape), colour=highlighter) + scale_shape_manual(values=shapevector)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
       p <- p + geom_point(data=d_order[d_order$Variable %in% highlight_var, ], aes(x=pos_index, y=pval), colour=highlighter)
@@ -160,7 +168,7 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
   }
   if(!missing(highlight_p)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape), colour=highlighter)
+      p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape), colour=highlighter) + scale_shape_manual(values=shapevector)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
       p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval), colour=highlighter)
