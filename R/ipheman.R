@@ -119,6 +119,13 @@ ipheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opac
     if(!missing(line)) {redline <- line}
   }
 
+  #Allow more than 6 shapes
+  #3, 4 and 7 to 14 are composite symbols- incompatible with ggiraph
+  if("Shape" %in% names(d)){
+    allshapes <- c(16,15,17,18,0:2,5:6,19:25,33:127)
+    shapevector <- allshapes[1:nlevels(as.factor(d$Shape))]
+  }
+
   #Start plotting
   p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
   #Add shape info if available

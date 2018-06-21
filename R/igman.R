@@ -60,7 +60,6 @@ igman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highl
   lims <- lims[order(lims$Color),]
   lims$shademap <- rep(c("shade_ffffff","shade_ebebeb"), each=1)
 
-
   #Set up tooltip
   ###See what info would be useful here i.e. SNP or something else
   d_order$tooltip <- if (moreinfo==TRUE) c(paste0(d_order$SNP, "\n ", d_order$Info)) else d_order$SNP
@@ -112,11 +111,18 @@ igman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highl
     if(!missing(line)) {redline <- line}
   }
 
+  #Allow more than 6 shapes
+  #3, 4 and 7 to 14 are composite symbols- incompatible with ggiraph
+  if("Shape" %in% names(d)){
+    allshapes <- c(16,15,17,18,0:2,5:6,19:25,33:127)
+    shapevector <- allshapes[1:nlevels(as.factor(d$Shape))]
+  }
+
   #Start plotting
   p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
   #Add shape info if available
   if("Shape" %in% names(d)){
-    p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick, color=factor(Color), shape=factor(Shape)), alpha=opacity)
+    p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick, color=factor(Color), shape=factor(Shape)), alpha=opacity) + scale_shape_manual(values=shapevector)
   } else {
     p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick, color=factor(Color)), alpha=opacity)
   }
@@ -133,7 +139,7 @@ igman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highl
   #Highlight if given
   if(!missing(highlight_snp)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point_interactive(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, shape=Shape, tooltip=tooltip, onclick=onclick), colour=highlighter)
+      p <- p + geom_point_interactive(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, shape=Shape, tooltip=tooltip, onclick=onclick), colour=highlighter) + scale_shape_manual(values=shapevector)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
       p <- p + geom_point_interactive(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, tooltip=SNP, onclick=onclick), colour=highlighter)
@@ -141,7 +147,7 @@ igman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highl
   }
   if(!missing(highlight_p)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape, tooltip=tooltip, onclick=onclick), colour=highlighter)
+      p <- p + geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape, tooltip=tooltip, onclick=onclick), colour=highlighter) + scale_shape_manual(values=shapevector)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
       p <- p + geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick), colour=highlighter)

@@ -46,6 +46,13 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
     if(!missing(line)) {redline <- line}
   }
 
+  #Allow more than 6 shapes
+  #3, 4 and 7 to 14 are composite symbols- incompatible with ggiraph
+  if("Shape" %in% names(d)){
+    allshapes <- c(16,15,17,18,0:2,5:6,19:25,33:127)
+    shapevector <- allshapes[1:nlevels(as.factor(d$Shape))]
+  }
+
   #Set up tooltip
   d$tooltip <- if (moreinfo==TRUE) c(paste0(d$Variable, "\n ", d$Info)) else d$Variable
 

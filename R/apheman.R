@@ -103,11 +103,17 @@ apheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opac
     if(!missing(line)) {redline <- line}
   }
 
+  #Allow more than 6 shapes
+  if("Shape" %in% names(d)){
+    allshapes <- c(16,15,17,3,7,8,0:2,4:6,9:14,18:25,33:127)
+    shapevector <- allshapes[1:nlevels(as.factor(d$Shape))]
+  }
+
   #Start plotting
   p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
   #Add shape info if available
   if("Shape" %in% names(d)){
-    p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color), shape=factor(Shape), frame=Frame), alpha=opacity)
+    p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color), shape=factor(Shape), frame=Frame), alpha=opacity) + scale_shape_manual(values=shapevector)
   } else {
     p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color), frame=Frame), alpha=opacity)
   }
@@ -137,7 +143,7 @@ apheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opac
   #Highlight if given
   if(!missing(highlight_snp)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, shape=Shape, frame=Frame), colour=highlighter)
+      p <- p + geom_point(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, shape=Shape, frame=Frame), colour=highlighter) + scale_shape_manual(values=shapevector)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
       p <- p + geom_point(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval), colour=highlighter)
@@ -145,7 +151,7 @@ apheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opac
   }
   if(!missing(highlight_p)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape, frame=Frame), colour=highlighter)
+      p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape, frame=Frame), colour=highlighter) + scale_shape_manual(values=shapevector)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
       p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval), colour=highlighter)

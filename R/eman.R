@@ -45,12 +45,10 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
     if(!missing(line)) {redline <- line}
   }
 
+  #Allow more than 6 shapes
   if("Shape" %in% names(d)){
-    if(nlevels(factor(d$Shape))>25){
-      shapevector <- c(0:25,33:as.numeric(nlevels(factor(d$Shape))+7))
-    } else {
-      shapevector <- c(0:as.numeric(nlevels(factor(d$Shape))))
-    }
+    allshapes <- c(16,15,17,3,7,8,0:2,4:6,9:14,18:25,33:127)
+    shapevector <- allshapes[1:nlevels(as.factor(d$Shape))]
   }
 
   #Save to merge later
