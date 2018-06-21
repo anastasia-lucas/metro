@@ -153,7 +153,7 @@ igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highligh
   #Save
   print(paste("Saving plot to ", file, ".html", sep=""))
   tooltip_css <- "background-color:black;color:white;padding:6px;border-radius:15px 15px 15px 15px;"
-  ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6)
+  ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg = wi, height_svg = hgt)
   htmlwidgets::saveWidget(widget=ip, file=paste(file, ".html", sep=""))
   return(ip)
 
