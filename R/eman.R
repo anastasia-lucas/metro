@@ -25,7 +25,7 @@
 #' @return png image(s)
 #' @export
 #' @examples
-#' eman(d, format, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
+#' eman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 
 eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, file="eman", hgt=7, wi=12, res=300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {

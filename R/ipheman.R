@@ -4,7 +4,6 @@
 #' Dependencies: ggplot2, ggiraph
 #' Suggested: RColorBrewer
 #' @param d data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape
-#' @param format format of input
 #' @param phegroup optional grouping file for phenotypes, must contain PHE and Group columns
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
@@ -25,23 +24,14 @@
 #' @return html file
 #' @export
 #' @examples
-#' ipheman(d, format, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
+#' ipheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 
-ipheman <- function(d, format="plotman", phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="ipheman", hgt=7, wi=12){
+ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="ipheman", hgt=7, wi=12){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
     require("ggplot2", quietly=TRUE)
     require("ggiraph", quietly=TRUE)
-  }
-
-  #Format input
-  if(format=="plink"){
-    stop("PLINK format coming soon...")
-  } else if(format=="plato"){
-    stop("PLATO format coming soon...")
-  } else if(format=="plato-codom"){
-    stop("PLATO-codom format coming soon...")
   }
 
   #Sort data

@@ -56,5 +56,5 @@ Dependencies: ggplot2
 Suggested: RColorBrewer
 }
 \examples{
-eman(d, format, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
+eman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 }

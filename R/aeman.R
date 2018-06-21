@@ -23,7 +23,7 @@
 #' @return .gif or .html file
 #' @export
 #' @examples
-#' aeman(d, format, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
+#' aeman(d, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
 
 aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, file="aeman", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {

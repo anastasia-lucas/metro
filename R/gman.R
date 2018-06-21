@@ -5,7 +5,6 @@
 #' Dependencies: ggplot2
 #' Suggested: RColorBrewer, ggrepel
 #' @param d data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape and Color
-#' @param format format of input
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
@@ -26,22 +25,13 @@
 #' @return png image
 #' @export
 #' @examples
-#' gman(d, format, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
+#' gman(d, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 
 gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="gman", hgt=7, wi=12, res=300 ){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 to create visualization.", call. = FALSE)
   } else {
     require("ggplot2", quietly = TRUE)
-  }
-
-  #Format input
-  if(format=="plink"){
-    stop("PLINK format coming soon...")
-  } else if(format=="plato"){
-    stop("PLATO format coming soon...")
-  } else if(format=="plato-codom"){
-    stop("PLATO-codom format coming soon...")
   }
 
   #Sort data

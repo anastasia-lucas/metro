@@ -4,15 +4,13 @@
 \alias{ipheman}
 \title{ipheman}
 \usage{
-ipheman(d, format = "plotman", phegroup, line, log10 = TRUE, yaxis,
-  opacity = 1, highlight_snp, highlight_p, highlighter = "red",
-  title = NULL, chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
-  db, moreinfo = FALSE, file = "ipheman", hgt = 7, wi = 12)
+ipheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
+  highlight_p, highlighter = "red", title = NULL, chrcolor1 = "#AAAAAA",
+  chrcolor2 = "#4D4D4D", groupcolors, db, moreinfo = FALSE,
+  file = "ipheman", hgt = 7, wi = 12)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape}
-
-\item{format}{format of input}
 
 \item{phegroup}{optional grouping file for phenotypes, must contain PHE and Group columns}
 
@@ -57,5 +55,5 @@ Dependencies: ggplot2, ggiraph
 Suggested: RColorBrewer
 }
 \examples{
-ipheman(d, format, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
+ipheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 }

@@ -4,15 +4,13 @@
 \alias{agman}
 \title{agman}
 \usage{
-agman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
-  highlight_snp, highlight_p, highlighter = "red", title = NULL,
-  chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
-  file = "agman", ext = "gif", hgt = 800, wi = 1300)
+agman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
+  highlighter = "red", title = NULL, chrcolor1 = "#AAAAAA",
+  chrcolor2 = "#4D4D4D", groupcolors, file = "agman", ext = "gif",
+  hgt = 800, wi = 1300)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue, Frame columns, optional Shape and Color}
-
-\item{format}{format of input}
 
 \item{line}{optional pvalue threshold to draw red line at}
 

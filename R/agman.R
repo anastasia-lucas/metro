@@ -5,7 +5,6 @@
 #' Dependencies: ggplot2, gganimate
 #' Suggested: RColorBrewer
 #' @param d data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue, Frame columns, optional Shape and Color
-#' @param format format of input
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
@@ -26,7 +25,7 @@
 #' @examples
 #' agman(d, format, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
 
-agman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="agman", ext="gif", hgt=800, wi=1300){
+agman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="agman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
@@ -36,15 +35,6 @@ agman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highl
 
   #Check that frame is present
   if(!("Frame" %in% names(d))){stop("Please add 'Frame' column for animation attribute")}
-
-  #Format input
-  if(format=="plink"){
-    stop("PLINK format coming soon...")
-  } else if(format=="plato"){
-    stop("PLATO format coming soon...")
-  } else if(format=="plato-codom"){
-    stop("PLATO-codom format coming soon...")
-  }
 
   #Sort data
   d$CHR <- factor(d$CHR, levels = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y"))

@@ -51,5 +51,5 @@ Dependencies: ggplot2
 Suggested: RColorBrewer
 }
 \examples{
-aeman(d, format, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
+aeman(d, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
 }

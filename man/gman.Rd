@@ -12,8 +12,6 @@ gman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape and Color}
 
-\item{format}{format of input}
-
 \item{line}{optional pvalue threshold to draw red line at}
 
 \item{log10}{plot -log10() of pvalue column, boolean}
@@ -58,5 +56,5 @@ Dependencies: ggplot2
 Suggested: RColorBrewer, ggrepel
 }
 \examples{
-gman(d, format, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
+gman(d, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 }

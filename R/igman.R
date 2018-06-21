@@ -4,7 +4,6 @@
 #' Dependencies: ggplot2, ggiraph
 #' Suggested: RColorBrewer
 #' @param d data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape, Color, and Info
-#' @param format format of input
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
@@ -24,23 +23,14 @@
 #' @return html file
 #' @export
 #' @examples
-#' igman(d, format, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
+#' igman(d, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 
-igman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="igman", hgt=7, wi=12){
+igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="igman", hgt=7, wi=12){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
     require("ggplot2", quietly=TRUE)
     require("ggiraph", quietly=TRUE)
-  }
-
-  #Format input
-  if(format=="plink"){
-    stop("PLINK format coming soon...")
-  } else if(format=="plato"){
-    stop("PLATO format coming soon...")
-  } else if(format=="plato-codom"){
-    stop("PLATO-codom format coming soon...")
   }
 
   #Sort data

@@ -56,5 +56,5 @@ Dependencies: ggplot2
 Suggested: RColorBrewer
 }
 \examples{
-ieman(d, format, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
+ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 }
