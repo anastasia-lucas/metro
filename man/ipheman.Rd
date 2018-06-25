@@ -7,7 +7,7 @@
 ipheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
   highlight_p, highlighter = "red", title = NULL, chrcolor1 = "#AAAAAA",
   chrcolor2 = "#4D4D4D", groupcolors, db, moreinfo = FALSE,
-  file = "ipheman", hgt = 7, wi = 12)
+  bigrender = FALSE, file = "ipheman", hgt = 7, wi = 12)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape}
@@ -39,6 +39,8 @@ ipheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
 \item{db}{choose database to connect to (dbSNP or GWAScatalog)}
 
 \item{moreinfo}{includes more information on hover, refers to Info column}
+
+\item{bigrender}{can set to TRUE for big plots (~50000 rows) that produce huge input lookup error}
 
 \item{file}{file name of saved image}
 

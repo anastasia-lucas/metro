@@ -21,12 +21,13 @@
 #' @param file file name of saved image
 #' @param hgt height of plot in inches
 #' @param wi width of plot in inches
+#' @param bigrender can set to TRUE for big plots (~50000 rows) that produce huge input lookup error
 #' @return png image(s)
 #' @export
 #' @examples
 #' ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 
-ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="ieman", hgt=7, wi=12){
+ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="ieman", hgt=7, wi=12, bigrender=FALSE){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
@@ -178,8 +179,15 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
   #Save
   print(paste("Saving plot to ", file, ".html", sep=""))
   tooltip_css <- "background-color:black;color:white;padding:6px;border-radius:15px 15px 15px 15px;"
-  ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt)
-  htmlwidgets::saveWidget(widget=ip, file=paste(file, ".html", sep=""))
-  return(ip)
+  if(bigrender==TRUE){
+    print(paste("WARNING: Attempting to render ", nrow(d_order), " rows. Plot may be slow to render or load.", sep=""))
+    ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt, xml_reader_options = list(options="HUGE"))
+    htmlwidgets::saveWidget(widget=ip, file=paste(file, ".html", sep=""))
+    return(p)
+  } else {
+    ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt)
+    htmlwidgets::saveWidget(widget=ip, file=paste(file, ".html", sep=""))
+    return(ip)
+  }
 }
 

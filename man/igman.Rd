@@ -7,7 +7,7 @@
 igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
   highlighter = "red", title = NULL, chrcolor1 = "#AAAAAA",
   chrcolor2 = "#4D4D4D", groupcolors, db, moreinfo = FALSE,
-  file = "igman", hgt = 7, wi = 12)
+  file = "igman", hgt = 7, wi = 12, bigrender = FALSE)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape, Color, and Info}
@@ -43,6 +43,8 @@ igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
 \item{hgt}{height of plot in inches}
 
 \item{wi}{width of plot in inches}
+
+\item{bigrender}{can set to TRUE for big plots (~50000 rows) that produce huge input lookup error}
 }
 \value{
 html file
