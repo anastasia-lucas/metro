@@ -72,9 +72,9 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
     d_order <- merge(d, dinfo, by="rowid")
     if("Shape" %in% names(d)){
       if("Color" %in% names(d)){
-        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), color=Color, onclick=onclick, tooltip=tooltip), alpha=opacity)
+        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), color=Color, onclick=onclick, tooltip=tooltip), alpha=opacity) + scale_shape_manual(values=shapevector)
       } else {
-        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), onclick=onclick, tooltip=tooltip), alpha=opacity)
+        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), onclick=onclick, tooltip=tooltip), alpha=opacity) + scale_shape_manual(values=shapevector)
       }
       p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
     } else {
@@ -133,7 +133,7 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
     p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
     #Add shape info if available
     if("Shape" %in% names(d)){
-      p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, color=Color, shape=factor(Shape), onclick=onclick, tooltip=tooltip), alpha=opacity)
+      p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, color=Color, shape=factor(Shape), onclick=onclick, tooltip=tooltip), alpha=opacity) + scale_shape_manual(values=shapevector)
     } else {
       p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, color=Color, onclick=onclick, tooltip=tooltip), alpha=opacity)
     }
@@ -153,7 +153,7 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
   #Highlight if given
   if(!missing(highlight_var)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point_interactive(data=d_order[d_order$Variable %in% highlight_var, ], aes(x=pos_index, y=pval, shape=Shape, onclick=onclick, tooltip=tooltip), colour=highlighter)
+      p <- p + geom_point_interactive(data=d_order[d_order$Variable %in% highlight_var, ], aes(x=pos_index, y=pval, shape=Shape, onclick=onclick, tooltip=tooltip), colour=highlighter) + scale_shape_manual(values=shapevector)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
       p <- p + geom_point_interactive(data=d_order[d_order$Variable %in% highlight_var, ], aes(x=pos_index, y=pval, onclick=onclick, tooltip=tooltip), colour=highlighter)
@@ -161,7 +161,7 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
   }
   if(!missing(highlight_p)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape, onclick=onclick, tooltip=tooltip), colour=highlighter)
+      p <- p + geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape, onclick=onclick, tooltip=tooltip), colour=highlighter) + scale_shape_manual(values=shapevector)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
       p <- p + geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, onclick=onclick, tooltip=tooltip), colour=highlighter)
