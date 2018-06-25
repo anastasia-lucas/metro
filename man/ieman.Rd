@@ -7,7 +7,7 @@
 ieman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
   highlight_var, highlight_p, highlighter = "red", color1 = "#AAAAAA",
   color2 = "#4D4D4D", groupcolors, db, moreinfo = FALSE, file = "ieman",
-  hgt = 7, wi = 12, res = 300)
+  hgt = 7, wi = 12)
 }
 \arguments{
 \item{d}{data frame, columns one and two must be Variable and pvalue; Group, Shape, Color, and Info optional}
@@ -43,8 +43,6 @@ ieman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 \item{hgt}{height of plot in inches}
 
 \item{wi}{width of plot in inches}
-
-\item{res}{resolution of plot in pixels per inch}
 }
 \value{
 png image(s)

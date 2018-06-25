@@ -21,13 +21,12 @@
 #' @param file file name of saved image
 #' @param hgt height of plot in inches
 #' @param wi width of plot in inches
-#' @param res resolution of plot in pixels per inch
 #' @return png image(s)
 #' @export
 #' @examples
 #' ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 
-ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="ieman", hgt=7, wi=12, res=300){
+ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="ieman", hgt=7, wi=12){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
