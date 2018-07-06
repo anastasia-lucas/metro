@@ -58,3 +58,6 @@ Suggested: RColorBrewer, ggrepel
 \examples{
 gman(d, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 }
+\seealso{
+Other static plotting functions: \code{\link{pheman}}
+}

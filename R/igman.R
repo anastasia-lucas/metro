@@ -23,6 +23,8 @@
 #' @param bigrender can set to TRUE for big plots (~50000 rows) that produce huge input lookup error
 #' @return html file
 #' @export
+#' @family GWAS functions
+#' @family interactive plotting functions
 #' @examples
 #' igman(d, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 

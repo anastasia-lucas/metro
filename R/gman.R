@@ -24,6 +24,8 @@
 #' @param res resolution of plot in pixels per inch
 #' @return png image
 #' @export
+#' @family GWAS fumctions
+#' @family static plotting functions
 #' @examples
 #' gman(d, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 

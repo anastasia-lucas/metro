@@ -59,3 +59,9 @@ Suggested: RColorBrewer
 \examples{
 ipheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 }
+\seealso{
+Other PheWAS functions: \code{\link{apheman}},
+  \code{\link{pheman}}
+
+Other interactive plotting functions: \code{\link{igman}}
+}

@@ -24,6 +24,8 @@
 #' @param res resolution of plot in pixels per inch
 #' @return png image(s)
 #' @export
+#' @family EWAS functions
+#' @family static plotting fuctions
 #' @examples
 #' eman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 

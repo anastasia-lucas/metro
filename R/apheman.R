@@ -1,4 +1,4 @@
-#' agman
+#' apheman
 #'
 #' Create Manhattan plots for PheWAS
 #' Note: There is an issue with dev.off() if using RStudio
@@ -23,6 +23,8 @@
 #' @param wi width of plot in pixels
 #' @return .gif or .html file
 #' @export
+#' @family PheWAS functions
+#' @family animated plotting functions
 #' @examples
 #' apheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
 

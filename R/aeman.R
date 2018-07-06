@@ -22,6 +22,8 @@
 #' @param wi width of plot in pixels
 #' @return .gif or .html file
 #' @export
+#' @family EWAS functions
+#' @family animated plotting functions
 #' @examples
 #' aeman(d, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
 

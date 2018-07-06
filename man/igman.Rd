@@ -57,3 +57,8 @@ Suggested: RColorBrewer
 \examples{
 igman(d, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 }
+\seealso{
+Other GWAS functions: \code{\link{agman}}
+
+Other interactive plotting functions: \code{\link{ipheman}}
+}

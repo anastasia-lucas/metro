@@ -24,6 +24,8 @@
 #' @param bigrender can set to TRUE for big plots (~50000 rows) that produce huge input lookup error
 #' @return html file
 #' @export
+#' @family PheWAS functions
+#' @family interactive plotting functions
 #' @examples
 #' ipheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 

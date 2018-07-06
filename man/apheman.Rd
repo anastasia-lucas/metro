@@ -2,7 +2,7 @@
 % Please edit documentation in R/apheman.R
 \name{apheman}
 \alias{apheman}
-\title{agman}
+\title{apheman}
 \usage{
 apheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
   highlight_p, highlighter = "red", title = NULL, chrcolor1 = "#AAAAAA",
@@ -55,4 +55,11 @@ Suggested: RColorBrewer
 }
 \examples{
 apheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
+}
+\seealso{
+Other PheWAS functions: \code{\link{ipheman}},
+  \code{\link{pheman}}
+
+Other animated plotting functions: \code{\link{aeman}},
+  \code{\link{agman}}
 }

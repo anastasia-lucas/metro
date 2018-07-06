@@ -60,3 +60,9 @@ Suggested: RColorBrewer, ggrepel
 \examples{
 pheman(d, phegroup, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 }
+\seealso{
+Other PheWAS functions: \code{\link{apheman}},
+  \code{\link{ipheman}}
+
+Other static plotting functions: \code{\link{gman}}
+}

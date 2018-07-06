@@ -58,3 +58,7 @@ Suggested: RColorBrewer
 \examples{
 ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 }
+\seealso{
+Other EWAS functions: \code{\link{aeman}},
+  \code{\link{eman}}
+}

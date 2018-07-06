@@ -24,6 +24,8 @@
 #' @param bigrender can set to TRUE for big plots (~50000 rows) that produce huge input lookup error
 #' @return png image(s)
 #' @export
+#' @family EWAS functions
+#' @family interactive plottng functions
 #' @examples
 #' ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 

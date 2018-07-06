@@ -25,6 +25,8 @@
 #' @param res resolution of plot in pixels per inch
 #' @return png image
 #' @export
+#' @family PheWAS functions
+#' @family static plotting functions
 #' @examples
 #' pheman(d, phegroup, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 

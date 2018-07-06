@@ -53,3 +53,10 @@ Suggested: RColorBrewer
 \examples{
 aeman(d, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
 }
+\seealso{
+Other EWAS functions: \code{\link{eman}},
+  \code{\link{ieman}}
+
+Other animated plotting functions: \code{\link{agman}},
+  \code{\link{apheman}}
+}

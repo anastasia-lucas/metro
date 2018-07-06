@@ -22,6 +22,8 @@
 #' @param wi width of plot in pixels
 #' @return png image
 #' @export
+#' @family GWAS functions
+#' @family animated plotting functions
 #' @examples
 #' agman(d, format, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
 

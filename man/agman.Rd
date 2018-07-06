@@ -54,3 +54,9 @@ Suggested: RColorBrewer
 \examples{
 agman(d, format, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
 }
+\seealso{
+Other GWAS functions: \code{\link{igman}}
+
+Other animated plotting functions: \code{\link{aeman}},
+  \code{\link{apheman}}
+}
