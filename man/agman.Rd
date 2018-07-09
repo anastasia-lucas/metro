@@ -36,7 +36,7 @@ agman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
 
 \item{file}{file name of saved image}
 
-\item{ext}{file type to save, "gif" or "html"}
+\item{ext}{file type to save, "gif" or "mp4"}
 
 \item{hgt}{height of plot in pixels}
 

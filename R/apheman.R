@@ -18,7 +18,7 @@
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
 #' @param file file name of saved image
-#' @param ext file type to save, "gif" or "html"
+#' @param ext file type to save, "gif" or "mp4"
 #' @param hgt height of plot in pixels
 #' @param wi width of plot in pixels
 #' @return .gif or .html file

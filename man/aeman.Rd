@@ -39,7 +39,7 @@ aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 
 \item{wi}{width of plot in pixels}
 
-\item{ext}{file type to save, "gif" or "html"}
+\item{ext}{file type to save, "gif" or "mp4"}
 }
 \value{
 .gif or .html file
