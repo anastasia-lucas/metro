@@ -58,7 +58,17 @@ Dependencies: ggplot2
 Suggested: RColorBrewer, ggrepel
 }
 \examples{
-pheman(d, phegroup, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
+#Generate some data
+#In this case we'd like to also see the p-value when we hover over a point, so we'll add an 'Info' column to the data
+#We'd also like to search dbSNP when we click on a point
+dat <- data.frame(PHE=rep(paste("Pheno", seq(1:5), sep="") , length.out=5000, each=1),
+                 SNP=paste("rs", seq(1:5000), sep=""),
+                 CHR=rep(c(1:22, "X", "Y"), length.out=5000, each=200),
+                 POS=rep(seq(1, 10000, by = 200), length.out=5000),
+                 pvalue=runif(n=5000))
+dat$Info <- paste0("p-value:", signif(dat$pvalue, digits=3))
+#Plot
+ipheman(d=dat, moreinfo = TRUE, db="dbSNP", line=0.001)
 }
 \seealso{
 \code{\link{ipheman}}, \code{\link{apheman}}, \code{\link{gman}}, \code{\link{eman}}
