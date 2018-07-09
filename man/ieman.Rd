@@ -59,6 +59,8 @@ Suggested: RColorBrewer
 ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 }
 \seealso{
+\code{\link{eman}}, \code{\link{aeman}}, \code{\link{igman}}, \code{\link{ipheman}}
+
 Other EWAS functions: \code{\link{aeman}},
   \code{\link{eman}}
 }

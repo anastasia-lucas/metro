@@ -22,7 +22,7 @@ pheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp,
 
 \item{opacity}{opacity of points, from 0-1, useful for dense plots}
 
-\item{annotate_snp}{list of RSIDs to annotate}
+\item{annotate_snp}{list of SNPs to annotate}
 
 \item{annotate_p}{pvalue threshold to annotate}
 
@@ -61,8 +61,11 @@ Suggested: RColorBrewer, ggrepel
 pheman(d, phegroup, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 }
 \seealso{
+\code{\link{ipheman}}, \code{\link{apheman}}, \code{\link{gman}}, \code{\link{eman}}
+
 Other PheWAS functions: \code{\link{apheman}},
   \code{\link{ipheman}}
 
-Other static plotting functions: \code{\link{gman}}
+Other static plotting functions: \code{\link{eman}},
+  \code{\link{gman}}
 }

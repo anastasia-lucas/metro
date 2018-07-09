@@ -20,7 +20,7 @@ gman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
 
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
-\item{annotate_snp}{list of RSIDs to annotate}
+\item{annotate_snp}{list of SNPs to annotate}
 
 \item{annotate_p}{pvalue threshold to annotate}
 
@@ -59,5 +59,11 @@ Suggested: RColorBrewer, ggrepel
 gman(d, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 }
 \seealso{
-Other static plotting functions: \code{\link{pheman}}
+\code{\link{igman}}, \code{\link{agman}}, \code{\link{pheman}}, \code{\link{eman}}
+
+Other GWAS functions: \code{\link{agman}},
+  \code{\link{igman}}
+
+Other static plotting functions: \code{\link{eman}},
+  \code{\link{pheman}}
 }

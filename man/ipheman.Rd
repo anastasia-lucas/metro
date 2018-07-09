@@ -22,7 +22,7 @@ ipheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
 
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
-\item{highlight_snp}{list of snps to highlight}
+\item{highlight_snp}{list of SNPs to highlight}
 
 \item{highlight_p}{pvalue threshold to highlight}
 
@@ -60,6 +60,8 @@ Suggested: RColorBrewer
 ipheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 }
 \seealso{
+\code{\link{pheman}}, \code{\link{apheman}}, \code{\link{igman}}, \code{\link{ieman}}
+
 Other PheWAS functions: \code{\link{apheman}},
   \code{\link{pheman}}
 

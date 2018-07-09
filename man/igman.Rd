@@ -20,7 +20,7 @@ igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
 
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
-\item{highlight_snp}{list of snps to highlight}
+\item{highlight_snp}{list of SNPs to highlight}
 
 \item{highlight_p}{pvalue threshold to highlight}
 
@@ -58,7 +58,10 @@ Suggested: RColorBrewer
 igman(d, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 }
 \seealso{
-Other GWAS functions: \code{\link{agman}}
+\code{\link{gman}}, \code{\link{agman}}, \code{\link{ipheman}}, \code{\link{ieman}}
+
+Other GWAS functions: \code{\link{agman}},
+  \code{\link{gman}}
 
 Other interactive plotting functions: \code{\link{ipheman}}
 }

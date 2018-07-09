@@ -11,7 +11,7 @@
 #' @param title optional string for plot title
 #' @param chrcolor1 first alternating color for chromosome
 #' @param chrcolor2 second alternating color for chromosome
-#' @param highlight_snp list of snps to highlight
+#' @param highlight_snp list of SNPs to highlight
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
@@ -25,6 +25,7 @@
 #' @export
 #' @family GWAS functions
 #' @family interactive plotting functions
+#' @seealso \code{\link{gman}}, \code{\link{agman}}, \code{\link{ipheman}}, \code{\link{ieman}}
 #' @examples
 #' igman(d, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 

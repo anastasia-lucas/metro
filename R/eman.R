@@ -25,7 +25,8 @@
 #' @return png image(s)
 #' @export
 #' @family EWAS functions
-#' @family static plotting fuctions
+#' @family static plotting functions
+#' @seealso \code{\link{ieman}}, \code{\link{aeman}}, \code{\link{gman}}, \code{\link{pheman}}
 #' @examples
 #' eman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 

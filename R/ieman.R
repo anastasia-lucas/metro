@@ -26,6 +26,7 @@
 #' @export
 #' @family EWAS functions
 #' @family interactive plottng functions
+#' @seealso \code{\link{eman}}, \code{\link{aeman}}, \code{\link{igman}}, \code{\link{ipheman}}
 #' @examples
 #' ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 

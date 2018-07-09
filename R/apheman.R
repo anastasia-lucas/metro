@@ -13,7 +13,7 @@
 #' @param title optional string for plot title
 #' @param chrcolor1 first alternating color for chromosome
 #' @param chrcolor2 second alternating color for chromosome
-#' @param highlight_snp list of snps to highlight
+#' @param highlight_snp list of SNPs to highlight
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
@@ -25,6 +25,7 @@
 #' @export
 #' @family PheWAS functions
 #' @family animated plotting functions
+#' @seealso \code{\link{pheman}}, \code{\link{ipheman}}, \code{\link{agman}}, \code{\link{aeman}}
 #' @examples
 #' apheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
 

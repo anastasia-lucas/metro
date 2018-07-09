@@ -59,6 +59,11 @@ Suggested: RColorBrewer
 eman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 }
 \seealso{
+\code{\link{ieman}}, \code{\link{aeman}}, \code{\link{gman}}, \code{\link{pheman}}
+
 Other EWAS functions: \code{\link{aeman}},
   \code{\link{ieman}}
+
+Other static plotting functions: \code{\link{gman}},
+  \code{\link{pheman}}
 }

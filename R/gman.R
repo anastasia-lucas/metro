@@ -9,7 +9,7 @@
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
 #' @param opacity opacity of points, from 0 to 1, useful for dense plots
-#' @param annotate_snp list of RSIDs to annotate
+#' @param annotate_snp list of SNPs to annotate
 #' @param annotate_p pvalue threshold to annotate
 #' @param title optional string for plot title
 #' @param chrcolor1 first alternating color for chromosome
@@ -24,8 +24,9 @@
 #' @param res resolution of plot in pixels per inch
 #' @return png image
 #' @export
-#' @family GWAS fumctions
+#' @family GWAS functions
 #' @family static plotting functions
+#' @seealso \code{\link{igman}}, \code{\link{agman}}, \code{\link{pheman}}, \code{\link{eman}}
 #' @examples
 #' gman(d, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 

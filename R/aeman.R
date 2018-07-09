@@ -24,6 +24,7 @@
 #' @export
 #' @family EWAS functions
 #' @family animated plotting functions
+#' @seealso \code{\link{eman}}, \code{\link{ieman}}, \code{\link{agman}}, \code{\link{apheman}}
 #' @examples
 #' aeman(d, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
 

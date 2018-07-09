@@ -20,7 +20,7 @@ agman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
 
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
-\item{highlight_snp}{list of snps to highlight}
+\item{highlight_snp}{list of SNPs to highlight}
 
 \item{highlight_p}{pvalue threshold to highlight}
 
@@ -55,7 +55,10 @@ Suggested: RColorBrewer
 agman(d, format, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
 }
 \seealso{
-Other GWAS functions: \code{\link{igman}}
+\code{\link{gman}}, \code{\link{igman}}, \code{\link{apheman}}, \code{\link{aeman}}
+
+Other GWAS functions: \code{\link{gman}},
+  \code{\link{igman}}
 
 Other animated plotting functions: \code{\link{aeman}},
   \code{\link{apheman}}

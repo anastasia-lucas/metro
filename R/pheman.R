@@ -10,7 +10,7 @@
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
 #' @param opacity opacity of points, from 0-1, useful for dense plots
-#' @param annotate_snp list of RSIDs to annotate
+#' @param annotate_snp list of SNPs to annotate
 #' @param annotate_p pvalue threshold to annotate
 #' @param title optional string for plot title
 #' @param chrcolor1 first alternating color for chromosome
@@ -27,6 +27,7 @@
 #' @export
 #' @family PheWAS functions
 #' @family static plotting functions
+#' @seealso \code{\link{ipheman}}, \code{\link{apheman}}, \code{\link{gman}}, \code{\link{eman}}
 #' @examples
 #' pheman(d, phegroup, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
 
