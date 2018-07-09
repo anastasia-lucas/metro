@@ -20,6 +20,7 @@
 #' @param ext file type to save, "gif" or "html"
 #' @param hgt height of plot in pixels
 #' @param wi width of plot in pixels
+#' @import ggplot2
 #' @return png image
 #' @export
 #' @family GWAS functions

@@ -22,6 +22,7 @@
 #' @param hgt height of plot in pixels
 #' @param wi width of plot in pixels
 #' @return .gif or .html file
+#' @import ggplot2
 #' @export
 #' @family PheWAS functions
 #' @family animated plotting functions
@@ -31,7 +32,7 @@
 
 apheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="apheman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
-    stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
+    stop("Please install ggplot2 and gganimate to create interactive visualization.", call. = FALSE)
   } else {
     require("ggplot2", quietly=TRUE)
     require("gganimate", quietly=TRUE)

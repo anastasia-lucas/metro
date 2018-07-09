@@ -21,6 +21,7 @@
 #' @param hgt height of plot in inches
 #' @param wi width of plot in inches
 #' @param bigrender can set to TRUE for big plots (~50000 rows) that produce huge input lookup error
+#' @import ggplot2
 #' @return html file
 #' @export
 #' @family GWAS functions

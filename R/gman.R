@@ -22,6 +22,7 @@
 #' @param hgt height of plot in inches
 #' @param wi width of plot in inches
 #' @param res resolution of plot in pixels per inch
+#' @import ggplot2
 #' @return png image
 #' @export
 #' @family GWAS functions
