@@ -34,8 +34,6 @@
 gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="gman", hgt=7, wi=12, res=300 ){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 to create visualization.", call. = FALSE)
-  } else {
-    require("ggplot2", quietly = TRUE)
   }
 
   #Sort data
@@ -110,8 +108,7 @@ gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annota
       print("Consider installing 'ggrepel' for improved text annotation")
       p <- p + geom_text(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP))
     } else {
-      require("ggrepel", quietly = TRUE)
-      p <- p + geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP))
+      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP))
     }
   }
   if(!missing(annotate_snp)){
@@ -119,8 +116,7 @@ gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annota
       print("Consider installing 'ggrepel' for improved text annotation")
       p <- p + geom_text(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP))
     } else {
-      require("ggrepel", quietly = TRUE)
-      p <- p + geom_text_repel(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP))
+      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP))
     }
   }
   p <- p + scale_x_continuous(breaks=lims$av, labels=lims$Color, expand=c(0,0))

@@ -111,24 +111,22 @@ apheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_s
   } else {
     p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color), frame=Frame), alpha=opacity)
   }
-  #if(!missing(annotate_p)){
-  #  if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE) {
-  #    print("Consider installing 'ggrepel' for improved text annotation")
-  #    p <- p + geom_text(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP))
-  #  } else {
-  #    require("ggrepel", quietly = TRUE)
-  #    p <- p + geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP))
-  #  }
-  #}
-  #if(!missing(annotate_snp)){
-  #  if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE){
-  #    print("Consider installing 'ggrepel' for improved text annotation")
-  #    p <- p + geom_text(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP))
-  #  } else {
-  #    require("ggrepel", quietly = TRUE)
-  #    p <- p + geom_text_repel(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP))
-  #  }
-  #}
+  if(!missing(annotate_p)){
+    if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE) {
+      print("Consider installing 'ggrepel' for improved text annotation")
+      p <- p + geom_text(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP,frame=Frame))
+    } else {
+      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP,frame=Frame))
+    }
+  }
+  if(!missing(annotate_snp)){
+    if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE){
+      print("Consider installing 'ggrepel' for improved text annotation")
+      p <- p + geom_text(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP,frame=Frame))
+    } else {
+      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP,frame=Frame))
+    }
+  }
   p <- p + scale_x_continuous(breaks=lims$av, labels=lims$Color, expand=c(0,0))
   p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = 0, fill=as.factor(Color)), alpha = 1)
   #Add legend

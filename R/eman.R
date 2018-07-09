@@ -35,8 +35,6 @@
 eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, file="eman", hgt=7, wi=12, res=300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 to create visualization.", call. = FALSE)
-  } else {
-    require("ggplot2")
   }
 
   #Info for y-axis
@@ -147,8 +145,7 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
       print("Consider installing 'ggrepel' for improved text annotation")
       p <- p + geom_text(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=Variable))
     } else {
-      require("ggrepel", quietly = TRUE)
-      p <- p + geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=Variable))
+      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=Variable))
     }
   }
   if(!missing(annotate_var)){
@@ -156,8 +153,7 @@ eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var
       print("Consider installing 'ggrepel' for improved text annotation")
       p <- p + geom_text(data=d_order[d_order$Variable %in% annotate_var,], aes(pos_index,pval,label=Variable))
     } else {
-      require("ggrepel", quietly = TRUE)
-      p <- p + geom_text_repel(data=d_order[d_order$Variable %in% annotate_var,], aes(pos_index,pval,label=Variable))
+      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$Variable %in% annotate_var,], aes(pos_index,pval,label=Variable))
     }
   }
   #Highlight if given

@@ -139,24 +139,22 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
     #Don't
     p <- p + scale_colour_manual(name = "Color", values = newcols, guides(alpha=FALSE)) + scale_fill_manual(name = "Color", values = newcols, guides(alpha=FALSE))
   }
-  #if(!missing(annotate_p)){
-  #  if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE) {
-  #    print("Consider installing 'ggrepel' for improved text annotation")
-  #    p <- p + geom_text(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=Variable))
-  #  } else {
-  #    require("ggrepel", quietly = TRUE)
-  #    p <- p + geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=Variable))
-  #  }
-  #}
-  #if(!missing(annotate_var)){
-  #  if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE){
-  #    print("Consider installing 'ggrepel' for improved text annotation")
-  #    p <- p + geom_text(data=d_order[d_order$Variable %in% annotate_var,], aes(pos_index,pval,label=Variable))
-  #  } else {
-  #    require("ggrepel", quietly = TRUE)
-  #    p <- p + geom_text_repel(data=d_order[d_order$Variable %in% annotate_var,], aes(pos_index,pval,label=Variable))
-  #  }
-  #}
+  if(!missing(annotate_p)){
+    if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE) {
+      print("Consider installing 'ggrepel' for improved text annotation")
+      p <- p + geom_text(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=Variable, frame=Frame))
+    } else {
+      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=Variable, frame=Frame))
+    }
+  }
+  if(!missing(annotate_var)){
+    if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE){
+      print("Consider installing 'ggrepel' for improved text annotation")
+      p <- p + geom_text(data=d_order[d_order$Variable %in% annotate_var,], aes(pos_index,pval,label=Variable, frame=Frame))
+    } else {
+      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$Variable %in% annotate_var,], aes(pos_index,pval,label=Variable, frame=Frame))
+    }
+  }
   #Highlight if given
   if(!missing(highlight_var)){
     if("Shape" %in% names(d)){
