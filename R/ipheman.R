@@ -28,7 +28,11 @@
 #' @family interactive plotting functions
 #' @seealso \code{\link{pheman}}, \code{\link{apheman}}, \code{\link{igman}}, \code{\link{ieman}}
 #' @examples
-#' ipheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
+#' #In this case we'd like to also see the p-value when we hover over a point, so we'll add an 'Info' column to the data
+#' #We'd also like to search dbSNP when we click on a point
+#' data(phewas)
+#' phewas$Info <- paste0("p-value:", signif(dat$pvalue, digits=3))
+#' ipheman(d=phewas, moreinfo = TRUE, db="dbSNP", line=0.001)
 
 ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, db, moreinfo=FALSE, bigrender=FALSE, file="ipheman", hgt=7, wi=12){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {

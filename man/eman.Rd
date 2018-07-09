@@ -56,12 +56,7 @@ Dependencies: ggplot2
 Suggested: RColorBrewer
 }
 \examples{
-#Generate some data
-dat <- data.frame(Variable=paste("Var", seq(1:5000), sep=""),
-                 pvalue=runif(n=5000),
-                 Group=rep(paste("G", seq(1:6), sep=""), length.out=5000, each=1),
-                 Shape=rep(paste("S", seq(1:5), sep="") , length.out=5000, each=1))
-#Plot
+data(ewas)
 eman(d=dat, title="EWAS", line=0.001, annotate_p=0.001, color1="#A23B72", color2="#2A84AA", highlight_p=0.001, highlighter="green")
 }
 \seealso{

@@ -28,12 +28,7 @@
 #' @family static plotting functions
 #' @seealso \code{\link{ieman}}, \code{\link{aeman}}, \code{\link{gman}}, \code{\link{pheman}}
 #' @examples
-#' #Generate some data
-#' dat <- data.frame(Variable=paste("Var", seq(1:5000), sep=""),
-#'                  pvalue=runif(n=5000),
-#'                  Group=rep(paste("G", seq(1:6), sep=""), length.out=5000, each=1),
-#'                  Shape=rep(paste("S", seq(1:5), sep="") , length.out=5000, each=1))
-#' #Plot
+#' data(ewas)
 #' eman(d=dat, title="EWAS", line=0.001, annotate_p=0.001, color1="#A23B72", color2="#2A84AA", highlight_p=0.001, highlighter="green")
 
 eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, file="eman", hgt=7, wi=12, res=300){

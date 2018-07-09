@@ -26,29 +26,11 @@
 #' @family animated plotting functions
 #' @seealso \code{\link{gman}}, \code{\link{igman}}, \code{\link{apheman}}, \code{\link{aeman}}
 #' @examples
-#' #Generate some data
 #' #To use the animated plot function, we need to add an animation 'Frame' column to our data
 #' #In this case we will imagine that we've run a GWAS using additive, dominant, and recessive models
 #' #and want to highlight a SNP of interest to see how the p-value changes
-#' add <- data.frame(SNP=paste("rs", seq(1:5000), sep=""),
-#'                  CHR=rep(c(1:22, "X", "Y"), length.out=5000, each=200),
-#'                  POS=rep(seq(1, 10000, by = 200), length.out=5000),
-#'                  pvalue=runif(n=5000),
-#'                  Frame="Additive")
-#' dom <- data.frame(SNP=paste("rs", seq(1:5000), sep=""),
-#'                  CHR=rep(c(1:22, "X", "Y"), length.out=5000, each=200),
-#'                  POS=rep(seq(1, 10000, by = 200), length.out=5000),
-#'                  pvalue=runif(n=5000),
-#'                  Frame="Dominant")
-#' rec <- data.frame(SNP=paste("rs", seq(1:5000), sep=""),
-#'                  CHR=rep(c(1:22, "X", "Y"), length.out=5000, each=200),
-#'                  POS=rep(seq(1, 10000, by = 200), length.out=5000),
-#'                  pvalue=runif(n=5000),
-#'                  Frame="Recessive")
-#' dat <- rbind(add, dom, rec)
-#' #Plot
-#' agman(d=dat, line=0.0005, highlight_snp="rs4204", chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black",opacity=0.7, wi=750, hgt=500)
-
+#' data(gwas)
+#' agman(d=gwas, line=0.0005, highlight_snp="rs4204", chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black",opacity=0.7, wi=750, hgt=500)
 
 agman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="agman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
