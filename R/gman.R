@@ -1,9 +1,6 @@
 #' gman
 #'
 #' Create Manhattan plots for GWAS
-#' Note: There is an issue with dev.off() if using RStudio
-#' Dependencies: ggplot2
-#' Suggested: RColorBrewer, ggrepel
 #' @param d data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape and Color
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean

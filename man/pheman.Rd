@@ -53,9 +53,6 @@ png image
 }
 \description{
 Create Manhattan plots for PheWAS
-Note: There is an issue with dev.off() if using RStudio
-Dependencies: ggplot2
-Suggested: RColorBrewer, ggrepel
 }
 \examples{
 data(phewas)

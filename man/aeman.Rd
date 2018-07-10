@@ -46,9 +46,6 @@ aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 }
 \description{
 Create animated Manhattan plots for EWAS
-Note: There is an issue with dev.off() if using RStudio
-Dependencies: ggplot2
-Suggested: RColorBrewer
 }
 \examples{
 aeman(d, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )

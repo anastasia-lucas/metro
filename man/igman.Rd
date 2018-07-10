@@ -51,8 +51,6 @@ html file
 }
 \description{
 Create Interactive Manhattan plots for GWAS
-Dependencies: ggplot2, ggiraph
-Suggested: RColorBrewer
 }
 \examples{
 igman(d, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)

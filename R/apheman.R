@@ -1,9 +1,6 @@
 #' apheman
 #'
 #' Create Manhattan plots for PheWAS
-#' Note: There is an issue with dev.off() if using RStudio
-#' Dependencies: ggplot2, gganimate
-#' Suggested: RColorBrewer
 #' @param d data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, Frame columns, optional Shape
 #' @param phegroup optional grouping file for phenotypes, must contain PHE and Group columns
 #' @param line optional pvalue threshold to draw red line at

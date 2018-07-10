@@ -51,9 +51,6 @@ png image
 }
 \description{
 Create Manhattan plots for GWAS
-Note: There is an issue with dev.off() if using RStudio
-Dependencies: ggplot2
-Suggested: RColorBrewer, ggrepel
 }
 \examples{
 gman(d, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)

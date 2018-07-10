@@ -51,9 +51,6 @@ png image(s)
 }
 \description{
 Create interactive Manhattan plots for EWAS
-Note: There is an issue with dev.off() if using RStudio
-Dependencies: ggplot2
-Suggested: RColorBrewer
 }
 \examples{
 ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )

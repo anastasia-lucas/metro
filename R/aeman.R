@@ -1,9 +1,6 @@
 #' aeman
 #'
 #' Create animated Manhattan plots for EWAS
-#' Note: There is an issue with dev.off() if using RStudio
-#' Dependencies: ggplot2
-#' Suggested: RColorBrewer
 #' @param d data frame, columns one, two, and three must be Variable, pvalue, and Frame; Group, Shape and Color optional
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean

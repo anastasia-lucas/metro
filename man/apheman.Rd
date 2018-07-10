@@ -49,9 +49,6 @@ apheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
 }
 \description{
 Create Manhattan plots for PheWAS
-Note: There is an issue with dev.off() if using RStudio
-Dependencies: ggplot2, gganimate
-Suggested: RColorBrewer
 }
 \examples{
 apheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)

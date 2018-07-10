@@ -1,8 +1,6 @@
 #' igman
 #'
 #' Create Interactive Manhattan plots for GWAS
-#' Dependencies: ggplot2, ggiraph
-#' Suggested: RColorBrewer
 #' @param d data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape, Color, and Info
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean

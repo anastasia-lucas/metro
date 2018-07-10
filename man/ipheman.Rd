@@ -53,8 +53,6 @@ html file
 }
 \description{
 Create Interactive Manhattan plots for PheWAS
-Dependencies: ggplot2, ggiraph
-Suggested: RColorBrewer
 }
 \examples{
 #In this case we'd like to also see the p-value when we hover over a point, so we'll add an 'Info' column to the data

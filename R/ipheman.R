@@ -1,8 +1,6 @@
 #' ipheman
 #'
 #' Create Interactive Manhattan plots for PheWAS
-#' Dependencies: ggplot2, ggiraph
-#' Suggested: RColorBrewer
 #' @param d data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape
 #' @param phegroup optional grouping file for phenotypes, must contain PHE and Group columns
 #' @param line optional pvalue threshold to draw red line at

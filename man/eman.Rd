@@ -51,9 +51,6 @@ png image(s)
 }
 \description{
 Create Manhattan plots for EWAS
-Note: There is an issue with dev.off() if using RStudio
-Dependencies: ggplot2
-Suggested: RColorBrewer
 }
 \examples{
 data(ewas)

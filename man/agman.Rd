@@ -47,9 +47,6 @@ png image
 }
 \description{
 Create Manhattan plots for GWAS
-Note: There is an issue with dev.off() if using RStudio
-Dependencies: ggplot2, gganimate
-Suggested: RColorBrewer
 }
 \examples{
 #To use the animated plot function, we need to add an animation 'Frame' column to our data
