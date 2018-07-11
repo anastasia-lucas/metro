@@ -11,6 +11,8 @@
 #' @param color2 second alternating color
 #' @param highlight_var list of variables to highlight
 #' @param highlight_p pvalue threshold to highlight
+#' @param annotate_var list of variables to annotate
+#' @param annotate_p pvalue threshold to annotate
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
 #' @param file file name of saved image
@@ -26,7 +28,7 @@
 #' @examples
 #' aeman(d, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
 
-aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, file="aeman", hgt=800, wi=1300){
+aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, file="aeman", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 to create visualization.", call. = FALSE)
   } else {

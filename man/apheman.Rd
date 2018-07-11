@@ -4,10 +4,10 @@
 \alias{apheman}
 \title{apheman}
 \usage{
-apheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
-  highlight_p, highlighter = "red", title = NULL, chrcolor1 = "#AAAAAA",
-  chrcolor2 = "#4D4D4D", groupcolors, file = "apheman", ext = "gif",
-  hgt = 800, wi = 1300)
+apheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp,
+  annotate_p, highlight_snp, highlight_p, highlighter = "red", title = NULL,
+  chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
+  file = "apheman", ext = "gif", hgt = 800, wi = 1300)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, Frame columns, optional Shape}
@@ -21,6 +21,10 @@ apheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
 \item{yaxis}{label for y-axis, automatically set if log10=TRUE}
 
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
+
+\item{annotate_snp}{list of SNPs to annotate}
+
+\item{annotate_p}{pvalue threshold to annotate}
 
 \item{highlight_snp}{list of SNPs to highlight}
 

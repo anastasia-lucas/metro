@@ -12,6 +12,8 @@
 #' @param chrcolor2 second alternating color for chromosome
 #' @param highlight_snp list of SNPs to highlight
 #' @param highlight_p pvalue threshold to highlight
+#' @param annotate_snp list of SNPs to annotate
+#' @param annotate_p pvalue threshold to annotate
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
 #' @param file file name of saved image
@@ -27,7 +29,7 @@
 #' @examples
 #' apheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
 
-apheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="apheman", ext="gif", hgt=800, wi=1300){
+apheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="apheman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and gganimate to create interactive visualization.", call. = FALSE)
   } else {

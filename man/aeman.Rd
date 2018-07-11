@@ -5,8 +5,9 @@
 \title{aeman}
 \usage{
 aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
-  highlight_var, highlight_p, highlighter = "red", color1 = "#AAAAAA",
-  color2 = "#4D4D4D", groupcolors, file = "aeman", hgt = 800, wi = 1300)
+  annotate_var, annotate_p, highlight_var, highlight_p, highlighter = "red",
+  color1 = "#AAAAAA", color2 = "#4D4D4D", groupcolors, file = "aeman",
+  hgt = 800, wi = 1300)
 }
 \arguments{
 \item{d}{data frame, columns one, two, and three must be Variable, pvalue, and Frame; Group, Shape and Color optional}
@@ -20,6 +21,10 @@ aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
 \item{title}{optional string for plot title}
+
+\item{annotate_var}{list of variables to annotate}
+
+\item{annotate_p}{pvalue threshold to annotate}
 
 \item{highlight_var}{list of variables to highlight}
 

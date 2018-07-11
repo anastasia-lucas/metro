@@ -11,6 +11,8 @@
 #' @param chrcolor2 second alternating color for chromosome
 #' @param highlight_snp list of SNPs to highlight
 #' @param highlight_p pvalue threshold to highlight
+#' @param annotate_snp list of SNPs to annotate
+#' @param annotate_p pvalue threshold to annotate
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
 #' @param file file name of saved image
@@ -30,7 +32,7 @@
 #' data(gwas)
 #' agman(d=gwas, line=0.0005, highlight_snp="rs4204", chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black",opacity=0.7, wi=750, hgt=500)
 
-agman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="agman", ext="gif", hgt=800, wi=1300){
+agman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="agman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
