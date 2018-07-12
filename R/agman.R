@@ -20,7 +20,7 @@
 #' @param hgt height of plot in pixels
 #' @param wi width of plot in pixels
 #' @import ggplot2
-#' @return png image
+#' @return gif or mp4 file
 #' @export
 #' @family GWAS functions
 #' @family animated plotting functions

@@ -47,7 +47,7 @@ agman(d, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp, annotate_p,
 \item{wi}{width of plot in pixels}
 }
 \value{
-png image
+gif or mp4 file
 }
 \description{
 Create Manhattan plots for GWAS

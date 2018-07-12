@@ -49,7 +49,7 @@ apheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp,
 \item{wi}{width of plot in pixels}
 }
 \value{
-.gif or .html file
+.gif or .mp4 file
 }
 \description{
 Create Manhattan plots for PheWAS

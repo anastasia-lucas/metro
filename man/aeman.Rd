@@ -47,7 +47,7 @@ aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 \item{ext}{file type to save, "gif" or "mp4"}
 }
 \value{
-.gif or .html file
+.gif or .mp4 file
 }
 \description{
 Create animated Manhattan plots for EWAS

@@ -20,7 +20,7 @@
 #' @param ext file type to save, "gif" or "mp4"
 #' @param hgt height of plot in pixels
 #' @param wi width of plot in pixels
-#' @return .gif or .html file
+#' @return .gif or .mp4 file
 #' @import ggplot2
 #' @export
 #' @family PheWAS functions
