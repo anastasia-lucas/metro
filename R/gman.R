@@ -26,7 +26,8 @@
 #' @family static plotting functions
 #' @seealso \code{\link{igman}}, \code{\link{agman}}, \code{\link{pheman}}, \code{\link{eman}}
 #' @examples
-#' gman(d, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
+#' data(gwas)
+#' gman(d=gwas[gwas$Frame=="Additive", 1:4], line=0.0005, chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black",opacity=0.7, wi=750, hgt=500)
 
 gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="gman", hgt=7, wi=12, res=300 ){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {

@@ -53,7 +53,8 @@ png image
 Create Manhattan plots for GWAS
 }
 \examples{
-gman(d, line, log10, yaxis, opacity, annotate_snp, annotate_p, title, chrcolor1, chrcolor2, groupcolors, file, hgt, wi, res)
+data(gwas)
+gman(d=gwas[gwas$Frame=="Additive", 1:4], line=0.0005, chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black",opacity=0.7, wi=750, hgt=500)
 }
 \seealso{
 \code{\link{igman}}, \code{\link{agman}}, \code{\link{pheman}}, \code{\link{eman}}

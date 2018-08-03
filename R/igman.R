@@ -73,7 +73,7 @@ igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highligh
   if("Color" %in% names(d)){
     if(!missing(groupcolors)){
       dcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), "#FFFFFF", "#EBEBEB")
-      names(dcols) <-c(levels(factor(lims$Color)), "shade_fffff", "shade_ebebeb")
+      names(dcols) <-c(levels(factor(lims$Color)), "shade_ffffff", "shade_ebebeb")
       newcols <- c(dcols, groupcolors)
     } else {
       if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
@@ -84,7 +84,7 @@ igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highligh
       ngroupcolors <- nlevels(factor(d_order$Color))
       getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
       newcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
-      names(newcols) <-c(levels(factor(lims$Color)), levels(factor(d_order$Color)), "shade_fffff", "shade_ebebeb")
+      names(newcols) <-c(levels(factor(lims$Color)), levels(factor(d_order$Color)), "shade_ffffff", "shade_ebebeb")
     }
   } else {
     #Color by CHR instead
