@@ -82,6 +82,8 @@ ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_s
       d_order$onclick <- sprintf("window.open(\"%s%s\")","https://www.ebi.ac.uk/gwas/search?query=", as.character(d_order$SNP))
     } else if(db=="dbSNP"){
       d_order$onclick <- sprintf("window.open(\"%s%s\")","https://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?searchType=adhoc_search&type=rs&rs=", as.character(d_order$SNP))
+    } else {
+      d_order$onclick <- sprintf("window.open(\"%s%s\")", db, as.character(d_order$SNP))
     }
   } else {
     d_order$onclick <- NA
