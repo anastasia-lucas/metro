@@ -35,9 +35,11 @@ igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
 
 \item{groupcolors}{named list of colors for data in 'Color' column}
 
-\item{db}{choose database to connect to ("dbSNP", "GWAScatalog", or enter your own search address)}
+\item{db}{choose database to connect to ("dbSNP", "GWASCatalog", or enter your own search address)}
 
 \item{background}{variegated or white}
+
+\item{chrblocks}{boolean, turns on x-axis chromosome marker blocks}
 
 \item{moreinfo}{includes more information on hover, refers to Info column}
 
@@ -48,8 +50,6 @@ igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
 \item{wi}{width of plot in inches}
 
 \item{bigrender}{can set to TRUE for big plots (~50000 rows) that produce huge input lookup error}
-
-\item{groupcolors}{named list of colors for data in 'Color' column}
 }
 \value{
 html file

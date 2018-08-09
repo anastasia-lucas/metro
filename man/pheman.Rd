@@ -7,7 +7,8 @@
 pheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp,
   annotate_p, highlight_snp, highlight_p, highlighter = "red", title = NULL,
   chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
-  file = "pheman", hgt = 7, wi = 12, res = 300)
+  background = "variegated", chrblocks = TRUE, file = "pheman", hgt = 7,
+  wi = 12, res = 300)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape}
@@ -39,6 +40,10 @@ pheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp,
 \item{chrcolor2}{second alternating color for chromosome}
 
 \item{groupcolors}{named list of colors for data in 'PHE' or 'Group' column}
+
+\item{background}{variegated or white}
+
+\item{chrblocks}{boolean, turns on x-axis chromosome marker blocks}
 
 \item{file}{file name of saved image}
 

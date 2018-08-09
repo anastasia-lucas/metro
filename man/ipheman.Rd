@@ -6,8 +6,9 @@
 \usage{
 ipheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
   highlight_p, highlighter = "red", title = NULL, chrcolor1 = "#AAAAAA",
-  chrcolor2 = "#4D4D4D", groupcolors, db, moreinfo = FALSE,
-  bigrender = FALSE, file = "ipheman", hgt = 7, wi = 12)
+  chrcolor2 = "#4D4D4D", groupcolors, background = "variegated",
+  chrblocks = TRUE, db, moreinfo = FALSE, bigrender = FALSE,
+  file = "ipheman", hgt = 7, wi = 12)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape}
@@ -36,7 +37,11 @@ ipheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
 
 \item{groupcolors}{named list of colors for data in 'Color' column}
 
-\item{db}{choose database to connect to ("dbSNP", "GWAScatalog", or enter your own search address)}
+\item{background}{variegated or white}
+
+\item{chrblocks}{boolean, turns on x-axis chromosome marker blocks}
+
+\item{db}{choose database to connect to ("dbSNP", "GWASCatalog", or enter your own search address)}
 
 \item{moreinfo}{includes more information on hover, refers to Info column}
 

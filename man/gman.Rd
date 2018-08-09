@@ -41,7 +41,7 @@ gman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
 
 \item{background}{variegated or white}
 
-\item{chrblocks}{boolean, turns on x-axis group marker blocks}
+\item{chrblocks}{boolean, turns on x-axis chromosome marker blocks}
 
 \item{file}{file name of saved image}
 

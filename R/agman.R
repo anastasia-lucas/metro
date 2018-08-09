@@ -16,7 +16,7 @@
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
 #' @param background variegated or white
-#' @param chrblocks boolean, turns on x-axis group marker blocks
+#' @param chrblocks boolean, turns on x-axis chromosome marker blocks
 #' @param file file name of saved image
 #' @param ext file type to save, "gif" or "mp4"
 #' @param hgt height of plot in pixels

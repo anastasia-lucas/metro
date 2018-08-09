@@ -13,9 +13,9 @@
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
-#' @param groupcolors named list of colors for data in 'Color' column
+#' @param chrblocks boolean, turns on x-axis chromosome marker blocks
 #' @param background variegated or white
-#' @param db choose database to connect to ("dbSNP", "GWAScatalog", or enter your own search address)
+#' @param db choose database to connect to ("dbSNP", "GWASCatalog", or enter your own search address)
 #' @param moreinfo includes more information on hover, refers to Info column
 #' @param file file name of saved image
 #' @param hgt height of plot in inches
@@ -61,7 +61,7 @@ igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highligh
 
   #Set up onclick
   if(!missing(db)){
-    if(db=="GWAScatalog"){
+    if(db=="GWASCatalog"){
       d_order$onclick <- sprintf("window.open(\"%s%s\")","https://www.ebi.ac.uk/gwas/search?query=", as.character(d_order$SNP))
     } else if(db=="dbSNP"){
       d_order$onclick <- sprintf("window.open(\"%s%s\")","https://www.ncbi.nlm.nih.gov/SNP/snp_ref.cgi?searchType=adhoc_search&type=rs&rs=", as.character(d_order$SNP))
