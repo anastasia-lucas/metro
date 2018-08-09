@@ -14,7 +14,7 @@
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
-#' @param db choose database to connect to (dbSNP or GWAScatalog)
+#' @param db choose database to connect to ("dbSNP", "GWAScatalog", or enter your own search address)
 #' @param moreinfo includes more information on hover, refers to Info column
 #' @param file file name of saved image
 #' @param hgt height of plot in inches

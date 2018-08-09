@@ -36,7 +36,7 @@ ipheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
 
 \item{groupcolors}{named list of colors for data in 'Color' column}
 
-\item{db}{choose database to connect to (dbSNP or GWAScatalog)}
+\item{db}{choose database to connect to ("dbSNP", "GWAScatalog", or enter your own search address)}
 
 \item{moreinfo}{includes more information on hover, refers to Info column}
 
