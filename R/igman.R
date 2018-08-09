@@ -13,7 +13,9 @@
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
-#' @param db choose database to connect to (dbSNP or GWAScatalog)
+#' @param groupcolors named list of colors for data in 'Color' column
+#' @param background variegated or white
+#' @param db choose database to connect to ("dbSNP", "GWAScatalog", or enter your own search address)
 #' @param moreinfo includes more information on hover, refers to Info column
 #' @param file file name of saved image
 #' @param hgt height of plot in inches
@@ -28,7 +30,7 @@
 #' @examples
 #' igman(d, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
 
-igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="igman", hgt=7, wi=12, bigrender=FALSE){
+igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, db, background="variegated", chrblocks=FALSE, moreinfo=FALSE, file="igman", hgt=7, wi=12, bigrender=FALSE){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
@@ -111,6 +113,9 @@ igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highligh
     if(!missing(line)) {redline <- line}
   }
 
+  #Theme options
+  backpanel <- ifelse(background=="white", "NULL", "geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = min(d_order$pval), ymax = Inf, fill=factor(shademap)), alpha = 0.5)" )
+
   #Allow more than 6 shapes
   #3, 4 and 7 to 14 are composite symbols- incompatible with ggiraph
   if("Shape" %in% names(d)){
@@ -119,7 +124,7 @@ igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highligh
   }
 
   #Start plotting
-  p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
+  p <- ggplot() + eval(parse(text=backpanel))
   #Add shape info if available
   if("Shape" %in% names(d)){
     p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick, color=factor(Color), shape=factor(Shape)), alpha=opacity) + scale_shape_manual(values=shapevector)
@@ -127,7 +132,7 @@ igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highligh
     p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick, color=factor(Color)), alpha=opacity)
   }
   p <- p + scale_x_continuous(breaks=lims$av, labels=lims$Color, expand=c(0,0))
-  p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = 0, fill=as.factor(Color)), alpha = 1)
+  if(chrblocks==TRUE){p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = min(d_order$pval), fill=as.factor(Color)), alpha = 1)}
   if("Color" %in% names(d)){
     #Add legend
     p <- p + scale_colour_manual(name = "Color", values = newcols) + scale_fill_manual(name = "Color",values = newcols, guides(alpha=FALSE))
@@ -159,6 +164,13 @@ igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highligh
   if(!missing(line)){
     p <- p + geom_hline(yintercept = redline, colour="red")
   }
+  #Theme
+  if(chrblocks==TRUE){
+    p <- p+ylim(c(0,max(d_order$pval)))
+  } else {
+    p <- p+scale_y_continuous(limits=c(0, max(d_order$pval)), expand=expand_scale(mult=c(0,0.1)))
+  }
+  if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 
   #Save
   print(paste("Saving plot to ", file, ".html", sep=""))

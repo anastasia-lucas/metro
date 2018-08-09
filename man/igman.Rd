@@ -6,8 +6,9 @@
 \usage{
 igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
   highlighter = "red", title = NULL, chrcolor1 = "#AAAAAA",
-  chrcolor2 = "#4D4D4D", groupcolors, db, moreinfo = FALSE,
-  file = "igman", hgt = 7, wi = 12, bigrender = FALSE)
+  chrcolor2 = "#4D4D4D", groupcolors, db, background = "variegated",
+  chrblocks = FALSE, moreinfo = FALSE, file = "igman", hgt = 7,
+  wi = 12, bigrender = FALSE)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape, Color, and Info}
@@ -34,7 +35,9 @@ igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
 
 \item{groupcolors}{named list of colors for data in 'Color' column}
 
-\item{db}{choose database to connect to (dbSNP or GWAScatalog)}
+\item{db}{choose database to connect to ("dbSNP", "GWAScatalog", or enter your own search address)}
+
+\item{background}{variegated or white}
 
 \item{moreinfo}{includes more information on hover, refers to Info column}
 
@@ -45,6 +48,8 @@ igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
 \item{wi}{width of plot in inches}
 
 \item{bigrender}{can set to TRUE for big plots (~50000 rows) that produce huge input lookup error}
+
+\item{groupcolors}{named list of colors for data in 'Color' column}
 }
 \value{
 html file

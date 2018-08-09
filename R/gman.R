@@ -15,6 +15,8 @@
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
+#' @param background variegated or white
+#' @param chrblocks boolean, turns on x-axis group marker blocks
 #' @param file file name of saved image
 #' @param hgt height of plot in inches
 #' @param wi width of plot in inches
@@ -29,7 +31,7 @@
 #' data(gwas)
 #' gman(d=gwas[gwas$Frame=="Additive", 1:4], line=0.0005, chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black",opacity=0.7, wi=750, hgt=500)
 
-gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="gman", hgt=7, wi=12, res=300 ){
+gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=FALSE, file="gman", hgt=7, wi=12, res=300 ){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 to create visualization.", call. = FALSE)
   }
@@ -94,6 +96,9 @@ gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annota
     if(!missing(line)) {redline <- line}
   }
 
+  #Theme options
+  backpanel <- ifelse(background=="white", "NULL", "geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = min(d_order$pval), ymax = Inf, fill=factor(shademap)), alpha = 0.5)" )
+
   #Allow more than 6 shapes
   if("Shape" %in% names(d)){
     allshapes <- c(16,15,17,3,7,8,0:2,4:6,9:14,18:25,33:127)
@@ -101,31 +106,15 @@ gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annota
   }
 
   #Start plotting
-  p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
+  p <- ggplot() + eval(parse(text=backpanel))
   #Add shape info if available
   if("Shape" %in% names(d)){
     p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color), shape=factor(Shape)), alpha=opacity) + scale_shape_manual(values=shapevector)
   } else {
     p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color)), alpha=opacity)
   }
-  if(!missing(annotate_p)){
-    if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE) {
-      print("Consider installing 'ggrepel' for improved text annotation")
-      p <- p + geom_text(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP))
-    } else {
-      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP))
-    }
-  }
-  if(!missing(annotate_snp)){
-    if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE){
-      print("Consider installing 'ggrepel' for improved text annotation")
-      p <- p + geom_text(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP))
-    } else {
-      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP))
-    }
-  }
   p <- p + scale_x_continuous(breaks=lims$av, labels=lims$Color, expand=c(0,0))
-  p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = 0, fill=as.factor(Color)), alpha = 1)
+  if(chrblocks==TRUE){p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = min(d_order$pval), fill=as.factor(Color)), alpha = 1)}
   if("Color" %in% names(d)){
     #Add legend
     p <- p + scale_colour_manual(name = "Color", values = newcols) + scale_fill_manual(name = "Color", values = newcols, guides(alpha=FALSE))
@@ -151,10 +140,33 @@ gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annota
       p <- p + geom_point(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval), colour=highlighter)
     }
   }
+  if(!missing(annotate_p)){
+    if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE) {
+      print("Consider installing 'ggrepel' for improved text annotation")
+      p <- p + geom_text(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP))
+    } else {
+      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$pvalue < annotate_p,], aes(pos_index,pval,label=SNP))
+    }
+  }
+  if(!missing(annotate_snp)){
+    if (!requireNamespace(c("ggrepel"), quietly = TRUE)==TRUE){
+      print("Consider installing 'ggrepel' for improved text annotation")
+      p <- p + geom_text(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP))
+    } else {
+      p <- p + ggrepel::geom_text_repel(data=d_order[d_order$SNP %in% annotate_snp,], aes(pos_index,pval,label=SNP))
+    }
+  }
   #Add title and y axis title
   p <- p + ggtitle(title) + ylab(yaxislab)
   #Add pvalue threshold line
   if(!missing(line)){p <- p + geom_hline(yintercept = redline, colour="red")}
+  #Theme
+  if(chrblocks==TRUE){
+    p <- p+ylim(c(0,max(d_order$pval)))
+  } else {
+    p <- p+scale_y_continuous(limits=c(0, max(d_order$pval)), expand=expand_scale(mult=c(0,0.1)))
+  }
+  if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 
   #Save
   print(paste("Saving plot to ", file, ".png", sep=""))

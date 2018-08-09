@@ -15,6 +15,8 @@
 #' @param annotate_p pvalue threshold to annotate
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
+#' @param background variegated or white
+#' @param chrblocks boolean, turns on x-axis group marker blocks
 #' @param file file name of saved image
 #' @param ext file type to save, "gif" or "mp4"
 #' @param hgt height of plot in pixels
@@ -32,7 +34,7 @@
 #' data(gwas)
 #' agman(d=gwas, line=0.0005, highlight_snp="rs4204", chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black",opacity=0.7, wi=750, hgt=500)
 
-agman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, file="agman", ext="gif", hgt=800, wi=1300){
+agman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=FALSE, file="agman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
@@ -106,6 +108,9 @@ agman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_
     if(!missing(line)) {redline <- line}
   }
 
+  #Theme options
+  backpanel <- ifelse(background=="white", "NULL", "geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = min(d_order$pval), ymax = Inf, fill=factor(shademap)), alpha = 0.5)" )
+
   #Allow more than 6 shapes
   if("Shape" %in% names(d)){
     allshapes <- c(16,15,17,3,7,8,0:2,4:6,9:14,18:25,33:127)
@@ -113,7 +118,7 @@ agman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_
   }
 
   #Start plotting
-  p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
+  p <- ggplot() + eval(parse(text=backpanel))
   #Add shape info if available
   if("Shape" %in% names(d)){
     p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=factor(Color), shape=factor(Shape), frame=Frame), alpha=opacity) + scale_shape_manual(values=shapevector)
@@ -137,7 +142,7 @@ agman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_
     }
   }
   p <- p + scale_x_continuous(breaks=lims$av, labels=lims$Color, expand=c(0,0))
-  p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = 0, fill=as.factor(Color)), alpha = 1)
+  if(chrblocks==TRUE){p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = min(d_order$pval), fill=as.factor(Color)), alpha = 1)}
   if("Color" %in% names(d)){
     #Add legend
     p <- p + scale_colour_manual(name = "Color", values = newcols) + scale_fill_manual(name = "Color", values = newcols, guides(alpha=FALSE))
@@ -169,6 +174,14 @@ agman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_
   if(!missing(line)){
     p <- p + geom_hline(yintercept = redline, colour="red")
   }
+  #Theme
+  if(chrblocks==TRUE){
+    p <- p+ylim(c(0,max(d_order$pval)))
+  } else {
+    p <- p+scale_y_continuous(limits=c(0, max(d_order$pval)), expand=expand_scale(mult=c(0,0.1)))
+  }
+  if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
+
 
   #Animate and save
   print(paste("Saving plot to ", file, ".", ext, sep=""))

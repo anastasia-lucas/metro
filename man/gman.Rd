@@ -7,7 +7,8 @@
 gman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
   annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter = "red",
   title = NULL, chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
-  file = "gman", hgt = 7, wi = 12, res = 300)
+  background = "variegated", chrblocks = FALSE, file = "gman", hgt = 7,
+  wi = 12, res = 300)
 }
 \arguments{
 \item{d}{data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape and Color}
@@ -37,6 +38,10 @@ gman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
 \item{chrcolor2}{second alternating color for chromosome}
 
 \item{groupcolors}{named list of colors for data in 'Color' column}
+
+\item{background}{variegated or white}
+
+\item{chrblocks}{boolean, turns on x-axis group marker blocks}
 
 \item{file}{file name of saved image}
 
