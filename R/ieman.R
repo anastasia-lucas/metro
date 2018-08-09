@@ -68,25 +68,25 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
   d$rowid <- seq.int(nrow(d))
   dinfo <- d[, colnames(d) %in% c("rowid", "Color", "Shape", "pval", "tooltip", "onclick"), drop=FALSE]
 
-  #If no group, plot raw data
-  if(!"Group" %in% colnames(d)){
-    d_order <- merge(d, dinfo, by="rowid")
-    if("Shape" %in% names(d)){
-      if("Color" %in% names(d)){
-        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), color=Color, onclick=onclick, tooltip=tooltip), alpha=opacity) + scale_shape_manual(values=shapevector)
-      } else {
-        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), onclick=onclick, tooltip=tooltip), alpha=opacity) + scale_shape_manual(values=shapevector)
-      }
-      p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
-    } else {
-      if("Color" %in% names(d)){
-        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, color=Color, tooltip=tooltip, onclick=onclick))
-        p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
-      } else {
-        p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, tooltip=tooltip, onclick=onclick)) + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank())
-      }
-    }
-  } else {
+  ##If no group, plot raw data
+  #if(!"Group" %in% colnames(d)){
+  #  d_order <- merge(d, dinfo, by="rowid")
+  #  if("Shape" %in% names(d)){
+  #    if("Color" %in% names(d)){
+  #      p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), color=Color, onclick=onclick, tooltip=tooltip), alpha=opacity) + scale_shape_manual(values=shapevector)
+  #    } else {
+  #      p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, shape=factor(Shape), onclick=onclick, tooltip=tooltip), alpha=opacity) + scale_shape_manual(values=shapevector)
+  #    }
+  #    p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
+  #  } else {
+  #    if("Color" %in% names(d)){
+  #      p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, color=Color, tooltip=tooltip, onclick=onclick))
+  #      p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
+  #    } else {
+  #      p <- ggplot() + geom_point_interactive(data=d_order, aes(x=factor(Variable), y=pval, tooltip=tooltip, onclick=onclick)) + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank())
+  #    }
+  #  }
+  #} else {
     #Create position index
     subd <- d[, colnames(d) %in% c("Variable", "Group", "pvalue", "rowid")]
     d_order <- subd[order(subd$Group, subd$Variable),]
@@ -118,8 +118,15 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
           require("RColorBrewer", quietly=TRUE)
         }
         ngroupcolors <- nlevels(factor(d$Color))
-        getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
-        newcols <- c(rep(x=c(color1, color2), length.out=nvarcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+        if(ngroupcolors > 15){
+          getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
+          newcols <- c(rep(x=c(color1, color2), length.out=nvarcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+        } else {
+          pal <- pal <- c("#009292", "#920000", "#490092", "#db6d00", "#24ff24",
+                          "#ffff6d", "#000000", "#006ddb", "#004949","#924900",
+                          "#ff6db6", "#6db6ff","#b66dff", "#ffb6db","#b6dbff")
+          newcols <- c(rep(x=c(color1, color2), length.out=nvarcolors, each=1), pal[1:ngroupcolors], "#FFFFFF", "#EBEBEB")
+        }
         names(newcols) <-c(levels(factor(lims$Color)), levels(factor(d$Color)), "shade_ffffff", "shade_ebebeb")
       }
     } else {
@@ -142,7 +149,7 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
     p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = 0, fill=Color), alpha = 1)
     #p <- p + scale_colour_manual(name = "Color",values = newcols, guides(alpha=FALSE)) + scale_fill_manual(name = "Color",values = newcols, guides(alpha=FALSE))
     p <- p + theme(axis.text.x=element_text(angle=90), panel.grid.minor.x = element_blank(), panel.grid.major.x=element_blank(), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
-  }
+  #}
   if("Color" %in% names(d)){
     #Add legend
     p <- p + scale_colour_manual(name = "Color", values = newcols) + scale_fill_manual(name = "Color", values = newcols, guides(alpha=FALSE))

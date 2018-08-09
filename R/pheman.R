@@ -73,8 +73,15 @@ pheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_snp
       require("RColorBrewer", quietly=TRUE)
     }
     ngroupcolors <- nlevels(factor(d_order$Color))
-    getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
-    newcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+    if(ngroupcolors > 15){
+      getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
+      newcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+    } else {
+      pal <- pal <- c("#009292", "#920000", "#490092", "#db6d00", "#24ff24",
+                      "#ffff6d", "#000000", "#006ddb", "#004949","#924900",
+                      "#ff6db6", "#6db6ff","#b66dff", "#ffb6db","#b6dbff")
+      newcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), pal[1:ngroupcolors], "#FFFFFF", "#EBEBEB")
+    }
     names(newcols) <-c(levels(factor(lims$Color)), levels(factor(d_order$Color)), "shade_ffffff", "shade_ebebeb")
   }
 

@@ -56,25 +56,25 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
   d$rowid <- seq.int(nrow(d))
   dinfo <- d[, colnames(d) %in% c("rowid", "Color", "Shape", "pval"), drop=FALSE]
 
-  #If no group, plot raw data
-  if(!"Group" %in% colnames(d)){
-    d_order <- merge(d, dinfo, by="rowid")
-    if("Shape" %in% names(d)){
-      if("Color" %in% names(d)){
-        p <- ggplot() + geom_point(data=d_order, aes(x=factor(Variable), y=pval, shape=Shape, color=Color, frame=Frame), alpha=opacity) + scale_shape_manual(values=shapevector)
-      } else {
-        p <- ggplot() + geom_point(data=d_order, aes(x=factor(Variable), y=pval, shape=Shape, frame=Frame), alpha=opacity) + scale_shape_manual(values=shapevector)
-      }
-      p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
-    } else {
-      if("Color" %in% names(d)){
-        p <- ggplot(d_order, aes(x=factor(Variable), y=pval, color=Color, frame=Frame)) + geom_point()
-        p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
-      } else {
-        p <- ggplot(d_order, aes(x=factor(Variable), y=pval, frame=Frame)) + geom_point() + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank())
-      }
-    }
-  } else {
+  ##If no group, plot raw data
+  #if(!"Group" %in% colnames(d)){
+  #  d_order <- merge(d, dinfo, by="rowid")
+  #  if("Shape" %in% names(d)){
+  #    if("Color" %in% names(d)){
+  #      p <- ggplot() + geom_point(data=d_order, aes(x=factor(Variable), y=pval, shape=Shape, color=Color, frame=Frame), alpha=opacity) + scale_shape_manual(values=shapevector)
+  #    } else {
+  #      p <- ggplot() + geom_point(data=d_order, aes(x=factor(Variable), y=pval, shape=Shape, frame=Frame), alpha=opacity) + scale_shape_manual(values=shapevector)
+  #    }
+  #    p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
+  #  } else {
+  #    if("Color" %in% names(d)){
+  #      p <- ggplot(d_order, aes(x=factor(Variable), y=pval, color=Color, frame=Frame)) + geom_point()
+  #      p <- p + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
+  #    } else {
+  #      p <- ggplot(d_order, aes(x=factor(Variable), y=pval, frame=Frame)) + geom_point() + theme(axis.text.x = element_text(angle=90), axis.title.x=element_blank())
+  #    }
+  #  }
+  #} else {
     #Create position index
     subd <- d[, colnames(d) %in% c("Variable", "Group", "pvalue", "rowid")]
     d_order <- subd[order(subd$Group, subd$Variable),]
@@ -106,8 +106,15 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
           require("RColorBrewer", quietly=TRUE)
         }
         ngroupcolors <- nlevels(factor(d$Color))
-        getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
-        newcols <- c(rep(x=c(color1, color2), length.out=nvarcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+        if(ngroupcolors > 15){
+          getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
+          newcols <- c(rep(x=c(color1, color2), length.out=nvarcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+        } else {
+          pal <- pal <- c("#009292", "#920000", "#490092", "#db6d00", "#24ff24",
+                          "#ffff6d", "#000000", "#006ddb", "#004949","#924900",
+                          "#ff6db6", "#6db6ff","#b66dff", "#ffb6db","#b6dbff")
+          newcols <- c(rep(x=c(color1, color2), length.out=nvarcolors, each=1), pal[1:ngroupcolors], "#FFFFFF", "#EBEBEB")
+        }
         names(newcols) <-c(levels(factor(lims$Color)), levels(factor(d$Color)), "shade_ffffff", "shade_ebebeb")
       }
     } else {
@@ -130,7 +137,7 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
     p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = 0, fill=Color), alpha = 1)
     #p <- p + scale_colour_manual(name = "Color",values = newcols, guides(alpha=FALSE)) + scale_fill_manual(name = "Color",values = newcols, guides(alpha=FALSE))
     p <- p + theme(axis.text.x=element_text(angle=90), panel.grid.minor.x = element_blank(), panel.grid.major.x=element_blank(), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
-  }
+  #}
   if("Color" %in% names(d)){
     #Add legend
     p <- p + scale_colour_manual(name = "Color", values = newcols) + scale_fill_manual(name = "Color", values = newcols, guides(alpha=FALSE))
