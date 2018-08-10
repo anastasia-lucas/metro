@@ -6,11 +6,12 @@
 \usage{
 aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
   annotate_var, annotate_p, highlight_var, highlight_p, highlighter = "red",
-  color1 = "#AAAAAA", color2 = "#4D4D4D", groupcolors, file = "aeman",
+  color1 = "#AAAAAA", color2 = "#4D4D4D", groupcolors,
+  background = "variegated", grpblocks = FALSE, file = "aeman",
   hgt = 800, wi = 1300)
 }
 \arguments{
-\item{d}{data frame, columns one, two, and three must be Variable, pvalue, and Frame; Group, Shape and Color optional}
+\item{d}{data frame, columns one, two, and three must be Variable, pvalue, Group, and Frame; Shape and Color optional}
 
 \item{line}{optional pvalue threshold to draw red line at}
 
@@ -37,6 +38,10 @@ aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 \item{color2}{second alternating color}
 
 \item{groupcolors}{named list of colors for data in 'Color' column}
+
+\item{background}{variegated or white}
+
+\item{grpblocks}{boolean, turns on x-axis group marker blocks}
 
 \item{file}{file name of saved image}
 

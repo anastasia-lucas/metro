@@ -6,11 +6,12 @@
 \usage{
 ieman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
   highlight_var, highlight_p, highlighter = "red", color1 = "#AAAAAA",
-  color2 = "#4D4D4D", groupcolors, db, moreinfo = FALSE, file = "ieman",
-  hgt = 7, wi = 12, bigrender = FALSE)
+  color2 = "#4D4D4D", groupcolors, db, moreinfo = FALSE,
+  background = "variegated", grpblocks = FALSE, file = "ieman", hgt = 7,
+  wi = 12, bigrender = FALSE)
 }
 \arguments{
-\item{d}{data frame, columns one and two must be Variable and pvalue; Group, Shape, Color, and Info optional}
+\item{d}{data frame, columns one and two must be Variable, pvalue, and Group; Shape, Color, and Info optional}
 
 \item{line}{optional pvalue threshold to draw red line at}
 
@@ -37,6 +38,10 @@ ieman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 \item{db}{query address, ex. "https://www.google.com/search?q"}
 
 \item{moreinfo}{includes more information on hover, refers to Info column}
+
+\item{background}{variegated or white}
+
+\item{grpblocks}{boolean, turns on x-axis group marker blocks}
 
 \item{file}{file name of saved image}
 

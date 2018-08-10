@@ -1,7 +1,7 @@
 #' ieman
 #'
 #' Create interactive Manhattan plots for EWAS
-#' @param d data frame, columns one and two must be Variable and pvalue; Group, Shape, Color, and Info optional
+#' @param d data frame, columns one and two must be Variable, pvalue, and Group; Shape, Color, and Info optional
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
@@ -15,6 +15,8 @@
 #' @param groupcolors named list of colors for data in 'Color' column
 #' @param db query address, ex. "https://www.google.com/search?q"
 #' @param moreinfo includes more information on hover, refers to Info column
+#' @param background variegated or white
+#' @param grpblocks boolean, turns on x-axis group marker blocks
 #' @param file file name of saved image
 #' @param hgt height of plot in inches
 #' @param wi width of plot in inches
@@ -28,7 +30,7 @@
 #' @examples
 #' ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
 
-ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, file="ieman", hgt=7, wi=12, bigrender=FALSE){
+ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, background="variegated", grpblocks=FALSE, file="ieman", hgt=7, wi=12, bigrender=FALSE){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
   } else {
@@ -46,6 +48,9 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
     yaxislab <- yaxis
     if(!missing(line)) {redline <- line}
   }
+
+  #Theme options
+  backpanel <- ifelse(background=="white", "NULL", "geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = min(d_order$pval), ymax = Inf, fill=factor(shademap)), alpha = 0.5)" )
 
   #Allow more than 6 shapes
   #3, 4 and 7 to 14 are composite symbols- incompatible with ggiraph
@@ -138,7 +143,7 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
 
     #Start plotting
     d_order <- merge(d_order, dinfo, by="rowid")
-    p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
+    p <- ggplot() + eval(parse(text=backpanel))
     #Add shape info if available
     if("Shape" %in% names(d)){
       p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, color=Color, shape=factor(Shape), onclick=onclick, tooltip=tooltip), alpha=opacity) + scale_shape_manual(values=shapevector)
@@ -146,7 +151,7 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
       p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, color=Color, onclick=onclick, tooltip=tooltip), alpha=opacity)
     }
     p <- p + scale_x_continuous(breaks=lims$av, labels=lims$Color, expand=c(0,0))
-    p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = 0, fill=Color), alpha = 1)
+    if(grpblocks==TRUE){p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = min(d_order$pval), fill=as.factor(Color)), alpha = 1)}
     #p <- p + scale_colour_manual(name = "Color",values = newcols, guides(alpha=FALSE)) + scale_fill_manual(name = "Color",values = newcols, guides(alpha=FALSE))
     p <- p + theme(axis.text.x=element_text(angle=90), panel.grid.minor.x = element_blank(), panel.grid.major.x=element_blank(), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
   #}
@@ -180,9 +185,14 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
   p <- p + ggtitle(title) + ylab(yaxislab)
 
   #Add pvalue threshold line
-  if(!missing(line)){
-    p <- p + geom_hline(yintercept = redline, colour="red")
+  if(!missing(line)){p <- p + geom_hline(yintercept = redline, colour="red")}
+
+  if(grpblocks==TRUE){
+    p <- p+ylim(c(0,max(d_order$pval)))
+  } else {
+    p <- p+scale_y_continuous(limits=c(0, max(d_order$pval)),expand=expand_scale(mult=c(0,0.1)))
   }
+  if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 
   #Save
   print(paste("Saving plot to ", file, ".html", sep=""))

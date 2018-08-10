@@ -1,7 +1,7 @@
 #' aeman
 #'
 #' Create animated Manhattan plots for EWAS
-#' @param d data frame, columns one, two, and three must be Variable, pvalue, and Frame; Group, Shape and Color optional
+#' @param d data frame, columns one, two, and three must be Variable, pvalue, Group, and Frame; Shape and Color optional
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
@@ -15,6 +15,8 @@
 #' @param annotate_p pvalue threshold to annotate
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
+#' @param background variegated or white
+#' @param grpblocks boolean, turns on x-axis group marker blocks
 #' @param file file name of saved image
 #' @param ext file type to save, "gif" or "mp4"
 #' @param hgt height of plot in pixels
@@ -28,7 +30,7 @@
 #' @examples
 #' aeman(d, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
 
-aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, file="aeman", hgt=800, wi=1300){
+aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, background="variegated", grpblocks=FALSE, file="aeman", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 to create visualization.", call. = FALSE)
   } else {
@@ -45,6 +47,9 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
     yaxislab <- yaxis
     if(!missing(line)) {redline <- line}
   }
+
+  #Theme options
+  backpanel <- ifelse(background=="white", "NULL", "geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = min(d_order$pval), ymax = Inf, fill=factor(shademap)), alpha = 0.5)" )
 
   #Allow more than 6 shapes
   if("Shape" %in% names(d)){
@@ -126,7 +131,7 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
 
     #Start plotting
     d_order <- merge(d_order, dinfo, by="rowid")
-    p <- ggplot() + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = 0, ymax = Inf, fill=factor(shademap)), alpha = 0.5)
+    p <- ggplot() +  eval(parse(text=backpanel))
     #Add shape info if available
     if("Shape" %in% names(d)){
       p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=Color, shape=Shape, frame=Frame), alpha=opacity) + scale_shape_manual(values=shapevector)
@@ -134,7 +139,7 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
       p <- p + geom_point(data=d_order, aes(x=pos_index, y=pval, color=Color, frame=Frame), alpha=opacity)
     }
     p <- p + scale_x_continuous(breaks=lims$av, labels=lims$Color, expand=c(0,0))
-    p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = 0, fill=Color), alpha = 1)
+    if(grpblocks==TRUE){p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = min(d_order$pval), fill=as.factor(Color)), alpha = 1)}
     #p <- p + scale_colour_manual(name = "Color",values = newcols, guides(alpha=FALSE)) + scale_fill_manual(name = "Color",values = newcols, guides(alpha=FALSE))
     p <- p + theme(axis.text.x=element_text(angle=90), panel.grid.minor.x = element_blank(), panel.grid.major.x=element_blank(), axis.title.x=element_blank(), legend.position="bottom", legend.title=element_blank())
   #}
@@ -183,9 +188,14 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
   p <- p + ggtitle(title) + ylab(yaxislab)
 
   #Add pvalue threshold line
-  if(!missing(line)){
-    p <- p + geom_hline(yintercept = redline, colour="red")
+  if(!missing(line)){p <- p + geom_hline(yintercept = redline, colour="red")}
+
+  if(grpblocks==TRUE){
+    p <- p+ylim(c(0,max(d_order$pval)))
+  } else {
+    p <- p+scale_y_continuous(limits=c(0, max(d_order$pval)),expand=expand_scale(mult=c(0,0.1)))
   }
+  if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 
   #Save
   print(paste("Saving plot to ", file, ".", ext, sep=""))
