@@ -50,7 +50,8 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
   }
 
   #Theme options
-  backpanel <- ifelse(background=="white", "NULL", "geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = min(d_order$pval), ymax = Inf, fill=factor(shademap)), alpha = 0.5)" )
+  yaxismin <- min(d$pval)
+  backpanel <- ifelse(background=="white", "NULL", "geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = yaxismin, ymax = Inf, fill=factor(shademap)), alpha = 0.5)" )
 
   #Allow more than 6 shapes
   #3, 4 and 7 to 14 are composite symbols- incompatible with ggiraph
@@ -188,9 +189,9 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
   if(!missing(line)){p <- p + geom_hline(yintercept = redline, colour="red")}
 
   if(grpblocks==TRUE){
-    p <- p+ylim(c(0,max(d_order$pval)))
+    p <- p+ylim(c(yaxismin,max(d_order$pval)))
   } else {
-    p <- p+scale_y_continuous(limits=c(0, max(d_order$pval)),expand=expand_scale(mult=c(0,0.1)))
+    p <- p+scale_y_continuous(limits=c(yaxismin, max(d_order$pval)),expand=expand_scale(mult=c(0,0.1)))
   }
   if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 

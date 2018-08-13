@@ -109,7 +109,8 @@ agman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_
   }
 
   #Theme options
-  backpanel <- ifelse(background=="white", "NULL", "geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = min(d_order$pval), ymax = Inf, fill=factor(shademap)), alpha = 0.5)" )
+  yaxismin <- min(d_order$pval)
+  backpanel <- ifelse(background=="white", "NULL", "geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = yaxismin, ymax = Inf, fill=factor(shademap)), alpha = 0.5)" )
 
   #Allow more than 6 shapes
   if("Shape" %in% names(d)){
@@ -176,9 +177,9 @@ agman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_
   }
   #Theme
   if(chrblocks==TRUE){
-    p <- p+ylim(c(0,max(d_order$pval)))
+    p <- p+ylim(c(yaxismin,max(d_order$pval)))
   } else {
-    p <- p+scale_y_continuous(limits=c(0, max(d_order$pval)), expand=expand_scale(mult=c(0,0.1)))
+    p <- p+scale_y_continuous(limits=c(yaxismin, max(d_order$pval)), expand=expand_scale(mult=c(0,0.1)))
   }
   if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 
