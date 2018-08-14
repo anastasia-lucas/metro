@@ -58,7 +58,12 @@ html file
 Create Interactive Manhattan plots for GWAS
 }
 \examples{
-igman(d, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
+data(gwas)
+#For this example we will change the "Frame" column to
+#"Info" and set the flag moreinfo=TRUE to plot the information
+#about the encoding method
+colnames(gwas)[5] <- "Info"
+igman(d=gwas, line=0.0005, title="GWAS Example", moreinfo=TRUE, db="dbSNP")
 }
 \seealso{
 \code{\link{gman}}, \code{\link{agman}}, \code{\link{ipheman}}, \code{\link{ieman}}

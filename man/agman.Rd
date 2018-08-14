@@ -62,7 +62,7 @@ Create Manhattan plots for GWAS
 #In this case we will imagine that we've run a GWAS using additive, dominant, and recessive models
 #and want to highlight a SNP of interest to see how the p-value changes
 data(gwas)
-agman(d=gwas, line=0.0005, highlight_snp="rs4204", chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black",opacity=0.7, wi=750, hgt=500)
+agman(d=gwas, line=0.0005, highlight_snp="rs1777", annotate_snp="rs1777", highlighter="green", title="GWAS Example:")
 }
 \seealso{
 \code{\link{gman}}, \code{\link{igman}}, \code{\link{apheman}}, \code{\link{aeman}}

@@ -28,7 +28,12 @@
 #' @family interactive plotting functions
 #' @seealso \code{\link{gman}}, \code{\link{agman}}, \code{\link{ipheman}}, \code{\link{ieman}}
 #' @examples
-#' igman(d, line, log10, yaxis, title, chrcolor1, chrcolor2, groupcolors, db, moreinfo, file, hgt, wi)
+#' data(gwas)
+#' #For this example we will change the "Frame" column to
+#' #"Info" and set the flag moreinfo=TRUE to plot the information
+#' #about the encoding method
+#' colnames(gwas)[5] <- "Info"
+#' igman(d=gwas, line=0.0005, title="GWAS Example", moreinfo=TRUE, db="dbSNP")
 
 igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, db, background="variegated", chrblocks=FALSE, moreinfo=FALSE, file="igman", hgt=7, wi=12, bigrender=FALSE){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {

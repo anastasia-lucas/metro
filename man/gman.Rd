@@ -59,7 +59,7 @@ Create Manhattan plots for GWAS
 }
 \examples{
 data(gwas)
-gman(d=gwas[gwas$Frame=="Additive", 1:4], line=0.0005, chrcolor1="#D4CAA0", chrcolor2="#B3BC92", highlighter="black",opacity=0.7, wi=750, hgt=500)
+gman(d=gwas[gwas$Frame=="Additive", 1:4], line=0.0005, title="GWAS Example: Additive")
 }
 \seealso{
 \code{\link{igman}}, \code{\link{agman}}, \code{\link{pheman}}, \code{\link{eman}}
