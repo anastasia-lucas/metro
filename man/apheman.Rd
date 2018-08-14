@@ -60,7 +60,11 @@ apheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp,
 Create Manhattan plots for PheWAS
 }
 \examples{
-apheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
+#We can duplicate the PHE column so that each
+#phenotype will be a frame
+data(phewas)
+phewas$Frame <- phewas$PHE
+apheman(phewas, line=0.001, title="PheWAS Example:")
 }
 \seealso{
 \code{\link{pheman}}, \code{\link{ipheman}}, \code{\link{agman}}, \code{\link{aeman}}

@@ -30,7 +30,7 @@
 #' @seealso \code{\link{ipheman}}, \code{\link{apheman}}, \code{\link{gman}}, \code{\link{eman}}
 #' @examples
 #' data(phewas)
-#' pheman(d=phewas)
+#' pheman(d=phewas, title="PheWAS Example")
 
 pheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=TRUE, file="pheman", hgt=7, wi=12, res=300 ){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {

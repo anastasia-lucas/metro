@@ -61,7 +61,7 @@ Create Manhattan plots for PheWAS
 }
 \examples{
 data(phewas)
-pheman(d=phewas)
+pheman(d=phewas, title="PheWAS Example")
 }
 \seealso{
 \code{\link{ipheman}}, \code{\link{apheman}}, \code{\link{gman}}, \code{\link{eman}}

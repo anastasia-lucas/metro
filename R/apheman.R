@@ -29,7 +29,11 @@
 #' @family animated plotting functions
 #' @seealso \code{\link{pheman}}, \code{\link{ipheman}}, \code{\link{agman}}, \code{\link{aeman}}
 #' @examples
-#' apheman(d, phegroup, line, log10, yaxis, opacity, title, chrcolor1, chrcolor2, groupcolors, file, ext, hgt, wi)
+#' #We can duplicate the PHE column so that each
+#' #phenotype will be a frame
+#' data(phewas)
+#' phewas$Frame <- phewas$PHE
+#' apheman(phewas, line=0.001, title="PheWAS Example:")
 
 apheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=TRUE, file="apheman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
