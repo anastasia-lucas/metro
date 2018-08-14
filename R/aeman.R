@@ -28,9 +28,11 @@
 #' @family animated plotting functions
 #' @seealso \code{\link{eman}}, \code{\link{ieman}}, \code{\link{agman}}, \code{\link{apheman}}
 #' @examples
-#' aeman(d, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
+#' data(ewas)
+#' ewas$Frame <- ewas$Group
+#' aeman(ewas, line=0.001, highlight_p=0.001, highlighter="green", title="EWAS Example:")
 
-aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, background="variegated", grpblocks=FALSE, file="aeman", hgt=800, wi=1300){
+aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, background="variegated", grpblocks=FALSE, file="aeman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 to create visualization.", call. = FALSE)
   } else {
@@ -60,7 +62,7 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
 
   #Save to merge later
   d$rowid <- seq.int(nrow(d))
-  dinfo <- d[, colnames(d) %in% c("rowid", "Color", "Shape", "pval"), drop=FALSE]
+  dinfo <- d[, colnames(d) %in% c("rowid", "Color", "Shape", "pval", "Frame"), drop=FALSE]
 
   ##If no group, plot raw data
   #if(!"Group" %in% colnames(d)){

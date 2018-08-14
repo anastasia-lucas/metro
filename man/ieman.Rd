@@ -35,7 +35,7 @@ ieman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 
 \item{groupcolors}{named list of colors for data in 'Color' column}
 
-\item{db}{query address, ex. "https://www.google.com/search?q"}
+\item{db}{query address, ex. "https://www.google.com/search?q="}
 
 \item{moreinfo}{includes more information on hover, refers to Info column}
 
@@ -58,7 +58,9 @@ png image(s)
 Create interactive Manhattan plots for EWAS
 }
 \examples{
-ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
+data(ewas)
+ewas$Info <- paste0("Shape: ", ewas$Shape, "\\np-value: ", signif(ewas$pvalue, digits=3))
+ieman(d=ewas, title="EWAS Example", line=0.001, color1="#A23B72", color2="#2A84AA", moreinfo=TRUE, highlight_p=0.001, db="https://www.google.com/search?q=", highlighter="green")
 }
 \seealso{
 \code{\link{eman}}, \code{\link{aeman}}, \code{\link{igman}}, \code{\link{ipheman}}

@@ -8,7 +8,7 @@ aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
   annotate_var, annotate_p, highlight_var, highlight_p, highlighter = "red",
   color1 = "#AAAAAA", color2 = "#4D4D4D", groupcolors,
   background = "variegated", grpblocks = FALSE, file = "aeman",
-  hgt = 800, wi = 1300)
+  ext = "gif", hgt = 800, wi = 1300)
 }
 \arguments{
 \item{d}{data frame, columns one, two, and three must be Variable, pvalue, Group, and Frame; Shape and Color optional}
@@ -45,11 +45,11 @@ aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 
 \item{file}{file name of saved image}
 
+\item{ext}{file type to save, "gif" or "mp4"}
+
 \item{hgt}{height of plot in pixels}
 
 \item{wi}{width of plot in pixels}
-
-\item{ext}{file type to save, "gif" or "mp4"}
 }
 \value{
 .gif or .mp4 file
@@ -58,7 +58,9 @@ aeman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 Create animated Manhattan plots for EWAS
 }
 \examples{
-aeman(d, groups, line, title=NULL, file="eman", hgt=1300, wi=800, )
+data(ewas)
+ewas$Frame <- ewas$Group
+aeman(ewas, line=0.001, highlight_p=0.001, highlighter="green", title="EWAS Example:")
 }
 \seealso{
 \code{\link{eman}}, \code{\link{ieman}}, \code{\link{agman}}, \code{\link{apheman}}

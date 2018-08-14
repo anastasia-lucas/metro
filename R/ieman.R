@@ -13,7 +13,7 @@
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
 #' @param groupcolors named list of colors for data in 'Color' column
-#' @param db query address, ex. "https://www.google.com/search?q"
+#' @param db query address, ex. "https://www.google.com/search?q="
 #' @param moreinfo includes more information on hover, refers to Info column
 #' @param background variegated or white
 #' @param grpblocks boolean, turns on x-axis group marker blocks
@@ -28,7 +28,9 @@
 #' @family interactive plottng functions
 #' @seealso \code{\link{eman}}, \code{\link{aeman}}, \code{\link{igman}}, \code{\link{ipheman}}
 #' @examples
-#' ieman(d, groups, line, title=NULL, morecolors=FALSE, file="eman", hgt=7, wi=12, res=300 )
+#' data(ewas)
+#' ewas$Info <- paste0("Shape: ", ewas$Shape, "\np-value: ", signif(ewas$pvalue, digits=3))
+#' ieman(d=ewas, title="EWAS Example", line=0.001, color1="#A23B72", color2="#2A84AA", moreinfo=TRUE, highlight_p=0.001, db="https://www.google.com/search?q=", highlighter="green")
 
 ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, background="variegated", grpblocks=FALSE, file="ieman", hgt=7, wi=12, bigrender=FALSE){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
