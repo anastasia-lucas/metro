@@ -17,10 +17,10 @@ This package requires ggplot2, ggiraph for interactive plots, and gganimate (whi
 
 ```
 library(metro)
-#Generate some data
 #To use the animated plot function, we need to add an animation 'Frame' column to our data
 #In this case we will imagine that we've run a GWAS using additive, dominant, and recessive models
 #and want to highlight a SNP of interest to see how the p-value changes
+#We can use the 'gwas' toy dataset
 data(gwas)
 agman(d=gwas, line=0.0005, highlight_snp="rs1777", annotate_snp="rs1777", highlighter="green", title="GWAS Example:")
 
@@ -32,18 +32,14 @@ agman(d=gwas, line=0.0005, highlight_snp="rs1777", annotate_snp="rs1777", highli
 ```
 library(metro)
 #Generate some data
-#In this case we'd like to also see the p-value when we hover over a point, so we'll add an 'Info' column to the data
+#In this case we'd like to see the p-value when we hover over a point in addition to the SNP name (default), so we'll add an 'Info' column to the data
 #We'd also like to search dbSNP when we click on a point
-dat <- data.frame(PHE=rep(paste("Pheno", seq(1:5), sep="") , length.out=5000, each=1),
-                  SNP=paste("rs", seq(1:5000), sep=""),
-                  CHR=rep(c(1:22, "X", "Y"), length.out=5000, each=200),
-                  POS=rep(seq(1, 10000, by = 200), length.out=5000),
-                  pvalue=runif(n=5000))
-dat$Info <- paste0("p-value:", signif(dat$pvalue, digits=3))
-
-ipheman(d=dat, moreinfo = TRUE, db="dbSNP", line=0.001)
+#I will post a better example of this plot soon
+data(phewas)
+phewas$Info <- paste0("p-value:", signif(phewas$pvalue, digits=3))
+ipheman(d=phewas, moreinfo = TRUE, db="dbSNP", line=0.001, title="PheWAS Example")
 ```
-![Alt text](https://media.giphy.com/media/ujvtTHsrnXeo5wuZDn/giphy.gif)
+![Alt text](https://i.imgur.com/FFFPw32.png)
 
 ### Create a basic Manhattan plot using EWAS data
 
