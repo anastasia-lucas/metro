@@ -31,9 +31,9 @@ agman(d=gwas, line=0.0005, highlight_snp="rs1777", annotate_snp="rs1777", highli
 
 ```
 library(metro)
-#Generate some data
 #In this case we'd like to see the p-value when we hover over a point in addition to the SNP name (default), so we'll add an 'Info' column to the data
 #We'd also like to search dbSNP when we click on a point
+#We can use the `phewas` toy dataset for ths 
 #I will post a better example of this plot soon
 data(phewas)
 phewas$Info <- paste0("p-value:", signif(phewas$pvalue, digits=3))
@@ -45,13 +45,12 @@ ipheman(d=phewas, moreinfo = TRUE, db="dbSNP", line=0.001, title="PheWAS Example
 
 ```
 library(metro)
-#Generate some data
-dat <- data.frame(Variable=paste("Var", seq(1:5000), sep=""), 
-                  pvalue=runif(n=5000), 
-                  Group=rep(paste("G", seq(1:6), sep=""), length.out=5000, each=1),
-                  Shape=rep(paste("S", seq(1:5), sep="") , length.out=5000, each=1))
-                  
-eman(d=dat, title="EWAS", line=0.001, annotate_p=0.001, color1="#A23B72", color2="#2A84AA", highlight_p=0.001, highlighter="green")
+#In this example we can use the `ewas` toy dataset to create an example EWAS plot
+#For this plot, we would also like to change the color of the points using the color1 and color2 options
+#This would be analogous to the chrcolor1 and chrcolor2 flags in *pheman and *gman plots
+data(ewas)
+eman(d=ewas, title="EWAS", line=0.001, annotate_p=0.001, color1="#A23B72", color2="#2A84AA", highlight_p=0.001, highlighter="green")
+
 ```
 
-![Imgur](https://i.imgur.com/eSARizX.jpg)
+![Imgur](https://i.imgur.com/VjMUAYE.jpg)
