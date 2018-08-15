@@ -60,7 +60,7 @@ Create animated Manhattan plots for EWAS
 \examples{
 data(ewas)
 ewas$Frame <- ewas$Group
-aeman(ewas, line=0.001, highlight_p=0.001, highlighter="green", title="EWAS Example:")
+aeman(ewas, line=0.001, highlight_p=0.001, annotate_p=0.001, highlighter="green", title="EWAS Example:")
 }
 \seealso{
 \code{\link{eman}}, \code{\link{ieman}}, \code{\link{agman}}, \code{\link{apheman}}
