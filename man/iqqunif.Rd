@@ -10,7 +10,7 @@ iqqunif(d, CI = 0.95, opacity = 1, groupcolors, splitby = NULL,
   file = "iqqunif", wi = 7, hgt = 7, res = 300)
 }
 \arguments{
-\item{d}{vector of p-values, or dataframe with at least two columns, p-value and Name; Color, Shape, Info optional}
+\item{d}{dataframe with at least two columns, p-value and Name; Color, Shape, Info optional}
 
 \item{CI}{two-sided confidence interval, default 0.95}
 

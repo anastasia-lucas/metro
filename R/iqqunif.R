@@ -1,7 +1,7 @@
 #' iqqunif
 #'
 #' Create interactive qqplots with an assumed uniform distribution
-#' @param d vector of p-values, or dataframe with at least two columns, p-value and Name; Color, Shape, Info optional
+#' @param d dataframe with at least two columns, p-value and Name; Color, Shape, Info optional
 #' @param CI two-sided confidence interval, default 0.95
 #' @param splitby if data contains Color and/or Shape, indicate variable(s) by which the data should be subsetted for calculating CIs
 #' @param opacity point opacity, default 1

@@ -9,7 +9,7 @@ qqunif(d, CI = 0.95, opacity = 1, groupcolors, splitby = NULL,
   line, background, title, file = "qqunif", wi = 7, hgt = 7, res = 300)
 }
 \arguments{
-\item{d}{vector of p-values, or dataframe with at least one column, p-value; Color, Shape, and Name optional}
+\item{d}{dataframe with at least one column, p-value; Color, Shape, and Name optional}
 
 \item{CI}{two-sided confidence interval, default 0.95}
 
