@@ -47,7 +47,7 @@ iqqunif <- function(d, CI=0.95, opacity=1, groupcolors, splitby=NULL, moreinfo=T
     }
   }
 
-  if(!missing(splitby)){
+  if(!is.null(splitby)){
     dlist <- split(d, d[, splitby])
     df <- lapply(dlist, function(x) cbind(x[order(x$pvalue),],
                                           obs=-log10(sort(x$pvalue)),
