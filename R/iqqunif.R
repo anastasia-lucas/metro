@@ -8,11 +8,11 @@
 #' @param title plot title
 #' @param db choose database to connect to ("dbSNP", "GWASCatalog", or enter your own search address)
 #' @param moreinfo includes more information on hover, refers to Info column
-#' @param groupcolors named list of colors corresponding to data in Group column
-#' @param highlight_name list of names to highlight, dataframe must include a Name column
+#' @param groupcolors named vector of colors corresponding to data in Group column
+#' @param highlight_name vector of names to highlight, dataframe must include a Name column
 #' @param highlight_p p-value threshold to highlight
 #' @param highlighter highlighter color
-#' @param annotate_name list of names to annotate, dataframe must include a Name column
+#' @param annotate_name vector of names to annotate, dataframe must include a Name column
 #' @param annotate_p p-value threshold to annotate, dataframe must include a Name column
 #' @param line draw a red line at pvalue threshold (observed)
 #' @param background can change to "white"
