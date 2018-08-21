@@ -9,10 +9,10 @@
 #' @param title optional string for plot title
 #' @param chrcolor1 first alternating color for chromosome
 #' @param chrcolor2 second alternating color for chromosome
-#' @param highlight_snp list of SNPs to highlight
+#' @param highlight_snp vector of SNPs to highlight
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
-#' @param groupcolors named list of colors for data in 'Color' column
+#' @param groupcolors named vector of colors for data in 'Color' column
 #' @param chrblocks boolean, turns on x-axis chromosome marker blocks
 #' @param background variegated or white
 #' @param db choose database to connect to ("dbSNP", "GWASCatalog", or enter your own search address)

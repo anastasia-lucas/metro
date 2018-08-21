@@ -23,11 +23,11 @@ eman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 
 \item{title}{optional string for plot title}
 
-\item{annotate_var}{list of variables to annotate}
+\item{annotate_var}{vector of variables to annotate}
 
 \item{annotate_p}{pvalue threshold to annotate}
 
-\item{highlight_var}{list of variables to highlight}
+\item{highlight_var}{vector of variables to highlight}
 
 \item{highlight_p}{pvalue threshold to highlight}
 
@@ -37,7 +37,7 @@ eman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 
 \item{color2}{second alternating color}
 
-\item{groupcolors}{named list of colors for data in 'Color' column}
+\item{groupcolors}{named vector of colors for data in 'Color' column}
 
 \item{background}{variegated or white}
 

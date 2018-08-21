@@ -23,7 +23,7 @@ ipheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
 
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
-\item{highlight_snp}{list of SNPs to highlight}
+\item{highlight_snp}{vector of SNPs to highlight}
 
 \item{highlight_p}{pvalue threshold to highlight}
 
@@ -35,7 +35,7 @@ ipheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
 
 \item{chrcolor2}{second alternating color for chromosome}
 
-\item{groupcolors}{named list of colors for data in 'Color' column}
+\item{groupcolors}{named vector of colors for data in 'Color' column}
 
 \item{background}{variegated or white}
 

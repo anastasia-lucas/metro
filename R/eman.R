@@ -9,12 +9,12 @@
 #' @param title optional string for plot title
 #' @param color1 first alternating color
 #' @param color2 second alternating color
-#' @param annotate_var list of variables to annotate
+#' @param annotate_var vector of variables to annotate
 #' @param annotate_p pvalue threshold to annotate
-#' @param highlight_var list of variables to highlight
+#' @param highlight_var vector of variables to highlight
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
-#' @param groupcolors named list of colors for data in 'Color' column
+#' @param groupcolors named vector of colors for data in 'Color' column
 #' @param background variegated or white
 #' @param grpblocks boolean, turns on x-axis group marker blocks
 #' @param file file name of saved image

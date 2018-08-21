@@ -21,11 +21,11 @@ gman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
 
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
-\item{annotate_snp}{list of SNPs to annotate}
+\item{annotate_snp}{vector of SNPs to annotate}
 
 \item{annotate_p}{pvalue threshold to annotate}
 
-\item{highlight_snp}{list of snps to highlight}
+\item{highlight_snp}{vector of snps to highlight}
 
 \item{highlight_p}{pvalue threshold to highlight}
 
@@ -37,7 +37,7 @@ gman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
 
 \item{chrcolor2}{second alternating color for chromosome}
 
-\item{groupcolors}{named list of colors for data in 'Color' column}
+\item{groupcolors}{named vector of colors for data in 'Color' column}
 
 \item{background}{variegated or white}
 

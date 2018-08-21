@@ -21,7 +21,7 @@ igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
 
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 
-\item{highlight_snp}{list of SNPs to highlight}
+\item{highlight_snp}{vector of SNPs to highlight}
 
 \item{highlight_p}{pvalue threshold to highlight}
 
@@ -33,7 +33,7 @@ igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
 
 \item{chrcolor2}{second alternating color for chromosome}
 
-\item{groupcolors}{named list of colors for data in 'Color' column}
+\item{groupcolors}{named vector of colors for data in 'Color' column}
 
 \item{db}{choose database to connect to ("dbSNP", "GWASCatalog", or enter your own search address)}
 

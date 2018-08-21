@@ -9,10 +9,10 @@
 #' @param title optional string for plot title
 #' @param color1 first alternating color
 #' @param color2 second alternating color
-#' @param highlight_var list of variables to highlight
+#' @param highlight_var vector of variables to highlight
 #' @param highlight_p pvalue threshold to highlight
 #' @param highlighter color to highlight
-#' @param groupcolors named list of colors for data in 'Color' column
+#' @param groupcolors named vector of colors for data in 'Color' column
 #' @param db query address, ex. "https://www.google.com/search?q="
 #' @param moreinfo includes more information on hover, refers to Info column
 #' @param background variegated or white

@@ -9,12 +9,12 @@
 #' @param title optional string for plot title
 #' @param chrcolor1 first alternating color for chromosome
 #' @param chrcolor2 second alternating color for chromosome
-#' @param highlight_snp list of SNPs to highlight
+#' @param highlight_snp vector of SNPs to highlight
 #' @param highlight_p pvalue threshold to highlight
-#' @param annotate_snp list of SNPs to annotate
+#' @param annotate_snp vector of SNPs to annotate
 #' @param annotate_p pvalue threshold to annotate
 #' @param highlighter color to highlight
-#' @param groupcolors named list of colors for data in 'Color' column
+#' @param groupcolors named vector of colors for data in 'Color' column
 #' @param background variegated or white
 #' @param chrblocks boolean, turns on x-axis chromosome marker blocks
 #' @param file file name of saved image
