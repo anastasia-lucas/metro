@@ -67,7 +67,7 @@ ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_s
   names(lims) <- c("Color", "snpx", "px", "posx", "posmin", "snpy", "py", "posy", "posmax")
   lims$av <- (lims$posmin + lims$posmax)/2
   lims <- lims[order(lims$Color),]
-  lims$shademap <- rep(c("shade_ffffff","shade_ebebeb"), each=1)
+  lims$shademap <- rep(c("shade_ffffff","shade_ebebeb"), length.out=nrow(lims), each=1)
 
   #Set up tooltip
   ###See what info would be useful here i.e. SNP or something else
