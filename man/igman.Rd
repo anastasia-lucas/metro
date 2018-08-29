@@ -11,7 +11,7 @@ igman(d, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp, highlight_p,
   wi = 12, bigrender = FALSE)
 }
 \arguments{
-\item{d}{data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape, Color, and Info}
+\item{d}{data frame, must contain SNP, CHR, POS, pvalue columns, optional Shape, Color, and Info}
 
 \item{line}{optional pvalue threshold to draw red line at}
 

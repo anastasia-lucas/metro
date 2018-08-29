@@ -1,7 +1,7 @@
 #' gman
 #'
 #' Create Manhattan plots for GWAS
-#' @param d data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape and Color
+#' @param d data frame, must contain SNP, CHR, POS, pvalue columns, optional Shape and Color
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
@@ -31,7 +31,7 @@
 #' data(gwas)
 #' gman(d=gwas[gwas$Frame=="Additive", 1:4], line=0.0005, title="GWAS Example: Additive")
 
-gman <- function(d, format="plotman", line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=FALSE, file="gman", hgt=7, wi=12, res=300 ){
+gman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=FALSE, file="gman", hgt=7, wi=12, res=300 ){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
     stop("Please install ggplot2 to create visualization.", call. = FALSE)
   }

@@ -1,7 +1,7 @@
 #' aeman
 #'
 #' Create animated Manhattan plots for EWAS
-#' @param d data frame, columns one, two, and three must be Variable, pvalue, Group, and Frame; Shape and Color optional
+#' @param d data frame, columns are Variable, pvalue, Group, and Frame; Shape and Color optional
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE

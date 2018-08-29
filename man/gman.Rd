@@ -4,14 +4,14 @@
 \alias{gman}
 \title{gman}
 \usage{
-gman(d, format = "plotman", line, log10 = TRUE, yaxis, opacity = 1,
-  annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter = "red",
-  title = NULL, chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
+gman(d, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp, annotate_p,
+  highlight_snp, highlight_p, highlighter = "red", title = NULL,
+  chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
   background = "variegated", chrblocks = FALSE, file = "gman", hgt = 7,
   wi = 12, res = 300)
 }
 \arguments{
-\item{d}{data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue columns, optional Shape and Color}
+\item{d}{data frame, must contain SNP, CHR, POS, pvalue columns, optional Shape and Color}
 
 \item{line}{optional pvalue threshold to draw red line at}
 

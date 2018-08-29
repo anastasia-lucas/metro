@@ -11,7 +11,7 @@ agman(d, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp, annotate_p,
   ext = "gif", hgt = 800, wi = 1300)
 }
 \arguments{
-\item{d}{data frame, if not plato or plink format, must contain SNP, CHR, POS, pvalue, Frame columns, optional Shape and Color}
+\item{d}{data frame, must contain SNP, CHR, POS, pvalue, Frame columns, optional Shape and Color}
 
 \item{line}{optional pvalue threshold to draw red line at}
 

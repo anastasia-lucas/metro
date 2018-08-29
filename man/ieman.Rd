@@ -11,7 +11,7 @@ ieman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
   wi = 12, bigrender = FALSE)
 }
 \arguments{
-\item{d}{data frame, columns one and two must be Variable, pvalue, and Group; Shape, Color, and Info optional}
+\item{d}{data frame, columns are Variable, pvalue, and Group; Shape, Color, and Info optional}
 
 \item{line}{optional pvalue threshold to draw red line at}
 

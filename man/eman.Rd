@@ -11,7 +11,7 @@ eman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
   wi = 12, res = 300)
 }
 \arguments{
-\item{d}{data frame, columns one and two must be Variable, pvalue, and Group; Shape and Color optional}
+\item{d}{data frame, columns are Variable, pvalue, and Group; Shape and Color optional}
 
 \item{line}{optional pvalue threshold to draw red line at}
 

@@ -1,7 +1,7 @@
 #' eman
 #'
 #' Create Manhattan plots for EWAS
-#' @param d data frame, columns one and two must be Variable, pvalue, and Group; Shape and Color optional
+#' @param d data frame, columns are Variable, pvalue, and Group; Shape and Color optional
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE

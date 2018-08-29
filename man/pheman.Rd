@@ -11,7 +11,7 @@ pheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp,
   wi = 12, res = 300)
 }
 \arguments{
-\item{d}{data frame, if not plato or plink format, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape}
+\item{d}{data frame, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape}
 
 \item{phegroup}{optional grouping file for phenotypes, must contain PHE and Group columns}
 
