@@ -30,7 +30,8 @@
 #' @examples
 #' data(ewas)
 #' ewas$Info <- paste0("Shape: ", ewas$Shape, "\np-value: ", signif(ewas$pvalue, digits=3))
-#' ieman(d=ewas, title="EWAS Example", line=0.001, color1="#A23B72", color2="#2A84AA", moreinfo=TRUE, highlight_p=0.001, db="https://www.google.com/search?q=", highlighter="green")
+#' ieman(d=ewas, title="EWAS Example", line=0.001, color1="#A23B72", color2="#2A84AA",
+#' moreinfo=TRUE, highlight_p=0.001, db="https://www.google.com/search?q=", highlighter="green")
 
 ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, background="variegated", grpblocks=FALSE, file="ieman", hgt=7, wi=12, bigrender=FALSE){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {

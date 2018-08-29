@@ -59,7 +59,8 @@ Create Manhattan plots for EWAS
 }
 \examples{
 data(ewas)
-eman(d=ewas, title="EWAS", line=0.001, annotate_p=0.001, color1="#A23B72", color2="#2A84AA", highlight_p=0.001, highlighter="green")
+eman(d=ewas, title="EWAS", line=0.001, annotate_p=0.001, color1="#A23B72", color2="#2A84AA",
+highlight_p=0.001, highlighter="green")
 }
 \seealso{
 \code{\link{ieman}}, \code{\link{aeman}}, \code{\link{gman}}, \code{\link{pheman}}

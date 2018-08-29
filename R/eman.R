@@ -29,7 +29,8 @@
 #' @seealso \code{\link{ieman}}, \code{\link{aeman}}, \code{\link{gman}}, \code{\link{pheman}}
 #' @examples
 #' data(ewas)
-#' eman(d=ewas, title="EWAS", line=0.001, annotate_p=0.001, color1="#A23B72", color2="#2A84AA", highlight_p=0.001, highlighter="green")
+#' eman(d=ewas, title="EWAS", line=0.001, annotate_p=0.001, color1="#A23B72", color2="#2A84AA",
+#' highlight_p=0.001, highlighter="green")
 
 eman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, background="variegated", grpblocks=FALSE, file="eman", hgt=7, wi=12, res=300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {

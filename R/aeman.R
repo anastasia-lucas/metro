@@ -30,7 +30,8 @@
 #' @examples
 #' data(ewas)
 #' ewas$Frame <- ewas$Group
-#' aeman(ewas, line=0.001, highlight_p=0.001, annotate_p=0.001, highlighter="green", title="EWAS Example:")
+#' aeman(ewas, line=0.001, highlight_p=0.001, annotate_p=0.001, highlighter="green",
+#' title="EWAS Example:")
 
 aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, background="variegated", grpblocks=FALSE, file="aeman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {

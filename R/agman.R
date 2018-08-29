@@ -32,7 +32,8 @@
 #' #In this case we will imagine that we've run a GWAS using additive, dominant, and recessive models
 #' #and want to highlight a SNP of interest to see how the p-value changes
 #' data(gwas)
-#' agman(d=gwas, line=0.0005, highlight_snp="rs1777", annotate_snp="rs1777", highlighter="green", title="GWAS Example:")
+#' agman(d=gwas, line=0.0005, highlight_snp="rs1777", annotate_snp="rs1777",
+#' highlighter="green", title="GWAS Example:")
 
 agman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=FALSE, file="agman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
