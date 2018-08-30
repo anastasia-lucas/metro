@@ -5,7 +5,6 @@ Authors@R: person("Anastasia", "Lucas", email = "anastasia.lucas.bioinfo@gmail.c
 Description: This package creates Manhattan plots for *ome-wide association studies. It is designed to improve on traditional Manhattan plots by incorporating additional information in a way that is both useful for interpretation and aesthetically pleasing. 
 Depends: ggplot2
 Suggests: gganimate, ggiraph, htmlwidgets, ggrepel, RColorBrewer
-License: GPL
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
