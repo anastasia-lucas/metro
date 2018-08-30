@@ -52,5 +52,6 @@ Create animated qqplots with an assumed uniform distribution
 }
 \examples{
 data(gwas)
-aqqunif(d=gwas[, 4:5], opacity=0.6, splitby="Color")
+aqqunif(d=data.frame(pvalue=gwas$pvalue, Frame=gwas$Frame, Color=gwas$Frame),
+opacity=0.6, splitby="Color")
 }

@@ -30,14 +30,22 @@
 #' iqqunif(d=qqdat, splitby="Color", db="https://www.google.com/search?q=")
 
 iqqunif <- function(d, CI=0.95, opacity=1, groupcolors, splitby=NULL, moreinfo=TRUE, db, highlight_p, highlight_name, annotate_p, annotate_name, highlighter="red", line, background, title, bigrender=FALSE, file="iqqunif", wi=7, hgt=7, res=300){
+  if (!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
+    stop("Please install ggiraph to create interactive visualizations.", call. = FALSE)
+  }
+
   if("Color" %in% colnames(d)){
     if(!missing(groupcolors)){
       colrs <- groupcolors
     } else {
       ngroupcolors <- nlevels(factor(d$Color))
       if(ngroupcolors > 15){
-        getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
-        colrs<- getPalette(ngroupcolors)
+        if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
+          stop("Please install RColorBrewer to add color attribute for more than 15 colors.", call. = FALSE)
+        } else {
+          getPalette = grDevices::colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))
+          colrs<- getPalette(ngroupcolors)
+        }
       } else {
         pal <- pal <- c("#009292", "#920000", "#490092", "#db6d00", "#24ff24",
                         "#ffff6d", "#000000", "#006ddb", "#004949","#924900",
@@ -51,16 +59,16 @@ iqqunif <- function(d, CI=0.95, opacity=1, groupcolors, splitby=NULL, moreinfo=T
     dlist <- split(d, d[, splitby])
     df <- lapply(dlist, function(x) cbind(x[order(x$pvalue),],
                                           obs=-log10(sort(x$pvalue)),
-                                          ex=-log10(ppoints(length(!is.na(x$pvalue)))),
-                                          cl=-log10(qbeta(p = (1-CI)/2, shape1 = 1:length(!is.na(x$pvalue)), shape2 = length(!is.na(x$pvalue)):1)),
-                                          cu=-log10(qbeta(p = (1+CI)/2, shape1 = 1:length(!is.na(x$pvalue)), shape2 = length(!is.na(x$pvalue)):1))))
+                                          ex=-log10(stats::ppoints(length(!is.na(x$pvalue)))),
+                                          cl=-log10(stats::qbeta(p = (1-CI)/2, shape1 = 1:length(!is.na(x$pvalue)), shape2 = length(!is.na(x$pvalue)):1)),
+                                          cu=-log10(stats::qbeta(p = (1+CI)/2, shape1 = 1:length(!is.na(x$pvalue)), shape2 = length(!is.na(x$pvalue)):1))))
     dat <- do.call("rbind", df)
   } else {
     dat <- cbind(d[order(d$pvalue), , drop=FALSE],
                  obs=-log10(sort(d$pvalue)),
-                 ex=-log10(ppoints(length(!is.na(d$pvalue)))),
-                 cl=-log10(qbeta(p = (1-CI)/2, shape1 = 1:length(!is.na(d$pvalue)), shape2 = length(!is.na(d$pvalue)):1)),
-                 cu=-log10(qbeta(p = (1+CI)/2, shape1 = 1:length(!is.na(d$pvalue)), shape2 = length(!is.na(d$pvalue)):1)))
+                 ex=-log10(stats::ppoints(length(!is.na(d$pvalue)))),
+                 cl=-log10(stats::qbeta(p = (1-CI)/2, shape1 = 1:length(!is.na(d$pvalue)), shape2 = length(!is.na(d$pvalue)):1)),
+                 cu=-log10(stats::qbeta(p = (1+CI)/2, shape1 = 1:length(!is.na(d$pvalue)), shape2 = length(!is.na(d$pvalue)):1)))
   }
 
   #Set up tooltip
@@ -96,17 +104,17 @@ iqqunif <- function(d, CI=0.95, opacity=1, groupcolors, splitby=NULL, moreinfo=T
   #Plot
   if("Shape" %in% colnames(d)){
     if("Color" %in% colnames(d)){
-      p <- ggplot(dat, aes(ex, obs)) + geom_point_interactive(aes(tooltip=tooltip, onclick=onclick, shape=Shape, colour=Color),alpha=opacity)
+      p <- ggplot(dat, aes(ex, obs)) + ggiraph::geom_point_interactive(aes(tooltip=tooltip, onclick=onclick, shape=Shape, colour=Color),alpha=opacity)
     } else {
-      p <- ggplot(dat, aes(ex, obs)) + geom_point_interactive(aes(tooltip=tooltip, onclick=onclick, shape=Shape),alpha=opacity)
+      p <- ggplot(dat, aes(ex, obs)) + ggiraph::geom_point_interactive(aes(tooltip=tooltip, onclick=onclick, shape=Shape),alpha=opacity)
     }
     p <- p + theme(legend.position="bottom", legend.title = element_blank())
   } else {
     if("Color" %in% colnames(d)){
-      p <- ggplot(dat, aes(ex, obs)) + geom_point_interactive(aes(tooltip=tooltip, onclick=onclick, colour=Color), alpha=opacity)
+      p <- ggplot(dat, aes(ex, obs)) + ggiraph::geom_point_interactive(aes(tooltip=tooltip, onclick=onclick, colour=Color), alpha=opacity)
       p <- p + theme(legend.position="bottom", legend.title = element_blank())
     } else{
-      p <- ggplot(dat, aes(ex, obs)) + geom_point_interactie(aes(tooltip=tooltip, onclick=onclick), alpha=opacity)
+      p <- ggplot(dat, aes(ex, obs)) + ggiraph::geom_point_interactive(aes(tooltip=tooltip, onclick=onclick), alpha=opacity)
     }
   }
   p <- p + eval(parse(text=linaes1)) + eval(parse(text=linaes2))
@@ -120,18 +128,18 @@ iqqunif <- function(d, CI=0.95, opacity=1, groupcolors, splitby=NULL, moreinfo=T
   #Add extra annotations
   if(!missing(highlight_name)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point_interactive(data=dat[dat$Name %in% highlight_name, ], aes(x=ex, y=obs, tooltip=tooltip, onclick=onclick, shape=Shape), colour=highlighter)
+      p <- p + ggiraph::geom_point_interactive(data=dat[dat$Name %in% highlight_name, ], aes(x=ex, y=obs, tooltip=tooltip, onclick=onclick, shape=Shape), colour=highlighter)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
-      p <- p + geom_point_interactive(data=dat[dat$Name %in% highlight_name, ], aes(x=ex, y=obs, tooltip=tooltip, onclick=onclick), colour=highlighter)
+      p <- p + ggiraph::geom_point_interactive(data=dat[dat$Name %in% highlight_name, ], aes(x=ex, y=obs, tooltip=tooltip, onclick=onclick), colour=highlighter)
     }
   }
   if(!missing(highlight_p)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point_interactive(data=dat[dat$pvalue < highlight_p, ], aes(x=ex, y=obs, tooltip=tooltip, onclick=onclick, shape=Shape), colour=highlighter)
+      p <- p + ggiraph::geom_point_interactive(data=dat[dat$pvalue < highlight_p, ], aes(x=ex, y=obs, tooltip=tooltip, onclick=onclick, shape=Shape), colour=highlighter)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
-      p <- p + geom_point(data=dat[dat$pvalue < highlight_p, ], aes(x=ex, y=obs, tooltip=tooltip, onclick=onclick), colour=highlighter)
+      p <- p + ggiraph::geom_point_interactive(data=dat[dat$pvalue < highlight_p, ], aes(x=ex, y=obs, tooltip=tooltip, onclick=onclick), colour=highlighter)
     }
   }
   if(!missing(annotate_p)){
@@ -155,11 +163,11 @@ iqqunif <- function(d, CI=0.95, opacity=1, groupcolors, splitby=NULL, moreinfo=T
   tooltip_css <- "background-color:black;color:white;padding:6px;border-radius:15px 15px 15px 15px;"
   if(bigrender==TRUE){
     print(paste("WARNING: Attempting to render ", nrow(dat), " rows. Plot may be slow to render or load.", sep=""))
-    ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt, xml_reader_options = list(options="HUGE"))
+    ip <- ggiraph::ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt, xml_reader_options = list(options="HUGE"))
     htmlwidgets::saveWidget(widget=ip, file=paste(file, ".html", sep=""))
     return(p)
   } else {
-    ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt)
+    ip <- ggiraph::ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt)
     htmlwidgets::saveWidget(widget=ip, file=paste(file, ".html", sep=""))
     return(ip)
   }

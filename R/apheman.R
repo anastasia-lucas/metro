@@ -36,11 +36,8 @@
 #' apheman(phewas, line=0.001, title="PheWAS Example:")
 
 apheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=TRUE, file="apheman", ext="gif", hgt=800, wi=1300){
-  if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
-    stop("Please install ggplot2 and gganimate to create interactive visualization.", call. = FALSE)
-  } else {
-    require("ggplot2", quietly=TRUE)
-    require("gganimate", quietly=TRUE)
+  if (!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
+    stop("Please install gganimate to create animated visualizations.", call. = FALSE)
   }
 
   #Check that frame is present
@@ -81,15 +78,14 @@ apheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_sn
      names(dcols) <-c(levels(factor(lims$Color)), "shade_ffffff", "shade_ebebeb")
     newcols <- c(dcols, groupcolors)
   } else {
-    if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
-      stop("Please install RColorBrewer to add color attribute.", call. = FALSE)
-    } else {
-       require("RColorBrewer", quietly=TRUE)
-    }
     ngroupcolors <- nlevels(factor(d_order$Color))
     if(ngroupcolors > 15){
-      getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
-      newcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+      if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
+        stop("Please install RColorBrewer to add color attribute for more than 15 colors.", call. = FALSE)
+      } else {
+        getPalette = grDevices::colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))
+        newcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+      }
     } else {
       pal <- pal <- c("#009292", "#920000", "#490092", "#db6d00", "#24ff24",
                       "#ffff6d", "#000000", "#006ddb", "#004949","#924900",
@@ -184,7 +180,7 @@ apheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_sn
 
   #Animate and save
   print(paste("Saving plot to ", file, ".", ext, sep=""))
-  ap <- gganimate(p)
-  gganimate_save(ap, filename=paste(file, ".", ext, sep=""), ani.height=hgt, ani.width=wi)
+  ap <- gganimate::gganimate(p)
+  gganimate::gganimate_save(ap, filename=paste(file, ".", ext, sep=""), ani.height=hgt, ani.width=wi)
   return(ap)
 }

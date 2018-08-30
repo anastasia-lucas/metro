@@ -32,9 +32,6 @@
 #' gman(d=gwas[gwas$Frame=="Additive", 1:4], line=0.0005, title="GWAS Example: Additive")
 
 gman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=FALSE, file="gman", hgt=7, wi=12, res=300 ){
-  if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
-    stop("Please install ggplot2 to create visualization.", call. = FALSE)
-  }
 
   #Sort data
   d$CHR <- factor(d$CHR, levels = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y"))
@@ -61,15 +58,14 @@ gman <- function(d, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p
       names(dcols) <-c(levels(factor(lims$Color)), "shade_ffffff", "shade_ebebeb")
       newcols <- c(dcols, groupcolors)
     } else {
-      if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
-        stop("Please install RColorBrewer to add color attribute.", call. = FALSE)
-      } else {
-        require("RColorBrewer", quietly=TRUE)
-      }
       ngroupcolors <- nlevels(factor(d_order$Color))
       if(ngroupcolors > 15){
-        getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
-        newcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+        if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
+          stop("Please install RColorBrewer to add color attribute for more than 15 colors.", call. = FALSE)
+        } else {
+          getPalette = grDevices::colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))
+          newcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+        }
       } else {
         pal <- pal <- c("#009292", "#920000", "#490092", "#db6d00", "#24ff24",
                         "#ffff6d", "#000000", "#006ddb", "#004949","#924900",

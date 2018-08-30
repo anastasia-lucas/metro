@@ -34,10 +34,8 @@
 #' title="EWAS Example:")
 
 aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, background="variegated", grpblocks=FALSE, file="aeman", ext="gif", hgt=800, wi=1300){
-  if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE) {
-    stop("Please install ggplot2 to create visualization.", call. = FALSE)
-  } else {
-    require("ggplot2")
+  if (!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
+    stop("Please install gganimate to create animated visualizations.", call. = FALSE)
   }
 
   #Info for y-axis
@@ -109,15 +107,14 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
         names(dcols) <-c(levels(factor(lims$Color)), "shade_ffffff", "shade_ebebeb")
         newcols <- c(dcols, groupcolors)
       } else {
-        if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
-          stop("Please install RColorBrewer to add color attribute.", call. = FALSE)
-        } else {
-          require("RColorBrewer", quietly=TRUE)
-        }
         ngroupcolors <- nlevels(factor(d$Color))
         if(ngroupcolors > 15){
-          getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
-          newcols <- c(rep(x=c(color1, color2), length.out=nvarcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+          if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
+            stop("Please install RColorBrewer to add color attribute for more than 15 colors.", call. = FALSE)
+          } else {
+            getPalette = grDevices::colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))
+            newcols <- c(rep(x=c(color1, color2), length.out=nvarcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+          }
         } else {
           pal <- pal <- c("#009292", "#920000", "#490092", "#db6d00", "#24ff24",
                           "#ffff6d", "#000000", "#006ddb", "#004949","#924900",
@@ -203,8 +200,8 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
 
   #Save
   print(paste("Saving plot to ", file, ".", ext, sep=""))
-  ap <- gganimate(p)
-  gganimate_save(ap, filename=paste(file, ".", ext, sep=""), ani.height=hgt, ani.width=wi)
+  ap <- gganimate::gganimate(p)
+  gganimate::gganimate_save(ap, filename=paste(file, ".", ext, sep=""), ani.height=hgt, ani.width=wi)
   return(ap)
 }
 

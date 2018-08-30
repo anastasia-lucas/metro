@@ -23,17 +23,29 @@
 #' @export
 #' @examples
 #' data(gwas)
-#' aqqunif(d=gwas[, 4:5], opacity=0.6, splitby="Color")
+#' aqqunif(d=data.frame(pvalue=gwas$pvalue, Frame=gwas$Frame, Color=gwas$Frame),
+#' opacity=0.6, splitby="Color")
 
 aqqunif <- function(d, CI=0.95, opacity=1, groupcolors, splitby=NULL, highlight_p, highlight_name, annotate_p, annotate_name, highlighter="red", line, background, title, file="aqqunif", ext="gif", wi=800, hgt=800){
+  if (!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
+    stop("Please install gganimate to create animated visualizations.", call. = FALSE)
+  }
+
+  #Check that frame is present
+  if(!("Frame" %in% names(d))){stop("Please add 'Frame' column for animation attribute")}
+
   if("Color" %in% colnames(d)){
     if(!missing(groupcolors)){
       colrs <- groupcolors
     } else {
       ngroupcolors <- nlevels(factor(d$Color))
       if(ngroupcolors > 15){
-        getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
-        colrs<- getPalette(ngroupcolors)
+        if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
+          stop("Please install RColorBrewer to add color attribute for more than 15 colors.", call. = FALSE)
+        } else {
+          getPalette = grDevices::colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))
+          colrs<- getPalette(ngroupcolors)
+        }
       } else {
         pal <- pal <- c("#009292", "#920000", "#490092", "#db6d00", "#24ff24",
                         "#ffff6d", "#000000", "#006ddb", "#004949","#924900",
@@ -46,16 +58,16 @@ aqqunif <- function(d, CI=0.95, opacity=1, groupcolors, splitby=NULL, highlight_
     dlist <- split(d, d[, splitby])
     df <- lapply(dlist, function(x) cbind(x[order(x$pvalue),],
                                           obs=-log10(sort(x$pvalue)),
-                                          ex=-log10(ppoints(length(!is.na(x$pvalue)))),
-                                          cl=-log10(qbeta(p = (1-CI)/2, shape1 = 1:length(!is.na(x$pvalue)), shape2 = length(!is.na(x$pvalue)):1)),
-                                          cu=-log10(qbeta(p = (1+CI)/2, shape1 = 1:length(!is.na(x$pvalue)), shape2 = length(!is.na(x$pvalue)):1))))
+                                          ex=-log10(stats::ppoints(length(!is.na(x$pvalue)))),
+                                          cl=-log10(stats::qbeta(p = (1-CI)/2, shape1 = 1:length(!is.na(x$pvalue)), shape2 = length(!is.na(x$pvalue)):1)),
+                                          cu=-log10(stats::qbeta(p = (1+CI)/2, shape1 = 1:length(!is.na(x$pvalue)), shape2 = length(!is.na(x$pvalue)):1))))
     dat <- do.call("rbind", df)
   } else {
     dat <- cbind(d[order(d$pvalue), , drop=FALSE],
                  obs=-log10(sort(d$pvalue)),
-                 ex=-log10(ppoints(length(!is.na(d$pvalue)))),
-                 cl=-log10(qbeta(p = (1-CI)/2, shape1 = 1:length(!is.na(d$pvalue)), shape2 = length(!is.na(d$pvalue)):1)),
-                 cu=-log10(qbeta(p = (1+CI)/2, shape1 = 1:length(!is.na(d$pvalue)), shape2 = length(!is.na(d$pvalue)):1)))
+                 ex=-log10(stats::ppoints(length(!is.na(d$pvalue)))),
+                 cl=-log10(stats::qbeta(p = (1-CI)/2, shape1 = 1:length(!is.na(d$pvalue)), shape2 = length(!is.na(d$pvalue)):1)),
+                 cu=-log10(stats::qbeta(p = (1+CI)/2, shape1 = 1:length(!is.na(d$pvalue)), shape2 = length(!is.na(d$pvalue)):1)))
   }
 
   if("Shape" %in% splitby & "Color" %in% splitby){
@@ -131,8 +143,8 @@ aqqunif <- function(d, CI=0.95, opacity=1, groupcolors, splitby=NULL, highlight_
 
   #Animate and save
   print(paste("Saving plot to ", file, ".", ext, sep=""))
-  ap <- gganimate(p)
-  gganimate_save(ap, filename=paste(file, ".", ext, sep=""), ani.height=hgt, ani.width=wi)
+  ap <- gganimate::gganimate(p)
+  gganimate::gganimate_save(ap, filename=paste(file, ".", ext, sep=""), ani.height=hgt, ani.width=wi)
   return(ap)
 
 }

@@ -61,7 +61,7 @@ Create Interactive Manhattan plots for PheWAS
 }
 \examples{
 #In this case we'd like to also see the p-value when we hover over a point,
-so we'll add an 'Info' column to the data
+#so we'll add an 'Info' column to the data
 #We'd also like to search dbSNP when we click on a point
 data(phewas)
 phewas$Info <- paste0("p-value:", signif(phewas$pvalue, digits=3))

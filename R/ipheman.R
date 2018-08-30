@@ -30,18 +30,15 @@
 #' @seealso \code{\link{pheman}}, \code{\link{apheman}}, \code{\link{igman}}, \code{\link{ieman}}
 #' @examples
 #' #In this case we'd like to also see the p-value when we hover over a point,
-#' so we'll add an 'Info' column to the data
+#' #so we'll add an 'Info' column to the data
 #' #We'd also like to search dbSNP when we click on a point
 #' data(phewas)
 #' phewas$Info <- paste0("p-value:", signif(phewas$pvalue, digits=3))
 #' ipheman(d=phewas, moreinfo = TRUE, db="dbSNP", line=0.001, title="PheWAS Example")
 
 ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=TRUE, db, moreinfo=FALSE, bigrender=FALSE, file="ipheman", hgt=7, wi=12){
-  if (!requireNamespace(c("ggplot2"), quietly = TRUE)==TRUE|!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
-    stop("Please install ggplot2 and ggiraph to create interactive visualization.", call. = FALSE)
-  } else {
-    require("ggplot2", quietly=TRUE)
-    require("ggiraph", quietly=TRUE)
+  if (!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
+    stop("Please install ggiraph to create interactive visualizations.", call. = FALSE)
   }
 
   #Sort data
@@ -98,15 +95,14 @@ ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_s
     names(dcols) <-c(levels(factor(lims$Color)), "shade_ffffff", "shade_ebebeb")
     newcols <- c(dcols, groupcolors)
   } else {
-    if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
-      stop("Please install RColorBrewer to add color attribute.", call. = FALSE)
-    } else {
-      require("RColorBrewer", quietly=TRUE)
-    }
     ngroupcolors <- nlevels(factor(d_order$Color))
     if(ngroupcolors > 15){
-      getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
-      newcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+      if (!requireNamespace(c("RColorBrewer"), quietly = TRUE)==TRUE) {
+        stop("Please install RColorBrewer to add color attribute for more than 15 colors.", call. = FALSE)
+      } else {
+        getPalette = grDevices::colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))
+        newcols <- c(rep(x=c(chrcolor1, chrcolor2), length.out=nchrcolors, each=1), getPalette(ngroupcolors), "#FFFFFF", "#EBEBEB")
+      }
     } else {
       pal <- pal <- c("#009292", "#920000", "#490092", "#db6d00", "#24ff24",
                       "#ffff6d", "#000000", "#006ddb", "#004949","#924900",
@@ -142,9 +138,9 @@ ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_s
   p <- ggplot() + eval(parse(text=backpanel))
   #Add shape info if available
   if("Shape" %in% names(d)){
-    p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick, color=factor(Color), shape=factor(Shape)), alpha=opacity) + scale_shape_manual(values=shapevector)
+    p <- p + ggiraph::geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick, color=factor(Color), shape=factor(Shape)), alpha=opacity) + scale_shape_manual(values=shapevector)
   } else {
-    p <- p + geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick, color=factor(Color)), alpha=opacity)
+    p <- p + ggiraph::geom_point_interactive(data=d_order, aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick, color=factor(Color)), alpha=opacity)
   }
   p <- p + scale_x_continuous(breaks=lims$av, labels=lims$Color, expand=c(0,0))
   if(chrblocks==TRUE){p <- p + geom_rect(data = lims, aes(xmin = posmin-.5, xmax = posmax+.5, ymin = -Inf, ymax = min(d_order$pval), fill=as.factor(Color)), alpha = 1)}
@@ -154,18 +150,18 @@ ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_s
   #Highlight if given
   if(!missing(highlight_snp)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point_interactive(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, shape=Shape, tooltip=tooltip, onclick=onclick), colour=highlighter) + scale_shape_manual(values=shapevector)
+      p <- p + ggiraph::geom_point_interactive(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, shape=Shape, tooltip=tooltip, onclick=onclick), colour=highlighter) + scale_shape_manual(values=shapevector)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
-      p <- p + geom_point_interactive(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, tooltip=SNP, onclick=onclick), colour=highlighter)
+      p <- p + ggiraph::geom_point_interactive(data=d_order[d_order$SNP %in% highlight_snp, ], aes(x=pos_index, y=pval, tooltip=SNP, onclick=onclick), colour=highlighter)
     }
   }
   if(!missing(highlight_p)){
     if("Shape" %in% names(d)){
-      p <- p + geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape, tooltip=tooltip, onclick=onclick), colour=highlighter) + scale_shape_manual(values=shapevector)
+      p <- p + ggiraph::geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, shape=Shape, tooltip=tooltip, onclick=onclick), colour=highlighter) + scale_shape_manual(values=shapevector)
       p <- p + guides(shape = guide_legend(override.aes = list(colour = "black")))
     } else {
-      p <- p + geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick), colour=highlighter)
+      p <- p + ggiraph::geom_point_interactive(data=d_order[d_order$pvalue < highlight_p, ], aes(x=pos_index, y=pval, tooltip=tooltip, onclick=onclick), colour=highlighter)
     }
   }
   #Add title and y axis title
@@ -187,11 +183,11 @@ ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_s
   tooltip_css <- "background-color:black;color:white;padding:6px;border-radius:15px 15px 15px 15px;"
   if(bigrender==TRUE){
     print(paste("WARNING: Attempting to render ", nrow(d_order), " rows. Plot may be slow to render or load.", sep=""))
-    ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt, xml_reader_options = list(options="HUGE"))
+    ip <- ggiraph::ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt, xml_reader_options = list(options="HUGE"))
     htmlwidgets::saveWidget(widget=ip, file=paste(file, ".html", sep=""))
     return(p)
   } else {
-    ip <- ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt)
+    ip <- ggiraph::ggiraph(code=print(p), tooltip_extra_css = tooltip_css, tooltip_opacity = 0.75, zoom_max = 6, width_svg=wi, height_svg=hgt)
     htmlwidgets::saveWidget(widget=ip, file=paste(file, ".html", sep=""))
     return(ip)
   }
