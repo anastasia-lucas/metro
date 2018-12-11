@@ -1,7 +1,7 @@
 #' pheman
 #'
 #' Create Manhattan plots for PheWAS
-#' @param d data frame, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape
+#' @param d data frame, must contain PHE, SNP, CHR, POS, pvalue columns, optional Shape
 #' @param phegroup optional grouping file for phenotypes, must contain PHE and Group columns
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean

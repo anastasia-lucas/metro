@@ -11,7 +11,7 @@ ipheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, highlight_snp,
   file = "ipheman", hgt = 7, wi = 12)
 }
 \arguments{
-\item{d}{data frame, must contain PHE, SNP, CHR, POS, pvalue, columns, optional Shape}
+\item{d}{data frame, must contain PHE, SNP, CHR, POS pvalue, columns, optional Shape}
 
 \item{phegroup}{optional grouping file for phenotypes, must contain PHE and Group columns}
 
