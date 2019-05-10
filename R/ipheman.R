@@ -6,6 +6,7 @@
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
+#' @param ymax set the upper limit for the y-axis if not automatically scaled
 #' @param opacity opacity of points, from 0 to 1, useful for dense plots
 #' @param title optional string for plot title
 #' @param chrcolor1 first alternating color for chromosome
@@ -36,7 +37,7 @@
 #' phewas$Info <- paste0("p-value:", signif(phewas$pvalue, digits=3))
 #' ipheman(d=phewas, moreinfo = TRUE, db="dbSNP", line=0.001, title="PheWAS Example")
 
-ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=TRUE, db, moreinfo=FALSE, bigrender=FALSE, file="ipheman", hgt=7, wi=12){
+ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, ymax, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=TRUE, db, moreinfo=FALSE, bigrender=FALSE, file="ipheman", hgt=7, wi=12){
   if (!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
     stop("Please install ggiraph to create interactive visualizations.", call. = FALSE)
   }
@@ -171,10 +172,15 @@ ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, highlight_s
     p <- p + geom_hline(yintercept = redline, colour="red")
   }
   #Theme
-  if(chrblocks==TRUE){
-    p <- p+ylim(c(yaxismin,max(d_order$pval)))
+  if(!missing(ymax)){
+    yaxismax <- ymax
   } else {
-    p <- p+scale_y_continuous(limits=c(yaxismin, max(d_order$pval)), expand=expand_scale(mult=c(0,0.1)))
+    yaxismax <- max(d_order$pval)
+  }
+  if(chrblocks==TRUE){
+    p <- p+ylim(c(yaxismin,ymax))
+  } else {
+    p <- p+scale_y_continuous(limits=c(yaxismin, ymax), expand=expand_scale(mult=c(0,0.1)))
   }
   if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 

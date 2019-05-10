@@ -4,9 +4,9 @@
 \alias{pheman}
 \title{pheman}
 \usage{
-pheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp,
-  annotate_p, highlight_snp, highlight_p, highlighter = "red", title = NULL,
-  chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
+pheman(d, phegroup, line, log10 = TRUE, yaxis, ymax, opacity = 1,
+  annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter = "red",
+  title = NULL, chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
   background = "variegated", chrblocks = TRUE, file = "pheman", hgt = 7,
   wi = 12, res = 300)
 }
@@ -20,6 +20,8 @@ pheman(d, phegroup, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp,
 \item{log10}{plot -log10() of pvalue column, boolean}
 
 \item{yaxis}{label for y-axis, automatically set if log10=TRUE}
+
+\item{ymax}{set the upper limit for the y-axis if not automatically scaled}
 
 \item{opacity}{opacity of points, from 0-1, useful for dense plots}
 

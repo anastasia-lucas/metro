@@ -4,8 +4,8 @@
 \alias{agman}
 \title{agman}
 \usage{
-agman(d, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp, annotate_p,
-  highlight_snp, highlight_p, highlighter = "red", title = NULL,
+agman(d, line, log10 = TRUE, yaxis, ymax, opacity = 1, annotate_snp,
+  annotate_p, highlight_snp, highlight_p, highlighter = "red", title = NULL,
   chrcolor1 = "#AAAAAA", chrcolor2 = "#4D4D4D", groupcolors,
   background = "variegated", chrblocks = FALSE, file = "agman",
   ext = "gif", hgt = 800, wi = 1300)
@@ -18,6 +18,8 @@ agman(d, line, log10 = TRUE, yaxis, opacity = 1, annotate_snp, annotate_p,
 \item{log10}{plot -log10() of pvalue column, boolean}
 
 \item{yaxis}{label for y-axis, automatically set if log10=TRUE}
+
+\item{ymax}{set the upper limit for the y-axis if not automatically scaled}
 
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 

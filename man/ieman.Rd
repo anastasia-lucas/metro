@@ -4,7 +4,7 @@
 \alias{ieman}
 \title{ieman}
 \usage{
-ieman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
+ieman(d, line, log10 = TRUE, yaxis, ymax, opacity = 1, title = NULL,
   highlight_var, highlight_p, highlighter = "red", color1 = "#AAAAAA",
   color2 = "#4D4D4D", groupcolors, db, moreinfo = FALSE,
   background = "variegated", grpblocks = FALSE, file = "ieman", hgt = 7,
@@ -18,6 +18,8 @@ ieman(d, line, log10 = TRUE, yaxis, opacity = 1, title = NULL,
 \item{log10}{plot -log10() of pvalue column, boolean}
 
 \item{yaxis}{label for y-axis, automatically set if log10=TRUE}
+
+\item{ymax}{set the upper limit for the y-axis if not automatically scaled}
 
 \item{opacity}{opacity of points, from 0 to 1, useful for dense plots}
 

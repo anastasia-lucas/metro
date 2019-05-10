@@ -5,6 +5,7 @@
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
+#' @param ymax set the upper limit for the y-axis if not automatically scaled
 #' @param opacity opacity of points, from 0 to 1, useful for dense plots
 #' @param title optional string for plot title
 #' @param chrcolor1 first alternating color for chromosome
@@ -35,7 +36,7 @@
 #' colnames(gwas)[5] <- "Info"
 #' igman(d=gwas, line=0.0005, title="GWAS Example", moreinfo=TRUE, db="dbSNP")
 
-igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, db, background="variegated", chrblocks=FALSE, moreinfo=FALSE, file="igman", hgt=7, wi=12, bigrender=FALSE){
+igman <- function(d, line, log10=TRUE, yaxis, ymax, opacity=1, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, db, background="variegated", chrblocks=FALSE, moreinfo=FALSE, file="igman", hgt=7, wi=12, bigrender=FALSE){
   if (!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
     stop("Please install ggiraph to create interactive visualizations.", call. = FALSE)
   }
@@ -169,10 +170,15 @@ igman <- function(d, line, log10=TRUE, yaxis, opacity=1, highlight_snp, highligh
     p <- p + geom_hline(yintercept = redline, colour="red")
   }
   #Theme
-  if(chrblocks==TRUE){
-    p <- p+ylim(c(yaxismin,max(d_order$pval)))
+  if(!missing(ymax)){
+    yaxismax <- ymax
   } else {
-    p <- p+scale_y_continuous(limits=c(yaxismin, max(d_order$pval)), expand=expand_scale(mult=c(0,0.1)))
+    yaxismax <- max(d_order$pval)
+  }
+  if(chrblocks==TRUE){
+    p <- p+ylim(c(yaxismin,yaxismax))
+  } else {
+    p <- p+scale_y_continuous(limits=c(yaxismin, yaxismax), expand=expand_scale(mult=c(0,0.1)))
   }
   if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 

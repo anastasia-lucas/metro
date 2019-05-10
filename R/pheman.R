@@ -6,6 +6,7 @@
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
+#' @param ymax set the upper limit for the y-axis if not automatically scaled
 #' @param opacity opacity of points, from 0-1, useful for dense plots
 #' @param annotate_snp vector of SNPs to annotate
 #' @param annotate_p pvalue threshold to annotate
@@ -32,7 +33,7 @@
 #' data(phewas)
 #' pheman(d=phewas, title="PheWAS Example")
 
-pheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=TRUE, file="pheman", hgt=7, wi=12, res=300 ){
+pheman <- function(d, phegroup, line, log10=TRUE, yaxis, ymax, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=TRUE, file="pheman", hgt=7, wi=12, res=300 ){
 
   #Sort data
   d$CHR <- factor(d$CHR, levels = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y"))
@@ -156,10 +157,16 @@ pheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_snp
   if(!missing(line)){p <- p + geom_hline(yintercept = redline, colour="red")}
 
   #Theme
-  if(chrblocks==TRUE){
-    p <- p+ylim(c(yaxismin,max(d_order$pval)))
+  if(!missing(ymax)){
+    yaxismax <- ymax
   } else {
-    p <- p+scale_y_continuous(limits=c(yaxismin, max(d_order$pval)), expand=expand_scale(mult=c(0,0.1)))
+    yaxismax <- max(d_order$pval)
+  }
+
+  if(chrblocks==TRUE){
+    p <- p+ylim(c(yaxismin,yaxismax))
+  } else {
+    p <- p+scale_y_continuous(limits=c(yaxismin, yaxismax), expand=expand_scale(mult=c(0,0.1)))
   }
   if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 

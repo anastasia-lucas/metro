@@ -5,6 +5,7 @@
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
+#' @param ymax set the upper limit for the y-axis if not automatically scaled
 #' @param opacity opacity of points, from 0 to 1, useful for dense plots
 #' @param title optional string for plot title
 #' @param color1 first alternating color
@@ -33,7 +34,7 @@
 #' aeman(ewas, line=0.001, highlight_p=0.001, annotate_p=0.001, highlighter="green",
 #' title="EWAS Example:")
 
-aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, background="variegated", grpblocks=FALSE, file="aeman", ext="gif", hgt=800, wi=1300){
+aeman <- function(d, line, log10=TRUE, yaxis, ymax, opacity=1, title=NULL, annotate_var, annotate_p, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, background="variegated", grpblocks=FALSE, file="aeman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
     stop("Please install gganimate to create animated visualizations.", call. = FALSE)
   }
@@ -190,11 +191,16 @@ aeman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, annotate_va
 
   #Add pvalue threshold line
   if(!missing(line)){p <- p + geom_hline(yintercept = redline, colour="red")}
-
-  if(grpblocks==TRUE){
-    p <- p+ylim(c(yaxismin,max(d_order$pval)))
+  #Theme
+  if(!missing(ymax)){
+    yaxismax <- ymax
   } else {
-    p <- p+scale_y_continuous(limits=c(yaxismin, max(d_order$pval)),expand=expand_scale(mult=c(0,0.1)))
+    yaxismax <- max(d_order$pval)
+  }
+  if(grpblocks==TRUE){
+    p <- p+ylim(c(yaxismin,yaxismax))
+  } else {
+    p <- p+scale_y_continuous(limits=c(yaxismin, yaxismax),expand=expand_scale(mult=c(0,0.1)))
   }
   if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 

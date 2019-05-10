@@ -5,6 +5,7 @@
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
+#' @param ymax set the upper limit for the y-axis if not automatically scaled
 #' @param opacity opacity of points, from 0 to 1, useful for dense plots
 #' @param title optional string for plot title
 #' @param color1 first alternating color
@@ -33,7 +34,7 @@
 #' ieman(d=ewas, title="EWAS Example", line=0.001, color1="#A23B72", color2="#2A84AA",
 #' moreinfo=TRUE, highlight_p=0.001, db="https://www.google.com/search?q=", highlighter="green")
 
-ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, background="variegated", grpblocks=FALSE, file="ieman", hgt=7, wi=12, bigrender=FALSE){
+ieman <- function(d, line, log10=TRUE, yaxis, ymax, opacity=1, title=NULL, highlight_var, highlight_p, highlighter="red", color1="#AAAAAA", color2="#4D4D4D", groupcolors, db, moreinfo=FALSE, background="variegated", grpblocks=FALSE, file="ieman", hgt=7, wi=12, bigrender=FALSE){
   if (!requireNamespace(c("ggiraph"), quietly = TRUE)==TRUE) {
     stop("Please install ggiraph to create interactive visualization.", call. = FALSE)
   }
@@ -186,11 +187,16 @@ ieman <- function(d, line, log10=TRUE, yaxis, opacity=1, title=NULL, highlight_v
 
   #Add pvalue threshold line
   if(!missing(line)){p <- p + geom_hline(yintercept = redline, colour="red")}
-
-  if(grpblocks==TRUE){
-    p <- p+ylim(c(yaxismin,max(d_order$pval)))
+  #Theme
+  if(!missing(ymax)){
+    yaxismax <- ymax
   } else {
-    p <- p+scale_y_continuous(limits=c(yaxismin, max(d_order$pval)),expand=expand_scale(mult=c(0,0.1)))
+    yaxismax <- max(d_order$pval)
+  }
+  if(grpblocks==TRUE){
+    p <- p+ylim(c(yaxismin,yaxismax))
+  } else {
+    p <- p+scale_y_continuous(limits=c(yaxismin, yaxismax),expand=expand_scale(mult=c(0,0.1)))
   }
   if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 

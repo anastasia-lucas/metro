@@ -6,6 +6,7 @@
 #' @param line optional pvalue threshold to draw red line at
 #' @param log10 plot -log10() of pvalue column, boolean
 #' @param yaxis label for y-axis, automatically set if log10=TRUE
+#' @param ymax set the upper limit for the y-axis if not automatically scaled
 #' @param opacity opacity of points, from 0 to 1, useful for dense plots
 #' @param title optional string for plot title
 #' @param chrcolor1 first alternating color for chromosome
@@ -35,7 +36,7 @@
 #' phewas$Frame <- phewas$PHE
 #' apheman(phewas, line=0.001, title="PheWAS Example:")
 
-apheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=TRUE, file="apheman", ext="gif", hgt=800, wi=1300){
+apheman <- function(d, phegroup, line, log10=TRUE, yaxis, ymax, opacity=1, annotate_snp, annotate_p, highlight_snp, highlight_p, highlighter="red", title=NULL, chrcolor1="#AAAAAA", chrcolor2="#4D4D4D", groupcolors, background="variegated", chrblocks=TRUE, file="apheman", ext="gif", hgt=800, wi=1300){
   if (!requireNamespace(c("gganimate"), quietly = TRUE)==TRUE) {
     stop("Please install gganimate to create animated visualizations.", call. = FALSE)
   }
@@ -171,10 +172,16 @@ apheman <- function(d, phegroup, line, log10=TRUE, yaxis, opacity=1, annotate_sn
   }
 
   #Theme
-  if(chrblocks==TRUE){
-    p <- p+ylim(c(yaxismin,max(d_order$pval)))
+  if(!missing(ymax)){
+    yaxismax <- ymax
   } else {
-    p <- p+scale_y_continuous(limits=c(yaxismin, max(d_order$pval)), expand=expand_scale(mult=c(0,0.1)))
+    yaxismax <- max(d_order$pval)
+  }
+
+  if(chrblocks==TRUE){
+    p <- p+ylim(c(yaxismin,yaxismax))
+  } else {
+    p <- p+scale_y_continuous(limits=c(yaxismin, yaxismax), expand=expand_scale(mult=c(0,0.1)))
   }
   if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 
