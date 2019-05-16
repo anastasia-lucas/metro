@@ -178,9 +178,9 @@ ipheman <- function(d, phegroup, line, log10=TRUE, yaxis, ymax, opacity=1, highl
     yaxismax <- max(d_order$pval)
   }
   if(chrblocks==TRUE){
-    p <- p+ylim(c(yaxismin,ymax))
+    p <- p+ylim(c(yaxismin,yaxismax))
   } else {
-    p <- p+scale_y_continuous(limits=c(yaxismin, ymax), expand=expand_scale(mult=c(0,0.1)))
+    p <- p+scale_y_continuous(limits=c(yaxismin, yaxismax), expand=expand_scale(mult=c(0,0.1)))
   }
   if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
 
