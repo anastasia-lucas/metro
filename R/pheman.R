@@ -169,6 +169,7 @@ pheman <- function(d, phegroup, line, log10=TRUE, yaxis, ymax, opacity=1, annota
     p <- p+scale_y_continuous(limits=c(yaxismin, yaxismax), expand=expand_scale(mult=c(0,0.1)))
   }
   if(background=="white"){p <- p + theme(panel.background = element_rect(fill="white"))}
+  p <- p + guides(fill="none")
 
   #Save
   print(paste("Saving plot to ", file, ".png", sep=""))
